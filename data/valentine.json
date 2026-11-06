@@ -13,5 +13,5 @@
     "calin": "assets/valentine/valentine-calin.png",
     "surprise": "assets/valentine/valentine-surprise.png"
   },
-  "calin": { "x": 50, "y": 46, "taille": 42 }
+  "calin": { "x": 50, "y": 50, "taille": 46 }
 }

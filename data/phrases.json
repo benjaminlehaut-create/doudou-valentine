@@ -35,6 +35,19 @@
   "pique-gagne": ["Bravo {prenom} ! Tous les doudous ont bien mangé !", "Hourra ! Plus personne n’a faim !"],
   "pique-encore": ["On refait un pique-nique ?"],
 
+  "dodo-choix": ["C’est l’heure du dodo ! Avec quel doudou tu vas dormir ce soir ?"],
+  "dodo-choisi": ["{nom} va faire dodo avec toi ! On prépare la nuit.", "Super, ce soir c’est {nom} ! On prépare la nuit."],
+  "dodo-debut": ["Avant de dormir, il y a des choses à faire. Qu’est-ce qu’on fait en premier ?"],
+  "dodo-quoi": ["Et maintenant, qu’est-ce qu’on fait ?", "Qu’est-ce qui vient après ?", "Bravo ! Et ensuite ?"],
+  "dodo-pas-encore": ["Hmm, pas tout de suite ! Qu’est-ce qu’on fait avant ?", "Pas encore ! Réfléchis bien : qu’est-ce qui vient d’abord ?"],
+  "dodo-bain": ["Splash ! Un bon bain tout chaud pour {nom}, avec plein de bulles !"],
+  "dodo-pyjama": ["Hop ! Le pyjama tout doux, et le bonnet de nuit !"],
+  "dodo-dents": ["On brosse les dents : frotti, frotta ! Elles brillent !"],
+  "dodo-histoire": ["Il était une fois {nom}, qui rêvait de voler sur un gros nuage tout doux avec {prenom}. Ils allaient chatouiller les étoiles. Fin !", "Il était une fois {nom}, qui avait trouvé un petit coquillage magique. Quand on le serrait fort, il chantait une chanson pour s’endormir. Fin !", "Il était une fois {nom}, qui faisait un pique-nique sur la lune avec {prenom}. Il y avait des gâteaux en forme d’étoile. Fin !"],
+  "dodo-calin": ["Un gros câlin et un bisou pour {nom} !"],
+  "dodo-lumiere": ["On éteint la lumière. Bonne nuit {nom}. Bonne nuit {prenom}. Fais de beaux rêves !"],
+  "dodo-encore": ["On recommence avec un autre doudou ?"],
+
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],
   "test-voix": ["Bonjour {prenom} ! Je suis la voix des doudous."]
 }

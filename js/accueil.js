@@ -6,6 +6,7 @@ import { douceur } from './sons.js';
 import { gerbeSur } from './recompense.js';
 import { OBJETS } from './jeux/cache-cache.js';
 import { ALIMENTS } from './jeux/aliments.js';
+import { ETAPES } from './jeux/dodo.js';
 import { placerValentine, valentineLa } from './valentine.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
@@ -13,6 +14,7 @@ const JEUX = [
   { id: 'memory', nom: 'Memory', illustration: illustrationMemory },
   { id: 'cache-cache', nom: 'Cache-cache', illustration: illustrationCache },
   { id: 'pique-nique', nom: 'Pique-nique', illustration: illustrationPique },
+  { id: 'dodo', nom: 'L’heure du dodo', illustration: illustrationDodo },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -170,5 +172,16 @@ function illustrationPique() {
   const boite = document.createElement('div');
   boite.className = 'illu-pique';
   boite.innerHTML = `<div class="nappe"></div><div class="fruit">${ALIMENTS.pomme.svg}</div><div class="fruit">${ALIMENTS.banane.svg}</div>`;
+  return boite;
+}
+
+// Une lune et un doudou endormi
+function illustrationDodo(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-dodo';
+  boite.innerHTML = `<div class="lune-illu">${ETAPES[5].svg}</div>`;
+  const d = imageDoudou(doudous[2] || doudous[0], 'dodo');
+  d.classList.add('dort');
+  boite.append(d);
   return boite;
 }

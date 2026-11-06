@@ -203,7 +203,7 @@ button {
 .valentine-centre { position: relative; flex: 1; min-height: 0; width: 100%; }
 .valentine-ici { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: 1; translate: -50% 0; }
 /* À l’accueil, Valentine est montrée en entier (pas d’agrandissement) */
-.valentine-centre .valentine-ici .pose-v > img { transform: none; }
+.valentine-centre .valentine-ici .pose-v, .final .final-valentine .pose-v { transform: none; }
 .portrait-valentine {
   width: var(--portrait);
   height: var(--portrait);
@@ -353,7 +353,8 @@ button {
 }
 .valentine .pose-v { position: absolute; inset: 0; opacity: 0; transition: opacity 0.2s ease; }
 .valentine .pose-v.visible { opacity: 1; }
-.valentine .pose-v > img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.3); transform-origin: 50% 94%; filter: drop-shadow(0 6px 8px rgba(120, 60, 30, 0.22)); pointer-events: none; }
+.valentine .pose-v { transform: scale(1.3); transform-origin: 50% 94%; }
+.valentine .pose-v > img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(120, 60, 30, 0.22)); pointer-events: none; }
 .valentine.rebond { animation: rebond-v 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
 @keyframes rebond-v {
   0%   { transform: scale(0.95, 0.95) translateY(2%); }
@@ -982,3 +983,89 @@ button {
 .bulle .voulu { width: clamp(56px, 14vh, 120px); height: clamp(56px, 14vh, 120px); filter: grayscale(1) brightness(1.6) opacity(0.35); transition: filter 0.3s; }
 .bulle .voulu svg { width: 100%; height: 100%; }
 .bulle .voulu.recu { filter: none; animation: coucou 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+/* ---------- L’heure du dodo ---------- */
+
+.ecran-dodo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+  background:
+    radial-gradient(circle at 78% 18%, #fff6c9 0 3.5%, rgba(255, 246, 201, 0.35) 4% 9%, transparent 10%),
+    radial-gradient(#ffffff55 1.5px, transparent 2.5px) 0 0 / 34px 34px,
+    linear-gradient(#8d7fd0 0%, #c3a6e0 45%, #f2c3c9 100%);
+  transition: filter 1.5s;
+}
+.nuitee { position: relative; min-width: 0; min-height: 0; }
+
+/* Frise du rituel, en haut à gauche */
+.frise { position: absolute; top: 0; left: 0; z-index: 5; display: flex; gap: 8px; }
+.frise .case { width: clamp(44px, 8vh, 64px); height: clamp(44px, 8vh, 64px); border-radius: 14px; background: rgba(255, 255, 255, 0.5); padding: 6px; filter: grayscale(1) opacity(0.45); }
+.frise .case svg { width: 100%; height: 100%; }
+.frise .case.faite { filter: none; background: #fff; box-shadow: 0 0 0 3px var(--or); animation: coucou 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+/* 1. Choix du doudou */
+.choix-dodo.doudous { position: absolute; inset: 14% 0 4% 0; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2vh 2vw; }
+.candidat { width: clamp(90px, 22vh, 180px); height: clamp(90px, 22vh, 180px); animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; animation-delay: calc(var(--i) * 70ms); }
+.candidat .doudou { animation: souffle 2.8s ease-in-out infinite; transform-origin: 50% 100%; }
+.candidat.elu { animation: coucou 0.9s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.choisir .choix-dodo:has(.elu) .candidat:not(.elu) { opacity: 0.25; transition: opacity 0.5s; }
+.choisir .scene-lit, .choisir .frise { display: none; }
+
+/* 2. Le lit et le doudou */
+.scene-lit { position: absolute; left: 6%; right: 6%; top: 8%; height: 58%; }
+.lit { position: absolute; left: 4%; right: 4%; bottom: 0; height: 58%; }
+.lit svg { width: 100%; height: 100%; filter: drop-shadow(0 10px 14px rgba(60, 30, 80, 0.25)); }
+.dormeur { position: absolute; left: 50%; bottom: 26%; height: 72%; aspect-ratio: 1; translate: -50% 0; }
+.dormeur .doudou { animation: souffle 3s ease-in-out infinite; transform-origin: 50% 100%; }
+.dormeur .bonnet { position: absolute; left: 22%; top: -6%; width: 56%; z-index: 2; opacity: 0; transform: translateY(-60%) rotate(-10deg); transition: opacity 0.4s, transform 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.dormeur .bonnet svg { width: 100%; }
+.dormeur.coiffe .bonnet { opacity: 1; transform: none; }
+.effet { position: absolute; left: 50%; bottom: 26%; height: 72%; aspect-ratio: 1; translate: -50% 0; pointer-events: none; z-index: 3; }
+.effet.bain span { position: absolute; bottom: 10%; left: calc(8% + var(--k) * 6%); width: calc(8% + (var(--k) * 7 % 5) * 1%); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, #cfe9ff 60%, rgba(156, 207, 242, 0.6)); animation: bulle 2.4s ease-in infinite; animation-delay: calc(var(--k) * 0.17s); }
+@keyframes bulle { from { transform: translateY(0) scale(0.4); opacity: 0; } 20% { opacity: 1; } to { transform: translateY(-260%) scale(1.1); opacity: 0; } }
+.effet.dents span, .effet.calin span { position: absolute; font-size: clamp(28px, 6vh, 54px); color: #ffd36b; text-shadow: 0 2px 0 #fff; animation: scintille 1.2s ease-in-out infinite alternate; }
+.effet.calin span { color: #ff8fab; }
+.effet span:nth-child(1) { left: 18%; top: 30%; }
+.effet span:nth-child(2) { left: 70%; top: 22%; animation-delay: 0.4s; }
+.effet span:nth-child(3) { left: 46%; top: 6%; animation-delay: 0.8s; }
+@keyframes scintille { from { transform: scale(0.6) rotate(-10deg); opacity: 0.5; } to { transform: scale(1.2) rotate(10deg); opacity: 1; } }
+.effet.histoire svg { position: absolute; left: 55%; bottom: 0; width: 55%; animation: flotte 2.6s ease-in-out infinite; }
+.effet.zzz { font-weight: 800; color: #fff6c9; font-size: clamp(30px, 7vh, 60px); }
+.effet.zzz span { position: absolute; left: 62%; top: 10%; opacity: 0; animation: zzz 2.4s ease-in-out infinite; }
+.effet.zzz span:nth-child(2) { animation-delay: 0.8s; font-size: 0.8em; }
+.effet.zzz span:nth-child(3) { animation-delay: 1.6s; font-size: 0.6em; }
+
+/* Cartes du rituel */
+.choix-dodo.cartes { position: absolute; left: 0; right: 0; bottom: 2%; display: flex; justify-content: center; gap: 1.6vw; }
+.carte-dodo { width: clamp(84px, 19vh, 160px); height: clamp(84px, 19vh, 160px); border-radius: 26px; background: #fff; border: 5px solid #fff; box-shadow: 0 8px 18px rgba(60, 30, 80, 0.25); padding: 12px; animation: arrivee 0.45s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; animation-delay: calc(var(--i) * 70ms); }
+.carte-dodo svg { width: 100%; height: 100%; }
+.carte-dodo:active { transform: scale(0.94); }
+.carte-dodo.faite { opacity: 0.3; filter: grayscale(0.6); pointer-events: none; }
+.carte-dodo.non { animation: bond 0.5s ease-out; }
+.carte-dodo.indice { animation: dandine 0.45s ease-in-out 4 alternate; box-shadow: 0 0 0 5px var(--or), 0 8px 18px rgba(60, 30, 80, 0.25); }
+
+/* 3. La nuit */
+.ciel-nuit { position: absolute; inset: -40px; z-index: 4; pointer-events: none; opacity: 0; transition: opacity 2s;
+  background:
+    radial-gradient(1.5px 1.5px at 12% 18%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 30% 8%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 52% 22%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 68% 12%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 86% 30%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 20% 40%, #fff 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 44% 36%, #fff 50%, transparent 51%), radial-gradient(2px 2px at 92% 8%, #fff 50%, transparent 51%),
+    rgba(24, 22, 64, 0.72); }
+.ciel-nuit .lune { position: absolute; right: 12%; top: 10%; width: 12vh; height: 12vh; border-radius: 50%; box-shadow: -3vh 1.5vh 0 0 #fff3b0; filter: drop-shadow(0 0 18px rgba(255, 243, 176, 0.7)); }
+.eteint .ciel-nuit { opacity: 1; animation: etoiles 3s ease-in-out infinite alternate; }
+@keyframes etoiles { to { filter: brightness(1.25); } }
+.eteint .scene-lit { z-index: 5; filter: brightness(0.8) saturate(0.85); transition: filter 2s; }
+.final { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; opacity: 0; transition: opacity 1.4s; pointer-events: none; }
+.final.visible { opacity: 1; }
+.eteint .dormeur .bonnet { opacity: 0; }
+.nuitee.finale .scene-lit, .nuitee.finale .frise { opacity: 0; transition: opacity 1.2s; }
+.final-valentine { height: 82%; aspect-ratio: 1; filter: drop-shadow(0 0 30px rgba(255, 243, 176, 0.45)); }
+
+/* Porte du dodo sur l’accueil */
+.illu-dodo { position: relative; width: 82%; height: 74%; border-radius: 20px; background: linear-gradient(#5d58a8, #9d86d6); overflow: hidden; }
+.illu-dodo .lune-illu { position: absolute; right: 6%; top: 6%; width: 38%; }
+.illu-dodo .lune-illu svg { width: 100%; height: 100%; }
+.illu-dodo .doudou.dort { position: absolute; left: 6%; bottom: 0; width: 66%; height: 80%; animation: souffle 3s ease-in-out infinite; transform-origin: 50% 100%; }

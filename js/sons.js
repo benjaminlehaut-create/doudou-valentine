@@ -86,3 +86,17 @@ export function croque() {
     source.start(t);
   }
 }
+
+// Berceuse douce (début de « Au clair de la lune », air traditionnel)
+export function berceuse() {
+  const sol = 392, la = 440, si = 494, do5 = 523, re5 = 587;
+  const air = [sol, sol, sol, la, si, la, sol, si, la, la, sol];
+  const rythme = [1, 1, 1, 1, 2, 2, 1, 1, 1, 1, 3];
+  let t = 0;
+  air.forEach((f, i) => {
+    note(f, t, rythme[i] * 0.55 + 0.4, { type: 'sine', volume: 0.16 });
+    note(f / 2, t, rythme[i] * 0.55 + 0.4, { type: 'sine', volume: 0.05 });
+    t += rythme[i] * 0.42;
+  });
+  void do5; void re5;
+}
