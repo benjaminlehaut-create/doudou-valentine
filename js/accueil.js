@@ -8,7 +8,7 @@ import { OBJETS } from './jeux/cache-cache.js';
 import { ALIMENTS } from './jeux/aliments.js';
 import { ETAPES } from './jeux/dodo.js';
 import { OUTILS } from './jeux/docteur.js';
-import { placerValentine, valentineLa } from './valentine.js';
+import { placerValentine, valentineLa, portraitValentine } from './valentine.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
@@ -17,6 +17,7 @@ const JEUX = [
   { id: 'pique-nique', nom: 'Pique-nique', illustration: illustrationPique },
   { id: 'dodo', nom: 'L’heure du dodo', illustration: illustrationDodo },
   { id: 'docteur', nom: 'Le docteur', illustration: illustrationDocteur },
+  { id: 'histoire', nom: 'L’histoire de Valentine', illustration: illustrationHistoire },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -194,5 +195,17 @@ function illustrationDocteur(doudous) {
   boite.className = 'illu-docteur';
   boite.append(imageDoudou(doudous[3] || doudous[0], 'bobo'));
   boite.insertAdjacentHTML('beforeend', `<div class="croix"></div><div class="mini-outil">${OUTILS.pansement.svg}</div>`);
+  return boite;
+}
+
+// Un livre ouvert, avec le portrait de Valentine (ou un doudou)
+function illustrationHistoire(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-histoire';
+  boite.innerHTML = `<svg class="livre-illu" viewBox="0 0 100 70"><path d="M50 14 Q32 4 4 8 V62 Q32 58 50 68 Z" fill="#fff6ee" stroke="#e98aa8" stroke-width="3" stroke-linejoin="round"/><path d="M50 14 Q68 4 96 8 V62 Q68 58 50 68 Z" fill="#fff" stroke="#e98aa8" stroke-width="3" stroke-linejoin="round"/></svg>`;
+  const portrait = portraitValentine();
+  if (portrait) boite.insertAdjacentHTML('beforeend', `<img class="portrait-illu" src="${portrait}" alt="" draggable="false">`);
+  else boite.append(imageDoudou(doudous[4] || doudous[0], 'coucou'));
+  boite.insertAdjacentHTML('beforeend', '<span class="etoile-illu">★</span><span class="etoile-illu">★</span>');
   return boite;
 }

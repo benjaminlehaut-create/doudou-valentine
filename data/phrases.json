@@ -65,6 +65,17 @@
   "docteur-gagne": ["Bravo docteur {prenom} ! Tous les doudous sont guéris !"],
   "docteur-encore": ["D’autres doudous attendent le docteur ! On continue ?"],
 
+  "histoire-1": ["Il était une fois une petite fille qui s’appelait {prenom}. Un matin, sous son oreiller, elle trouva… une carte au trésor !"],
+  "histoire-2": ["Pour partir à l’aventure, il faut un compagnon. Quel doudou part avec {prenom} ?"],
+  "histoire-2-choisi": ["{nom} ! Bonne idée. {nom} saute de joie : en route pour l’aventure !"],
+  "histoire-3": ["La carte montre trois chemins. Où vont-ils ? Dans la forêt enchantée, à la plage, ou sur la lune ?"],
+  "histoire-3-choisi": ["Direction {lieu} !"],
+  "histoire-4": ["Voici {lieu} ! Pour trouver le trésor, il faut ramasser trois {objets}. Touche-les !"],
+  "histoire-compte": ["{mot} !"],
+  "histoire-5": ["Bravo ! Et là, derrière un rocher… un coffre ! Touche-le pour l’ouvrir."],
+  "histoire-5-ouvert": ["Oh ! Dans le coffre, il y a une couronne magique ! {prenom} la met sur sa tête, et {nom} danse de joie."],
+  "histoire-6": ["Le soir, {prenom} et {nom} rentrent à la maison, fatigués et heureux. Un gros câlin, et ils s’endorment en rêvant à leur prochaine aventure. Fin !"],
+
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],
   "test-voix": ["Bonjour {prenom} ! Je suis la voix des doudous."]
 }
