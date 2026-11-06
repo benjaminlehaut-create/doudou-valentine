@@ -1,10 +1,10 @@
 {
   "_aide": "Une ligne par doudou. id : sans espace ni accent. nom : ce que dit la voix. couleur : couleur dominante. dossier : contient face.png, coucou.png, dodo.png, bobo.png, mange.png, joie.png (une pose manquante est remplacée par face.png). forme : dessin provisoire tant qu’il n’y a pas d’image (ours, lapin, chat, souris, panda).",
   "doudous": [
-    { "id": "doudou-marron", "nom": "Doudou Marron", "couleur": "#d98a3a", "dossier": "assets/doudous/doudou-marron" },
-    { "id": "chat-bleu", "nom": "Chat Bleu", "couleur": "#6fc6e0", "dossier": "assets/doudous/chat-bleu" },
-    { "id": "chat-rose", "nom": "Chat Rose", "couleur": "#f2a0c0", "dossier": "assets/doudous/chat-rose" },
-    { "id": "panda", "nom": "Panda", "couleur": "#f4f0ea", "dossier": "assets/doudous/panda" },
+    { "id": "doudou-marron", "nom": "Cappy", "couleur": "#d98a3a", "dossier": "assets/doudous/doudou-marron" },
+    { "id": "chat-bleu", "nom": "Sacha", "couleur": "#6fc6e0", "dossier": "assets/doudous/chat-bleu" },
+    { "id": "chat-rose", "nom": "Debby", "couleur": "#f2a0c0", "dossier": "assets/doudous/chat-rose" },
+    { "id": "panda", "nom": "Pandy Panda", "couleur": "#f4f0ea", "dossier": "assets/doudous/panda" },
     { "id": "poussin-jaune", "nom": "Poussin", "couleur": "#f7d54a", "dossier": "assets/doudous/poussin-jaune" },
     { "id": "lapinou", "nom": "Lapinou", "couleur": "#c9b5f2", "forme": "lapin", "provisoire": true }
   ]
