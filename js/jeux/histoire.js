@@ -1,12 +1,14 @@
 // Jeu 6 : l’histoire dont Valentine est l’héroïne.
-// Un livre d’images raconté à voix haute, où Valentine fait des choix qui changent l’histoire :
-//   1. Valentine trouve une carte au trésor sous son oreiller.
-//   2. Elle choisit le doudou qui part avec elle.
-//   3. Elle choisit où aller : la forêt enchantée, la plage ou la lune.
-//   4. Pour trouver le trésor, elle ramasse 3 objets cachés dans le décor (la voix compte).
-//   5. Elle ouvre le coffre au trésor.
-//   6. Retour à la maison, un gros câlin, et « Fin ».
-// Une grosse flèche passe à la page suivante. Le bouton « oreille » relit la page.
+// Un livre d’images raconté à voix haute. Chaque histoire est différente :
+//   1. Le début (au hasard) : carte au trésor, lettre magique, petite porte dorée, oiseau à la fenêtre.
+//   2. Valentine choisit son doudou compagnon.
+//   3. Elle choisit le transport (3 au hasard parmi vélo, montgolfière, bateau, fusée, train) → petit voyage animé.
+//   4. Elle choisit le lieu (3 au hasard parmi 6) : forêt, plage, lune, château, montagne enneigée, fond de la mer.
+//   5. Une rencontre (au hasard) : un petit animal a perdu son ballon d’une couleur ; il faut trouver le bon.
+//   6. Elle ramasse de 3 à 5 objets dans le décor (la voix compte).
+//   7. Elle choisit une clé pour ouvrir le coffre : chaque clé donne un trésor différent.
+//   8. Retour à la maison dans le même transport, et une fin au hasard (dodo, fête, ou on raconte tout à Maman).
+// Les ingrédients sont dans js/jeux/histoire-donnees.js. Grosse flèche rose : page suivante. Oreille : relire.
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
@@ -15,44 +17,11 @@ import { gerbeSur, confettis } from '../recompense.js';
 import { BARRE, brancherBarre, afficherFin, melanger } from './commun.js';
 import { placerValentine, valentineLa } from '../valentine.js';
 import { SUIVANT } from '../icones.js';
+import { DEBUTS, TRANSPORTS, LIEUX, ANIMAUX, BALLONS, ballon, CLES, cle, COFFRE, TRESORS, FINS, DECORS } from './histoire-donnees.js';
 
-// Les trois lieux de l’aventure, avec l’objet à ramasser
-const LIEUX = {
-  foret: {
-    nom: 'la forêt enchantée',
-    objet: 'champignon',
-    objets: 'champignons',
-    genre: 'm',
-    dessin: `<svg viewBox="0 0 100 100"><circle cx="50" cy="44" r="40" fill="#8fd09b"/><circle cx="30" cy="56" r="26" fill="#6db87c"/><circle cx="72" cy="56" r="26" fill="#78c086"/><rect x="44" y="64" width="12" height="30" rx="4" fill="#a8774f"/><circle cx="40" cy="36" r="5" fill="#ff8fab"/><circle cx="64" cy="30" r="5" fill="#fff3a6"/></svg>`,
-    trouvaille: `<svg viewBox="0 0 100 100"><path d="M14 52 Q14 14 50 12 Q86 14 86 52 Z" fill="#ef4d5a"/><circle cx="34" cy="34" r="7" fill="#fff"/><circle cx="60" cy="26" r="5" fill="#fff"/><circle cx="68" cy="42" r="6" fill="#fff"/><path d="M36 52 H64 V82 Q64 90 50 90 Q36 90 36 82 Z" fill="#fff4e6" stroke="#f2c9a8" stroke-width="3"/></svg>`,
-  },
-  plage: {
-    nom: 'la plage',
-    objet: 'coquillage',
-    objets: 'coquillages',
-    genre: 'm',
-    dessin: `<svg viewBox="0 0 100 100"><circle cx="72" cy="28" r="14" fill="#ffd36b"/><path d="M0 60 Q25 50 50 60 T100 60 V100 H0 Z" fill="#6cc4e8"/><path d="M0 78 Q25 70 50 78 T100 78 V100 H0 Z" fill="#f6dfb0"/><path d="M14 58 q6 -6 12 0 M60 56 q6 -6 12 0" stroke="#fff" stroke-width="3" fill="none"/></svg>`,
-    trouvaille: `<svg viewBox="0 0 100 100"><path d="M50 88 L14 40 Q30 12 50 12 Q70 12 86 40 Z" fill="#ffb3c9" stroke="#e98aa8" stroke-width="3" stroke-linejoin="round"/><path d="M50 88 L32 22 M50 88 L50 12 M50 88 L68 22 M50 88 L22 34 M50 88 L78 34" stroke="#e98aa8" stroke-width="3"/><rect x="40" y="82" width="20" height="10" rx="4" fill="#e98aa8"/></svg>`,
-  },
-  lune: {
-    nom: 'la lune',
-    objet: 'étoile',
-    objets: 'étoiles',
-    genre: 'f',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" rx="18" fill="#3b3f7a"/><circle cx="50" cy="58" r="30" fill="#e9e4d4"/><circle cx="40" cy="50" r="6" fill="#cfc8b4"/><circle cx="60" cy="66" r="8" fill="#cfc8b4"/><circle cx="58" cy="44" r="4" fill="#cfc8b4"/><circle cx="18" cy="18" r="2" fill="#fff"/><circle cx="82" cy="22" r="2.5" fill="#fff"/><circle cx="28" cy="84" r="2" fill="#fff"/></svg>`,
-    trouvaille: `<svg viewBox="0 0 100 100"><path d="M50 6 L62 36 L94 38 L69 58 L78 90 L50 72 L22 90 L31 58 L6 38 L38 36 Z" fill="#ffd36b" stroke="#f0b92a" stroke-width="3" stroke-linejoin="round"/><circle cx="40" cy="44" r="4" fill="#5a4030"/><circle cx="60" cy="44" r="4" fill="#5a4030"/><path d="M42 56 q8 8 16 0" stroke="#5a4030" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
-  },
-};
-
-const CARTE = `<svg viewBox="0 0 120 100"><path d="M8 14 L40 6 L80 14 L112 6 V86 L80 94 L40 86 L8 94 Z" fill="#f6e3b4" stroke="#d8b778" stroke-width="3" stroke-linejoin="round"/><path d="M40 6 V86 M80 14 V94" stroke="#d8b778" stroke-width="2" opacity=".6"/>
-  <path d="M20 74 Q36 50 52 62 T86 34" stroke="#c0704a" stroke-width="3" stroke-dasharray="6 6" fill="none"/><path d="M84 24 l10 10 M94 24 l-10 10" stroke="#ef4d5a" stroke-width="5" stroke-linecap="round"/></svg>`;
-
-const COFFRE = `<svg viewBox="0 0 120 100"><rect x="10" y="44" width="100" height="50" rx="8" fill="#b9773e"/><path d="M8 48 Q8 12 60 12 Q112 12 112 48 Z" fill="#cf8a4b" class="couvercle"/>
-  <rect x="10" y="44" width="100" height="10" fill="#ffd36b"/><rect x="52" y="40" width="16" height="22" rx="4" fill="#ffd36b"/><circle cx="60" cy="52" r="3" fill="#7a4a22"/>
-  <path d="M30 12 V94 M90 12 V94" stroke="#ffd36b" stroke-width="6"/></svg>`;
-
-const TRESOR = `<svg viewBox="0 0 100 100"><path d="M18 70 L24 30 L40 50 L50 22 L60 50 L76 30 L82 70 Z" fill="#ffd36b" stroke="#f0b92a" stroke-width="3" stroke-linejoin="round"/><rect x="18" y="68" width="64" height="12" rx="4" fill="#f0b92a"/>
-  <circle cx="50" cy="20" r="5" fill="#ff8fab"/><circle cx="24" cy="28" r="4" fill="#9ad0f5"/><circle cx="76" cy="28" r="4" fill="#8fd6a8"/><circle cx="50" cy="74" r="4" fill="#ff8fab"/></svg>`;
+const auHasard = (liste) => liste[Math.floor(Math.random() * liste.length)];
+const NOMBRES = { m: ['', 'un', 'deux', 'trois', 'quatre', 'cinq'], f: ['', 'une', 'deux', 'trois', 'quatre', 'cinq'] };
+const majuscule = (t) => t.charAt(0).toUpperCase() + t.slice(1);
 
 export function ouvrirHistoire(scene, { aller }) {
   scene.classList.add('ecran-histoire');
@@ -62,23 +31,24 @@ export function ouvrirHistoire(scene, { aller }) {
       <div class="heroine"></div>
       <div class="compagnon"></div>
       <div class="interactif"></div>
+      <div class="voyage"></div>
       <button class="tourner cache" aria-label="Page suivante">${SUIVANT}</button>
     </div>
     ${BARRE}
     <div class="fin cache"></div>`;
 
   const livre = scene.querySelector('.livre');
-  const decor = scene.querySelector('.decor');
   const heroine = scene.querySelector('.heroine');
   const compagnon = scene.querySelector('.compagnon');
   const interactif = scene.querySelector('.interactif');
+  const voyage = scene.querySelector('.voyage');
   const tourner = scene.querySelector('.tourner');
   const fin = scene.querySelector('.fin');
 
   let actif = true;
   let minuteries = [];
-  let page = 0;
-  let recit = null; // { doudou, lieu }
+  let etape = 0;
+  let recit = null;   // tous les choix de cette histoire
   let lecture = null; // la phrase de la page (pour l’oreille)
   const plusTard = (fn, ms) => minuteries.push(setTimeout(fn, ms));
 
@@ -86,101 +56,150 @@ export function ouvrirHistoire(scene, { aller }) {
   if (!valentineLa()) heroine.classList.add('cache');
 
   brancherBarre(scene, { ecouter: () => lecture && lecture(), aller });
-  tourner.addEventListener('click', () => { douceur(); pageSuivante(); });
+  tourner.addEventListener('click', () => { douceur(); suivante(); });
 
-  // Lit une phrase et montre la flèche quand elle est finie
-  function raconter(cle, vars = {}, avecFleche = true) {
+  // Les valeurs communes à toutes les phrases
+  const vars = (plus = {}) => ({
+    nom: recit.doudou?.nom, id: recit.doudou?.id,
+    transport: recit.transport && TRANSPORTS[recit.transport].nom,
+    lieu: recit.lieu && LIEUX[recit.lieu].nom,
+    ...plus,
+  });
+
+  // Lit la page ; montre la flèche ensuite (si la page n’attend pas un choix)
+  function raconter(cle, plus = {}, avecFleche = true) {
     tourner.classList.add('cache');
-    lecture = () => dire(cle, { ...vars, nom: recit?.doudou?.nom, id: recit?.doudou?.id, lieu: recit?.lieu && LIEUX[recit.lieu].nom });
+    lecture = () => dire(cle, vars(plus));
     const fleche = () => { if (actif && avecFleche) tourner.classList.remove('cache'); };
     lecture().then(() => plusTard(fleche, 300));
-    if (avecFleche) plusTard(fleche, 9000); // au cas où la voix serait muette
+    if (avecFleche) plusTard(fleche, 10000); // au cas où la voix serait muette
   }
 
-  function changerDecor(classe) {
+  function decor(classe) {
     livre.className = 'livre page-' + classe;
     interactif.replaceChildren();
+    // Dans un lieu, son dessin devient le grand décor de la page
+    const fond = livre.querySelector('.decor');
+    fond.innerHTML = DECORS[classe] || '';
   }
 
-  function pageSuivante() {
-    page++;
-    PAGES[page]?.();
+  function suivante() {
+    etape++;
+    ETAPES[etape]?.();
   }
 
-  // ---- Les pages ----
-  const PAGES = [
-    // 1. La carte au trésor
+  // Une rangée de gros boutons de choix
+  function choixEnImages(classe, options, quandChoisi) {
+    const rangee = document.createElement('div');
+    rangee.className = 'choix-images ' + classe;
+    let choisi = false;
+    rangee.replaceChildren(...options.map(({ id, svg, label }, i) => {
+      const b = document.createElement('button');
+      b.className = 'option';
+      b.style.setProperty('--i', i);
+      b.setAttribute('aria-label', label || id);
+      if (svg instanceof Node) b.append(svg); else b.innerHTML = svg;
+      b.addEventListener('click', () => {
+        if (choisi) return;
+        const resultat = quandChoisi(id, b);
+        if (resultat === false) return; // mauvais choix : on peut réessayer
+        choisi = true;
+        douceur();
+        gerbeSur(b, 10);
+        b.classList.add('elu');
+      });
+      return b;
+    }));
+    interactif.append(rangee);
+    return rangee;
+  }
+
+  // ---- Les étapes de l’histoire ----
+  const ETAPES = [
+    // 1. Le début
     () => {
-      changerDecor('chambre');
+      decor('chambre');
       compagnon.replaceChildren();
       valentine.fond('surprise');
-      const carte = document.createElement('div');
-      carte.className = 'carte-tresor';
-      carte.innerHTML = CARTE;
-      interactif.append(carte);
-      raconter('histoire-1');
+      const objet = document.createElement('div');
+      objet.className = 'objet-debut';
+      objet.innerHTML = DEBUTS[recit.debut];
+      interactif.append(objet);
+      raconter('h-debut-' + recit.debut);
     },
-    // 2. Le choix du doudou
+    // 2. Le doudou compagnon
     () => {
-      changerDecor('choix');
+      decor('choix');
       valentine.fond('content');
-      raconter('histoire-2', {}, false);
-      const choix = document.createElement('div');
-      choix.className = 'choix-histoire';
-      choix.replaceChildren(...doudousActifs().map((d, i) => {
-        const b = document.createElement('button');
-        b.className = 'candidat';
-        b.style.setProperty('--i', i);
-        b.setAttribute('aria-label', d.nom);
-        b.append(imageDoudou(d));
-        b.addEventListener('click', () => {
-          if (recit.doudou) return;
-          recit.doudou = d;
-          douceur();
-          gerbeSur(b, 10);
-          b.classList.add('elu');
-          compagnon.replaceChildren(imageDoudou(d, 'coucou'));
-          dire('histoire-2-choisi', { nom: d.nom, id: d.id });
-          plusTard(pageSuivante, 3000);
-        });
-        return b;
-      }));
-      interactif.append(choix);
+      raconter('h-compagnon', {}, false);
+      choixEnImages('doudous', doudousActifs().map((d) => ({ id: d.id, label: d.nom, svg: imageDoudou(d) })), (id) => {
+        recit.doudou = doudousActifs().find((d) => d.id === id);
+        compagnon.replaceChildren(imageDoudou(recit.doudou, 'coucou'));
+        dire('h-compagnon-choisi', vars());
+        plusTard(suivante, 3200);
+      });
     },
-    // 3. Le choix du lieu
+    // 3. Le transport, puis le voyage
     () => {
-      changerDecor('choix');
+      decor('choix');
       compagnon.replaceChildren(imageDoudou(recit.doudou));
-      raconter('histoire-3', {}, false);
-      const choix = document.createElement('div');
-      choix.className = 'choix-lieux';
-      choix.replaceChildren(...Object.entries(LIEUX).map(([id, l], i) => {
-        const b = document.createElement('button');
-        b.className = 'lieu';
-        b.style.setProperty('--i', i);
-        b.setAttribute('aria-label', l.nom);
-        b.innerHTML = l.dessin;
-        b.addEventListener('click', () => {
-          if (recit.lieu) return;
-          recit.lieu = id;
-          douceur();
-          gerbeSur(b, 10);
-          b.classList.add('elu');
-          dire('histoire-3-choisi', { lieu: l.nom });
-          plusTard(pageSuivante, 2600);
-        });
-        return b;
-      }));
-      interactif.append(choix);
+      raconter('h-transport', {}, false);
+      const proposes = melanger(Object.keys(TRANSPORTS)).slice(0, 3);
+      choixEnImages('transports', proposes.map((id) => ({ id, label: TRANSPORTS[id].nom, svg: TRANSPORTS[id].svg })), (id) => {
+        recit.transport = id;
+        dire('h-transport-choisi', vars());
+        plusTard(() => voyager(id), 1600);
+        plusTard(suivante, 5200);
+      });
     },
-    // 4. Ramasser 3 objets cachés dans le décor
+    // 4. Le lieu
+    () => {
+      decor('choix');
+      valentine.fond('content');
+      raconter('h-lieu', {}, false);
+      const proposes = melanger(Object.keys(LIEUX)).slice(0, 3);
+      choixEnImages('lieux', proposes.map((id) => ({ id, label: LIEUX[id].nom, svg: LIEUX[id].dessin })), (id) => {
+        recit.lieu = id;
+        dire('h-lieu-choisi', vars());
+        plusTard(suivante, 2600);
+      });
+    },
+    // 5. La rencontre : retrouver le ballon de la bonne couleur
+    () => {
+      decor(recit.lieu);
+      valentine.fond('content');
+      const { animal, couleur } = recit.rencontre;
+      raconter('h-rencontre', { animal: ANIMAUX[animal].nom, couleur }, false);
+      const bete = document.createElement('div');
+      bete.className = 'animal triste';
+      bete.innerHTML = ANIMAUX[animal].svg;
+      interactif.append(bete);
+      const couleurs = melanger([couleur, ...melanger(Object.keys(BALLONS).filter((c) => c !== couleur)).slice(0, 2)]);
+      choixEnImages('ballons', couleurs.map((c) => ({ id: c, label: 'ballon ' + c, svg: ballon(BALLONS[c]) })), (c, bouton) => {
+        if (c !== couleur) {
+          pop();
+          bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
+          valentine.pose('surprise', { duree: 1200 });
+          dire('h-rencontre-pas-ca', { couleur });
+          return false;
+        }
+        carillon();
+        valentine.pose('joie', { duree: 2400 });
+        bete.classList.replace('triste', 'heureux');
+        bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(BALLONS[c])}</div>`);
+        dire('h-rencontre-merci', { animal: ANIMAUX[animal].nom });
+        plusTard(() => tourner.classList.remove('cache'), 4500);
+        return true;
+      });
+    },
+    // 6. Ramasser des objets (de 3 à 5)
     () => {
       const lieu = LIEUX[recit.lieu];
-      changerDecor(recit.lieu);
+      decor(recit.lieu);
       valentine.fond('loupe');
-      compagnon.replaceChildren(imageDoudou(recit.doudou));
-      raconter('histoire-4', { objets: lieu.objets }, false);
-      const places = melanger([[38, 22], [56, 62], [74, 30], [88, 70], [46, 80], [66, 12]]).slice(0, 3);
+      const n = recit.combien;
+      raconter('h-ramasser', { quantite: `${NOMBRES[lieu.genre][n]} ${lieu.objets}` }, false);
+      const places = melanger([[16, 22], [40, 14], [66, 24], [88, 16], [28, 52], [56, 50], [82, 54], [44, 82], [74, 84]]).slice(0, n);
       let trouves = 0;
       places.forEach(([x, y], i) => {
         const b = document.createElement('button');
@@ -196,62 +215,98 @@ export function ouvrirHistoire(scene, { aller }) {
           trouves++;
           pop();
           gerbeSur(b, 6);
-          const mots = lieu.genre === 'f' ? ['', 'Une', 'Deux', 'Trois'] : ['', 'Un', 'Deux', 'Trois'];
-          dire('histoire-compte', { mot: mots[trouves] });
-          if (trouves === 3) {
+          dire('histoire-compte', { mot: majuscule(NOMBRES[lieu.genre][trouves]) });
+          if (trouves === n) {
             carillon();
             valentine.pose('joie', { duree: 2000 });
-            plusTard(pageSuivante, 1800);
+            plusTard(suivante, 1800);
           }
         });
         interactif.append(b);
       });
     },
-    // 5. Le coffre au trésor
+    // 7. Le coffre et les trois clés
     () => {
       interactif.replaceChildren();
       valentine.fond('surprise');
-      compagnon.replaceChildren(imageDoudou(recit.doudou));
-      raconter('histoire-5', {}, false);
-      const coffre = document.createElement('button');
+      raconter('h-coffre', {}, false);
+      const coffre = document.createElement('div');
       coffre.className = 'coffre-tresor';
-      coffre.setAttribute('aria-label', 'Ouvrir le coffre');
       coffre.innerHTML = COFFRE;
-      coffre.addEventListener('click', () => {
-        if (coffre.classList.contains('ouvert')) return;
+      interactif.append(coffre);
+      // chaque clé cache un trésor différent
+      const tresors = melanger(Object.keys(TRESORS)).slice(0, 3);
+      const cles = Object.keys(CLES);
+      choixEnImages('cles', cles.map((id) => ({ id, label: 'clé ' + id, svg: cle(CLES[id]) })), (id) => {
+        const tresor = tresors[cles.indexOf(id)];
+        recit.tresor = tresor;
         coffre.classList.add('ouvert');
         fanfare();
         confettis(50);
-        const t = document.createElement('div');
-        t.className = 'tresor';
-        t.innerHTML = TRESOR;
-        coffre.append(t);
+        coffre.insertAdjacentHTML('beforeend', `<div class="tresor">${TRESORS[tresor].svg}</div>`);
         valentine.fond('joie');
         compagnon.replaceChildren(imageDoudou(recit.doudou, 'joie'));
-        raconter('histoire-5-ouvert');
+        raconter('h-tresor', { tresor: TRESORS[tresor].nom });
       });
-      interactif.append(coffre);
     },
-    // 6. Retour à la maison, câlin, fin
+    // 8. Le retour, et la fin
     () => {
-      changerDecor('chambre');
-      compagnon.replaceChildren();
-      valentine.pose('calin', { doudou: recit.doudou });
-      if (!valentineLa()) compagnon.replaceChildren(imageDoudou(recit.doudou, 'dodo'));
-      raconter('histoire-6', {}, false);
-      plusTard(() => {
-        afficherFin(fin, { dernier: true, rejouer: nouvelleHistoire, aller });
-      }, 9000);
+      voyager(recit.transport, true);
+      raconter('h-retour', {}, false);
+      plusTard(finir, 4600);
     },
   ];
+
+  // Le transport traverse la page (Valentine et son doudou sont dedans)
+  function voyager(id, retour = false) {
+    voyage.innerHTML = `<div class="vehicule ${id}">${TRANSPORTS[id].svg}</div>`;
+    voyage.classList.remove('part', 'revient'); void voyage.offsetWidth;
+    voyage.classList.add(retour ? 'revient' : 'part');
+    livre.classList.add('en-voyage');
+    plusTard(() => livre.classList.remove('en-voyage'), 3400);
+  }
+
+  function finir() {
+    decor('chambre');
+    const laFin = recit.fin;
+    if (laFin === 'dodo') {
+      valentine.pose('calin', { doudou: recit.doudou });
+      compagnon.replaceChildren(valentineLa() ? '' : imageDoudou(recit.doudou, 'dodo'));
+      livre.classList.add('nuit-histoire');
+    } else if (laFin === 'fete') {
+      valentine.fond('joie');
+      compagnon.replaceChildren();
+      const ronde = document.createElement('div');
+      ronde.className = 'fete-doudous';
+      doudousActifs().forEach((d, i) => { const e = imageDoudou(d, 'joie'); e.style.setProperty('--i', i); ronde.append(e); });
+      interactif.append(ronde);
+      confettis(60);
+    } else {
+      valentine.fond('coucou');
+      compagnon.replaceChildren(imageDoudou(recit.doudou, 'coucou'));
+      interactif.innerHTML = `<div class="tresor-final">${TRESORS[recit.tresor].svg}</div>`;
+    }
+    raconter('h-fin-' + laFin, { tresor: TRESORS[recit.tresor].nom }, false);
+    plusTard(() => afficherFin(fin, { dernier: true, rejouer: nouvelleHistoire, aller }), 10000);
+  }
 
   function nouvelleHistoire() {
     minuteries.forEach(clearTimeout);
     minuteries = [];
     fin.classList.add('cache');
-    recit = { doudou: null, lieu: null };
-    page = 0;
-    PAGES[0]();
+    livre.classList.remove('nuit-histoire');
+    recit = {
+      debut: auHasard(Object.keys(DEBUTS)),
+      doudou: null,
+      transport: null,
+      lieu: null,
+      rencontre: { animal: auHasard(Object.keys(ANIMAUX)), couleur: auHasard(Object.keys(BALLONS)) },
+      combien: 3 + Math.floor(Math.random() * 3),
+      tresor: null,
+      fin: auHasard(FINS),
+    };
+    etape = 0;
+    ETAPES[0]();
   }
 
   nouvelleHistoire();
