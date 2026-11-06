@@ -4,10 +4,12 @@ import { doudousActifs, imageDoudou } from './doudous.js';
 import { dire } from './voix.js';
 import { douceur } from './sons.js';
 import { gerbeSur } from './recompense.js';
+import { OBJETS } from './jeux/cache-cache.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
   { id: 'memory', nom: 'Memory', illustration: illustrationMemory },
+  { id: 'cache-cache', nom: 'Cache-cache', illustration: illustrationCache },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -102,5 +104,19 @@ function illustrationMemory(doudous) {
     else carte.append(imageDoudou(doudous[0]));
     boite.append(carte);
   });
+  return boite;
+}
+
+// Un doudou qui pointe les oreilles derrière un coussin
+function illustrationCache(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-cache';
+  const cachee = document.createElement('div');
+  cachee.className = 'cachee';
+  cachee.append(imageDoudou(doudous[1] || doudous[0]));
+  const objet = document.createElement('div');
+  objet.className = 'objet';
+  objet.innerHTML = OBJETS.coussin;
+  boite.append(cachee, objet);
   return boite;
 }

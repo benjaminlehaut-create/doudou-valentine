@@ -20,6 +20,11 @@
       "prompt": "Le dos d’une carte de jeu pour enfant, en tissu matelassé lavande, un petit cœur rose brodé au centre, une bordure cousue tout autour. Vue de face, la carte remplit toute l’image."
     },
     {
+      "fichier": "assets/decors/cache-cache.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une chambre d’enfant douce et lumineuse, vue de face à hauteur d’enfant : un mur pêche avec un papier peint à petits pois, une plinthe claire, un parquet blond chaleureux qui occupe la moitié basse de l’image. Pièce vide et calme, sans meuble ni objet, car des cachettes y seront posées."
+    },
+    {
       "fichier": "assets/decors/pause.jpg",
       "taille": "1536x1024",
       "prompt": "Une chambre d’enfant la nuit, très calme : un ciel étoilé bleu nuit par la fenêtre, une lune souriante en tissu, une veilleuse dorée, un petit lit avec une couverture douce. Ambiance de dodo apaisante."

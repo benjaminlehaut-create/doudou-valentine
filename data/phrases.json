@@ -10,6 +10,14 @@
   "memory-gagne": ["Bravo {prenom} ! Tu as retrouvé tous les doudous !", "Hourra ! Tous les doudous sont là. Tu es trop forte !"],
   "memory-encore": ["On joue encore ?"],
 
+  "cache-consigne": ["Les doudous se sont cachés ! Touche les cachettes pour les trouver.", "Coucou {prenom} ! On joue à cache-cache ? Trouve les doudous cachés !"],
+  "cache-consigne-2": ["Encore plus de doudous cachés, et bien cachés ! Cherche partout."],
+  "cache-reste": ["Il en reste encore {n} à trouver. Cherche bien !"],
+  "cache-trouve": ["Coucou ! Tu m’as trouvé ! C’est moi, {nom} !", "{nom} était caché là ! Bravo !", "Youpi, voilà {nom} ! Bien joué !"],
+  "cache-vide": ["Personne ici… Cherche encore !", "Pas de doudou ici. Essaie une autre cachette !", "Oh, c’est vide ! Où sont les doudous ?"],
+  "cache-gagne": ["Bravo {prenom} ! Tu as trouvé tous les doudous !", "Hourra ! Plus personne n’est caché !"],
+  "cache-encore": ["On joue encore à cache-cache ?"],
+
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],
   "test-voix": ["Bonjour {prenom} ! Je suis la voix des doudous."]
 }

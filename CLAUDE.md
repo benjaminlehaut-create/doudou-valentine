@@ -9,7 +9,7 @@ Une application pour **Valentine, 3 ans**, utilisée sur **iPad et smartphone**.
 Jeux, dans l’ordre de réalisation :
 
 1. **Memory des doudous** — fait (4 paires, puis 6).
-2. Cache-cache des doudous (cherche et trouve).
+2. **Cache-cache des doudous** — fait (`js/jeux/cache-cache.js`). Des doudous se cachent derrière des objets dessinés en SVG (coussin, carton, plante, panier, coffre, pouf). On touche une cachette : l’objet se pousse et le doudou sort (fête, voix, pastille du compteur qui se colore), ou l’objet se soulève sur une petite étoile (« Personne ici… cherche encore ! »). Niveau 1 : 3 doudous dans 5 cachettes, leurs oreilles dépassent. Niveau 2 : 4 doudous dans 6 cachettes, cachés ; ils pointent le bout du nez de temps en temps (indice). Seul le haut d’un doudou caché peut dépasser de son objet.
 3. Le pique-nique (donner à manger, couleurs, quantités).
 4. L’heure du dodo (rituel du coucher).
 5. Le docteur des doudous.
@@ -37,7 +37,7 @@ L’interlocuteur (le parent) a un **profil métier, pas développeur** : expliq
 - **iOS** : le son et la voix ne démarrent qu’après un toucher → écran de démarrage avec un gros bouton « jouer ». Pas de plein écran par API sur iPhone : il vient de « Ajouter à l’écran d’accueil ». Le service worker exige HTTPS (ou `localhost`).
 - **Doudous** : `data/doudous.json`, **une ligne par doudou** : `id`, `nom` (dit par la voix), `couleur` dominante, `dossier` (ex. `assets/doudous/panda`). Chaque dossier contient six poses PNG détourées 768 × 768 : `face.png` (content), `coucou.png`, `dodo.png` (endormi), `bobo.png` (triste, pour le docteur), `mange.png` (pique-nique), `joie.png` (saute de joie). Une pose manquante est remplacée par `face.png` ; sans aucune image, un doudou dessiné en SVG (`forme` : `ours`, `lapin`, `chat`, `souris`, `panda`) prend le relais. Un champ `images` explicite par pose reste possible.
 - **Doudous reçus (6 novembre 2026)** : Cappy (dossier `doudou-marron`), Sacha (`chat-bleu`), Debby (`chat-rose`), Pandy Panda (`panda`), Poussin (`poussin-jaune`), Koala Doux (`koala-doux`, fichiers d’origine `koala_gris_*`), Goubi (`goubi`, d’origine `doudou_yeux_bleus_*`). Un dernier doit arriver. Les illustrations d’origine (`xxx_01_content.png`…) sont renommées par pose.
-- **Détourage** (refait le 6 novembre 2026) : toutes les poses sont redétourées, recadrées et centrées de la même façon (768 × 768, marge 5 %, posées en bas). Sans liseré blanc : le masque vient d’un modèle d’IA de détourage (`@imgly/background-removal`, exécuté dans le navigateur, car le Node.js du PC est en 32 bits et ne peut pas le faire tourner), puis le blanc est retiré des pixels de bord. Goubi garde son détourage d’origine, qui était bon, simplement recadré. **Koala Doux est une photo** : une ombre grise collée à sa jambe gauche reste visible, et ses six poses sont quasi identiques. Le mieux sera d’en faire des illustrations comme les autres.
+- **Détourage** (refait le 6 novembre 2026) : toutes les poses sont redétourées, recadrées et centrées de la même façon (768 × 768, marge 5 %, posées en bas). Sans liseré blanc : le masque vient d’un modèle d’IA de détourage (`@imgly/background-removal`, exécuté dans le navigateur, car le Node.js du PC est en 32 bits et ne peut pas le faire tourner), puis le blanc est retiré des pixels de bord. Goubi garde son détourage d’origine, qui était bon, simplement recadré. Koala Doux a été remplacé le 6 novembre 2026 par six vraies poses illustrées (ChatGPT), déjà détourées mais un peu transparentes : opacité remontée, puis recadrage identique aux autres.
 - **Images générées** : `node tools/generate-assets.mjs` (clé `OPENAI_API_KEY` dans l’environnement ou dans un fichier `.env` non versionné), modèle `gpt-image-1`, liste dans `data/images-a-generer.json`, préfixe de style commun (peluche 3D douce, lumière chaleureuse). Le script **ne régénère jamais un fichier existant** (`--force` pour forcer, `--essai` pour lister sans rien appeler). Une entrée avec `reference` (photo d’un vrai doudou) passe par l’API d’édition pour garder sa ressemblance. Les décors sont posés en CSS **par-dessus un dégradé de secours** : l’app marche sans eux.
 - **Animations** : CSS/JS. Plus tard, option de courts clips Gemini/Veo (`GEMINI_API_KEY`), toujours avec repli automatique sur le CSS.
 - **Sons** : synthétisés en Web Audio (`js/sons.js`). Remplaçables plus tard par des fichiers.
@@ -68,6 +68,8 @@ data/images-a-generer.json  liste des images à générer
 tools/serveur.mjs     serveur local (ordinateur + iPad sur le même Wi-Fi)
 tools/generate-assets.mjs, tools/icones.mjs
 ```
+
+Les jeux partagent `js/jeux/commun.js` (barre « oreille » et « maison », écran de fin, mélange). Les doudous de l’accueil vivent tout seuls grâce à leurs poses (saut de joie, coucou, dodo avec des « z », tourbillon, respiration) : `SCENES` dans `js/accueil.js`.
 
 Ajouter un jeu : un module `js/jeux/xxx.js` qui exporte `ouvrirXxx(scene, { aller })` et renvoie une fonction de nettoyage ; l’inscrire dans `ECRANS` (`js/app.js`), dans `JEUX` (`js/accueil.js`), dans `ESSENTIELS` (`sw.js`), et ses phrases dans `data/phrases.json`. Un jeu laisse libre le coin haut droit (menu parent) et propose toujours un bouton « maison » et un bouton « oreille ».
 

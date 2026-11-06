@@ -7,11 +7,13 @@ import { installerCoinParent } from './parent.js';
 import { demarrerMinuteur, tempsRestant } from './minuteur.js';
 import { ouvrirAccueil } from './accueil.js';
 import { ouvrirMemory } from './jeux/memory.js';
+import { ouvrirCacheCache } from './jeux/cache-cache.js';
 
 // Chaque écran : une fonction ouvrir(scene, { aller }) qui renvoie (si besoin) une fonction de nettoyage.
 const ECRANS = {
   accueil: ouvrirAccueil,
   memory: ouvrirMemory,
+  'cache-cache': ouvrirCacheCache,
 };
 
 const scene = document.getElementById('scene');

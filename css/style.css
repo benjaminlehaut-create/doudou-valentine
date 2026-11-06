@@ -613,3 +613,126 @@ button {
 @media (prefers-reduced-motion: reduce) {
   .ami, .porte, .carte.danse { animation: none; }
 }
+
+/* ---------- Cache-cache ---------- */
+
+.ecran-cache {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+  background:
+    url("../assets/decors/cache-cache.jpg") center / cover no-repeat,
+    linear-gradient(to bottom, transparent 45%, #fff4ea 45%, #fff4ea 47%, transparent 47%),
+    repeating-linear-gradient(90deg, #ecc49b 0 140px, #e3b98d 140px 143px) bottom / 100% 54% no-repeat,
+    radial-gradient(#ffffff99 2.5px, transparent 3.5px) 0 0 / 30px 30px,
+    linear-gradient(#ffe8d8, #fbd9c4);
+}
+.chambre {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  --cache: 58%;   /* bien caché */
+  --pointe: 26%;  /* quand il pointe le bout du nez */
+}
+.chambre.oreilles { --cache: 14%; --pointe: -4%; }
+
+.compteur {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  display: flex;
+  gap: 10px;
+}
+.pastille {
+  width: clamp(54px, 9vh, 76px);
+  height: clamp(54px, 9vh, 76px);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: 0 4px 10px rgba(150, 80, 50, 0.18);
+  padding: 7px;
+}
+.pastille .doudou img { filter: brightness(0) opacity(0.22); transition: filter 0.4s; }
+.pastille.trouvee { animation: coucou 0.7s cubic-bezier(0.3, 1.6, 0.5, 1); background: #fff; box-shadow: 0 0 0 4px var(--or), 0 4px 10px rgba(150, 80, 50, 0.18); }
+.pastille.trouvee .doudou img { filter: none; }
+
+.cachettes { position: absolute; inset: 0; }
+.cachette {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  height: calc(34% * var(--t));
+  aspect-ratio: 1.2;
+  translate: -50% -100%;
+  animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+  animation-delay: calc(var(--i) * 70ms);
+}
+.cachette .objet {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  transform-origin: 50% 100%;
+  transition: transform 0.55s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+.cachette .objet svg { width: 100%; height: 100%; display: block; filter: drop-shadow(0 6px 8px rgba(120, 60, 30, 0.2)); }
+.cachette:active .objet { transform: scale(0.96); }
+.cachette .cachee {
+  position: absolute;
+  left: 6%;
+  bottom: 0;
+  width: 88%;
+  height: 106%;
+  z-index: 1;
+  clip-path: inset(-300% -100% 50% -100%); /* seul le haut du doudou peut dépasser de l’objet */
+}
+.cachette .cachee .doudou {
+  transform: translateY(var(--cache));
+  transform-origin: 50% 100%;
+  transition: transform 0.5s cubic-bezier(0.3, 1.5, 0.5, 1);
+}
+.cachette.pointe .cachee .doudou { animation: pointe 1.4s ease-in-out; }
+@keyframes pointe {
+  0%, 100% { transform: translateY(var(--cache)); }
+  35%, 65% { transform: translateY(var(--pointe)) rotate(-4deg); }
+}
+
+/* Vide : l’objet se soulève, une étoile s’envole */
+.cachette.vide .objet { animation: souleve 1s ease-in-out; }
+@keyframes souleve {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  35%, 60% { transform: translateY(-30%) rotate(-7deg); }
+}
+.cachette.vide::after {
+  content: "★";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
+  font-size: 40px;
+  color: var(--or);
+  text-shadow: 0 2px 0 #fff;
+  animation: etoile 1s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes etoile {
+  from { transform: translate(-50%, 0) scale(0.4); opacity: 1; }
+  to   { transform: translate(-50%, -150%) scale(1.3) rotate(40deg); opacity: 0; }
+}
+
+/* Trouvé : l’objet se pousse, le doudou sort et fait coucou */
+.cachette.trouve .objet { transform: translateX(52%) rotate(12deg) scale(0.78); }
+.cachette.trouve .cachee { z-index: 3; clip-path: none; }
+.cachette.trouve .cachee .doudou { transform: translateY(-4%) scale(1.08); animation: none; }
+.cachette.trouve.bouge .cachee .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 0.2s 2; }
+.cachette.danse .cachee .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) infinite; animation-delay: calc(var(--i) * -0.15s); }
+
+/* Porte du cache-cache sur l’accueil */
+.illu-cache { position: relative; width: 82%; height: 74%; }
+.illu-cache .cachee { position: absolute; left: 22%; width: 56%; height: 70%; top: 2%; animation: pointe-accueil 3s ease-in-out infinite; }
+.illu-cache .objet { position: absolute; left: 0; right: 0; bottom: 0; height: 66%; }
+.illu-cache .objet svg { width: 100%; height: 100%; }
+@keyframes pointe-accueil {
+  0%, 100% { transform: translateY(18%); }
+  40%, 60% { transform: translateY(0) rotate(-5deg); }
+}

@@ -4,9 +4,9 @@
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
-import { pop, carillon, fanfare, douceur } from '../sons.js';
+import { pop, carillon, fanfare } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
-import { MAISON, OREILLE, REJOUER, SUIVANT } from '../icones.js';
+import { BARRE, brancherBarre, afficherFin, melanger } from './commun.js';
 
 const NIVEAUX = [4, 6];          // nombre de paires
 const ATTENTE_ERREUR = 1500;     // temps pour bien voir deux cartes différentes (ms)
@@ -16,10 +16,7 @@ export function ouvrirMemory(scene, { aller }) {
   scene.classList.add('ecran-memory');
   scene.innerHTML = `
     <div class="plateau"></div>
-    <div class="barre">
-      <button class="bouton-rond ecouter" aria-label="Réécouter la consigne">${OREILLE}</button>
-      <button class="bouton-rond maison" aria-label="Accueil">${MAISON}</button>
-    </div>
+    ${BARRE}
     <div class="coucou-centre"></div>
     <div class="fin cache"></div>`;
 
@@ -34,8 +31,7 @@ export function ouvrirMemory(scene, { aller }) {
   const plusTard = (fn, ms) => minuteries.push(setTimeout(fn, ms));
   const consigne = () => dire(niveau === 0 ? 'memory-consigne' : 'memory-consigne-2');
 
-  scene.querySelector('.ecouter').addEventListener('click', () => { douceur(); consigne(); });
-  scene.querySelector('.maison').addEventListener('click', () => { douceur(); aller('accueil'); });
+  brancherBarre(scene, { ecouter: consigne, aller });
 
   function nouvellePartie() {
     minuteries.forEach(clearTimeout);
@@ -129,15 +125,12 @@ export function ouvrirMemory(scene, { aller }) {
       if (actif && cettePartie === numeroPartie) dire('memory-encore');
     });
 
-    const dernierNiveau = niveau >= NIVEAUX.length - 1;
-    fin.innerHTML = `
-      ${dernierNiveau ? '' : `<button class="bouton-rond geant suivant" aria-label="Plus de cartes">${SUIVANT}</button>`}
-      <button class="bouton-rond ${dernierNiveau ? 'geant' : ''} rejouer" aria-label="Rejouer">${REJOUER}</button>
-      <button class="bouton-rond maison" aria-label="Accueil">${MAISON}</button>`;
-    fin.querySelector('.suivant')?.addEventListener('click', () => { douceur(); niveau++; nouvellePartie(); });
-    fin.querySelector('.rejouer').addEventListener('click', () => { douceur(); nouvellePartie(); });
-    fin.querySelector('.maison').addEventListener('click', () => { douceur(); aller('accueil'); });
-    plusTard(() => fin.classList.remove('cache'), 1200);
+    plusTard(() => afficherFin(fin, {
+      dernier: niveau >= NIVEAUX.length - 1,
+      suivant: () => { niveau++; nouvellePartie(); },
+      rejouer: nouvellePartie,
+      aller,
+    }), 1200);
   }
 
   // Choisit la grille qui donne les plus grandes cartes (ex. 4×2, 6×2 ou 4×3).
@@ -173,10 +166,3 @@ export function ouvrirMemory(scene, { aller }) {
   };
 }
 
-function melanger(liste) {
-  for (let i = liste.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [liste[i], liste[j]] = [liste[j], liste[i]];
-  }
-  return liste;
-}
