@@ -20,7 +20,10 @@ export function ouvrirAccueil(scene, { aller }) {
   scene.innerHTML = `
     <div class="cercle">
       <div class="cote gauche"></div>
-      <button class="valentine-centre" aria-label="Valentine"><div class="valentine-ici"></div></button>
+      <div class="milieu">
+        <div class="dessus"></div>
+        <button class="valentine-centre" aria-label="Valentine"><div class="valentine-ici"></div></button>
+      </div>
       <div class="cote droite"></div>
     </div>
     <div class="portes"></div>`;
@@ -53,13 +56,17 @@ export function ouvrirAccueil(scene, { aller }) {
     portes.append(porte);
   });
 
-  // Les doudous autour d’elle : la moitié en « ( » à sa gauche, l’autre en « ) » à sa droite.
-  // Chaque côté a sa propre colonne : ils ne peuvent jamais passer devant elle.
+  // Les doudous autour d’elle : autant en « ( » à sa gauche qu’en « ) » à sa droite,
+  // et, si leur nombre est impair, un au-dessus de sa tête (3 + 3 + 1 pour 7 doudous).
+  // Chacun a sa propre place : ils ne peuvent jamais passer devant elle.
   // Un toucher, et le doudou fait coucou.
   const gauche = scene.querySelector('.cote.gauche');
   const droite = scene.querySelector('.cote.droite');
-  const liste = doudous.slice(0, 10);
-  const moitie = Math.ceil(liste.length / 2);
+  const dessus = scene.querySelector('.dessus');
+  const liste = doudous.slice(0, 11);
+  const auDessus = liste.length % 2;                  // 1 doudou au-dessus si impair
+  const moitie = (liste.length - auDessus) / 2;       // nombre de doudous de chaque côté
+  scene.classList.toggle('avec-dessus', auDessus === 1);
   const amis = liste.map((d, i) => {
     const ami = document.createElement('button');
     ami.className = 'ami';
@@ -73,13 +80,16 @@ export function ouvrirAccueil(scene, { aller }) {
       gerbeSur(ami, 8);
       dire('coucou-ami', { nom: d.nom, id: d.id });
     });
+    if (auDessus && i === liste.length - 1) {
+      dessus.append(ami);
+      return vivant;
+    }
     const aGauche = i < moitie;
     const rang = aGauche ? i : i - moitie;
-    const nb = aGauche ? moitie : liste.length - moitie;
-    const t = nb > 1 ? rang / (nb - 1) : 0.5;             // 0 = en haut, 1 = en bas
-    const ecart = 62 * Math.sin(Math.PI * (0.15 + 0.7 * t)); // plus loin d’elle au milieu : une parenthèse
-    ami.style.left = (aGauche ? 82 - ecart : 18 + ecart) + '%';
-    ami.style.top = 16 + 68 * t + '%';
+    const t = moitie > 1 ? rang / (moitie - 1) : 0.5;      // 0 = en haut, 1 = en bas
+    const ecart = 55 * Math.sin(Math.PI * (0.15 + 0.7 * t)); // plus loin d’elle au milieu : une parenthèse
+    ami.style.left = (aGauche ? 80 - ecart : 20 + ecart) + '%';
+    ami.style.top = 18 + 66 * t + '%';
     (aGauche ? gauche : droite).append(ami);
     return vivant;
   });
