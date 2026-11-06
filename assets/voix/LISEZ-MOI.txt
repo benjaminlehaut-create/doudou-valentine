@@ -1,0 +1,1 @@
+Enregistrements de voix (mp3 ou m4a), référencés dans data/phrases.json.

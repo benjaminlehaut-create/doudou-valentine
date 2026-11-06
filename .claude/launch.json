@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "doudous",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["tools/serveur.mjs"],
+      "port": 8080
+    }
+  ]
+}

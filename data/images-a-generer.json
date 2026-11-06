@@ -1,0 +1,36 @@
+{
+  "_aide": "Liste des images que « node tools/generate-assets.mjs » fabrique avec l’API OpenAI. Un fichier déjà présent n’est jamais regénéré. taille : 1024x1024, 1536x1024 (paysage) ou 1024x1536 (portrait). transparent : true pour un doudou détouré (PNG). reference : photo d’un vrai doudou pour qu’il lui ressemble.",
+
+  "style": "Illustration 3D façon peluche, matières de tissu doux et duveteux, coutures visibles, formes rondes, couleurs pastel chaudes, lumière chaleureuse et dorée, ombres très douces, ambiance tendre et rassurante pour une enfant de 3 ans, aucun texte, aucune lettre, aucun chiffre.",
+
+  "images": [
+    {
+      "fichier": "assets/decors/accueil.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une chambre d’enfant douillette et magique, vue de face : un grand tapis rond moelleux au sol, des coussins, une guirlande de petites lumières, une fenêtre avec un ciel de fin d’après-midi rose et doré. Le centre et le bas de l’image restent calmes et dégagés, car des doudous et des boutons y seront posés."
+    },
+    {
+      "fichier": "assets/decors/memory.jpg",
+      "taille": "1536x1024",
+      "prompt": "Un grand plaid matelassé crème et pêche vu du dessus, très doux et peu contrasté, éclairé par une lumière chaude, avec quelques petites étoiles brodées sur les bords seulement. Le centre est vide et uni, car des cartes de jeu y seront posées."
+    },
+    {
+      "fichier": "assets/decors/dos-carte.png",
+      "taille": "1024x1536",
+      "prompt": "Le dos d’une carte de jeu pour enfant, en tissu matelassé lavande, un petit cœur rose brodé au centre, une bordure cousue tout autour. Vue de face, la carte remplit toute l’image."
+    },
+    {
+      "fichier": "assets/decors/pause.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une chambre d’enfant la nuit, très calme : un ciel étoilé bleu nuit par la fenêtre, une lune souriante en tissu, une veilleuse dorée, un petit lit avec une couverture douce. Ambiance de dodo apaisante."
+    }
+  ],
+
+  "_exemple_pour_un_vrai_doudou": {
+    "fichier": "assets/doudous/nounours-coucou.png",
+    "taille": "1024x1024",
+    "transparent": true,
+    "reference": "assets/doudous/photos/nounours.jpg",
+    "prompt": "Ce doudou exactement (mêmes couleurs, même forme, mêmes détails), assis de face, qui lève une patte pour faire coucou, sur fond transparent."
+  }
+}

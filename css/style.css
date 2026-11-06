@@ -1,0 +1,562 @@
+/* Le monde des doudous — style
+   Couleurs douces, formes rondes, grandes cibles (au moins 80 px). */
+
+:root {
+  --creme: #fff3e6;
+  --peche: #ffd9b8;
+  --rose: #f58fb0;
+  --rose-clair: #ffd3df;
+  --lavande: #c9b5f2;
+  --brun: #7a5242;
+  --or: #ffd36b;
+  --ombre: 0 8px 22px rgba(150, 80, 50, 0.22);
+  --haut: max(14px, env(safe-area-inset-top));
+  --bas: max(14px, env(safe-area-inset-bottom));
+  --gauche: max(14px, env(safe-area-inset-left));
+  --droite: max(14px, env(safe-area-inset-right));
+  font-family: ui-rounded, "SF Pro Rounded", "Nunito", "Varela Round", "Arial Rounded MT Bold", "Segoe UI", system-ui, sans-serif;
+  color: var(--brun);
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background: var(--creme);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 0;
+}
+
+.cache { display: none !important; }
+
+.ecran, .calque {
+  position: fixed;
+  inset: 0;
+}
+
+/* ---------- Doudous ---------- */
+
+.doudou {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.doudou img, .doudou svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 8px rgba(120, 60, 30, 0.22));
+}
+.pose-coucou .bras {
+  transform-box: view-box;
+  transform-origin: 142px 148px;
+  animation: salut 0.4s ease-in-out infinite alternate;
+}
+@keyframes salut {
+  from { transform: rotate(-12deg); }
+  to   { transform: rotate(16deg); }
+}
+
+/* ---------- Écran de démarrage ---------- */
+
+#demarrage {
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4vh;
+  background:
+    radial-gradient(ellipse 90% 45% at 50% 105%, #ffcdb9 0 60%, transparent 61%),
+    linear-gradient(#fff1e2, #ffe0cc);
+}
+.titre {
+  margin: 0;
+  font-size: clamp(30px, 7vh, 64px);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: #d9718f;
+  text-shadow: 0 3px 0 #fff, 0 8px 18px rgba(217, 113, 143, 0.25);
+}
+.jouer {
+  position: relative;
+  width: clamp(150px, 42vh, 280px);
+  height: clamp(150px, 42vh, 280px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff, #ffeef3);
+  border: 8px solid var(--rose-clair);
+  box-shadow: var(--ombre);
+  padding: clamp(14px, 4vh, 28px);
+  display: block;
+  opacity: 0.4;
+  pointer-events: none;
+  transition: opacity 0.4s;
+}
+#demarrage.pret .jouer {
+  opacity: 1;
+  pointer-events: auto;
+  animation: respire 1.8s ease-in-out infinite;
+}
+.jouer::after { /* pastille « lecture » */
+  content: "";
+  position: absolute;
+  right: -2%;
+  bottom: 2%;
+  width: 30%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--rose) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M3.5 2.2 8 5 3.5 7.8z' fill='white'/%3E%3C/svg%3E") center/60% no-repeat;
+  box-shadow: 0 4px 10px rgba(217, 113, 143, 0.4);
+}
+@keyframes respire {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+
+/* ---------- Accueil ---------- */
+
+.ecran-accueil {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+  background:
+    url("../assets/decors/accueil.jpg") center / cover no-repeat,
+    radial-gradient(ellipse 90% 40% at 50% 108%, #ffc6b1 0 60%, transparent 61%),
+    radial-gradient(circle at 15% 20%, #fff8ee 0 8%, transparent 9%),
+    linear-gradient(#ffeedd, #ffdccb 65%, #ffd0c0);
+}
+.portes {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+  min-height: 0;
+}
+.porte {
+  width: clamp(160px, 44vh, 340px);
+  aspect-ratio: 1;
+  border-radius: 40px;
+  background: linear-gradient(160deg, #ffffff, #fff0e3);
+  border: 7px solid #fff;
+  box-shadow: var(--ombre), inset 0 -10px 0 rgba(255, 200, 170, 0.35);
+  display: grid;
+  place-items: center;
+  animation: flotte 3.2s ease-in-out infinite;
+}
+.porte:active { transform: scale(0.96); }
+@keyframes flotte {
+  0%, 100% { transform: translateY(0) rotate(-1deg); }
+  50%      { transform: translateY(-8px) rotate(1deg); }
+}
+.illu-memory {
+  position: relative;
+  width: 92%;
+  height: 86%;
+}
+.mini-carte {
+  position: absolute;
+  top: 6%;
+  left: 27%;
+  width: 46%;
+  aspect-ratio: 0.8;
+  border-radius: 14px;
+  border: 4px solid #fff;
+  background: #fffaf3;
+  box-shadow: 0 5px 12px rgba(150, 80, 50, 0.22);
+  padding: 6%;
+}
+.mini-carte .doudou { position: absolute; inset: 6%; width: auto; height: auto; }
+.mini-carte:nth-child(1) { transform: translateX(-52%) rotate(-14deg); }
+.mini-carte:nth-child(3) { transform: translateX(52%) rotate(14deg); }
+.mini-carte:nth-child(2) { z-index: 1; transform: translateY(-4%); }
+
+.ronde {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 1.5vw;
+}
+.ami {
+  width: clamp(80px, 21vh, 190px);
+  height: clamp(80px, 21vh, 190px);
+  animation: balance 2.6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.37s);
+}
+.ami.coucou { animation: coucou 0.9s cubic-bezier(0.3, 1.6, 0.5, 1); }
+@keyframes balance {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg) translateY(-4px); }
+}
+@keyframes coucou {
+  0%   { transform: scale(1); }
+  30%  { transform: scale(1.25) translateY(-14%); }
+  60%  { transform: scale(1.1) rotate(-6deg); }
+  100% { transform: scale(1); }
+}
+
+/* ---------- Boutons ronds (maison, oreille, rejouer…) ---------- */
+
+.bouton-rond {
+  width: 96px;
+  height: 96px;
+  flex: none;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff, #fff1f5);
+  color: var(--rose);
+  border: 5px solid #fff;
+  box-shadow: var(--ombre);
+  display: grid;
+  place-items: center;
+}
+.bouton-rond svg { width: 54%; height: 54%; }
+.bouton-rond:active { transform: scale(0.93); }
+.bouton-rond.geant { width: 150px; height: 150px; }
+.bouton-rond.suivant { color: #fff; background: radial-gradient(circle at 40% 35%, #ffb3c9, var(--rose)); animation: respire 1.4s ease-in-out infinite; }
+
+/* ---------- Memory ---------- */
+
+.ecran-memory {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+  background:
+    url("../assets/decors/memory.jpg") center / cover no-repeat,
+    radial-gradient(#ffffff55 1.5px, transparent 2.5px) 0 0 / 26px 26px,
+    linear-gradient(150deg, #fff3e4, #ffe2d2);
+}
+.plateau {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: repeat(var(--colonnes, 4), var(--largeur, 120px));
+  gap: var(--ecart, 12px);
+  place-content: center;
+}
+.barre {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 18px;
+  padding-top: 100px; /* le coin haut droit reste au menu parent */
+}
+
+.carte {
+  width: var(--largeur, 120px);
+  height: calc(var(--largeur, 120px) * 1.25);
+  perspective: 900px;
+  animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+  animation-delay: calc(var(--i) * 55ms);
+}
+@keyframes arrivee {
+  from { transform: scale(0.2) rotate(-12deg); opacity: 0; }
+}
+.interieur {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.34, 1.4, 0.6, 1);
+}
+.carte.retournee .interieur { transform: rotateY(180deg); }
+.carte:not(.retournee):active .interieur { transform: scale(0.95); }
+.dos, .face {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  border: 5px solid #fff;
+  box-shadow: 0 6px 14px rgba(150, 80, 50, 0.22);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.dos, .mini-dos {
+  background:
+    url("../assets/decors/dos-carte.png") center / cover no-repeat,
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21s-8-5.2-8-11a4.5 4.5 0 0 1 8-2.8A4.5 4.5 0 0 1 20 10c0 5.8-8 11-8 11z' fill='%23ff9fbd' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E") center / 42% no-repeat,
+    radial-gradient(#ffffff66 2px, transparent 3px) 0 0 / 18px 18px,
+    linear-gradient(150deg, #d5c2f6, #a99be6);
+}
+.face {
+  transform: rotateY(180deg);
+  background: radial-gradient(circle at 50% 40%, #ffffff, #fff4e8);
+  padding: 8%;
+}
+.carte.trouvee .face {
+  border-color: var(--or);
+  box-shadow: 0 0 0 3px #fff, 0 0 26px rgba(255, 196, 80, 0.9);
+}
+.carte.danse { animation: danse 0.5s ease-in-out infinite alternate; animation-delay: calc(var(--i) * -0.09s); }
+@keyframes danse {
+  from { transform: translateY(0) rotate(-3deg); }
+  to   { transform: translateY(-10px) rotate(3deg); }
+}
+
+.coucou-centre {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  z-index: 20;
+}
+.coucou-grand {
+  width: min(62vh, 46vw);
+  height: min(62vh, 46vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0 45%, rgba(255, 255, 255, 0) 70%);
+  padding: 6%;
+  animation: surgit 0.55s cubic-bezier(0.3, 1.6, 0.5, 1) both, sautille 0.42s 0.55s ease-in-out 3 alternate;
+}
+.coucou-grand.part { animation: disparait 0.35s ease-in forwards; }
+@keyframes surgit {
+  from { transform: scale(0.2) translateY(30%); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+@keyframes sautille {
+  to { transform: translateY(-5%) rotate(3deg); }
+}
+@keyframes disparait {
+  to { transform: scale(0.4); opacity: 0; }
+}
+
+.fin {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5vw;
+  background: rgba(255, 243, 230, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: apparait 0.5s ease-out;
+}
+@keyframes apparait {
+  from { opacity: 0; transform: scale(1.05); }
+}
+
+/* ---------- Fête : cœurs et confettis ---------- */
+
+#calque-fete {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  overflow: hidden;
+}
+.particule {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  animation: gerbe 1.2s ease-out forwards;
+  text-shadow: 0 2px 4px rgba(255, 255, 255, 0.8);
+}
+@keyframes gerbe {
+  from { transform: translate(-50%, -50%) scale(0.3); opacity: 1; }
+  to   { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.15); opacity: 0; }
+}
+.confetti {
+  position: absolute;
+  top: -8vh;
+  animation-name: tombe;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+@keyframes tombe {
+  to { transform: translateY(118vh) rotate(var(--tourne)); }
+}
+
+/* ---------- Pause ---------- */
+
+#pause {
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  background:
+    url("../assets/decors/pause.jpg") center / cover no-repeat,
+    radial-gradient(circle at 80% 20%, #fff6c9 0 4%, transparent 5%),
+    linear-gradient(#2f3266, #534684);
+}
+.pause-doudou {
+  width: min(52vh, 40vw);
+  aspect-ratio: 1;
+  animation: respire 3.5s ease-in-out infinite;
+}
+.zzz {
+  position: absolute;
+  top: 22%;
+  left: 58%;
+  font-size: 54px;
+  font-weight: 800;
+  color: #fff6c9;
+}
+.zzz span { display: inline-block; animation: zzz 2.4s ease-in-out infinite; opacity: 0; }
+.zzz span:nth-child(2) { animation-delay: 0.6s; font-size: 0.8em; }
+.zzz span:nth-child(3) { animation-delay: 1.2s; font-size: 0.6em; }
+@keyframes zzz {
+  0%   { opacity: 0; transform: translateY(20px); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-40px); }
+}
+
+/* ---------- Tourner la tablette (portrait, écrans tactiles) ---------- */
+
+#tourne {
+  z-index: 80;
+  display: none;
+  place-items: center;
+  background: linear-gradient(#fff1e2, #ffe0cc);
+}
+@media (orientation: portrait) and (pointer: coarse) {
+  #tourne { display: grid; }
+}
+.tablette {
+  width: 90px;
+  height: 140px;
+  border: 8px solid var(--rose);
+  border-radius: 20px;
+  animation: pivote 2s ease-in-out infinite;
+}
+@keyframes pivote {
+  0%, 25%   { transform: rotate(0); }
+  60%, 100% { transform: rotate(-90deg); }
+}
+
+/* ---------- Coin parent (appui long 3 s, en haut à droite) ---------- */
+
+#coin-parent {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: calc(96px + env(safe-area-inset-right));
+  height: calc(96px + env(safe-area-inset-top));
+  z-index: 90;
+  touch-action: none;
+  display: grid;
+  place-items: center;
+}
+#coin-parent svg {
+  width: 56px;
+  height: 56px;
+  opacity: 0;
+  transform: rotate(-90deg);
+  transition: opacity 0.2s;
+}
+#coin-parent .anneau {
+  fill: none;
+  stroke: var(--rose);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 100.6;
+  stroke-dashoffset: 100.6;
+}
+#coin-parent.appui svg { opacity: 0.9; transition: opacity 0.3s 0.6s; }
+#coin-parent.appui .anneau { stroke-dashoffset: 0; transition: stroke-dashoffset 3s linear; }
+
+/* ---------- Menu parent ---------- */
+
+#menu-parent {
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: rgba(60, 40, 40, 0.45);
+}
+.panneau {
+  width: min(720px, 94vw);
+  max-height: 92vh;
+  max-height: 92dvh;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-y;
+  background: #fffaf4;
+  border-radius: 24px;
+  padding: 20px 26px 26px;
+  font-size: 18px;
+  box-shadow: 0 20px 50px rgba(60, 30, 20, 0.35);
+}
+.panneau h2 { margin: 0 0 8px; color: #d9718f; }
+.panneau h3 { margin: 18px 0 8px; }
+.panneau .ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 52px;
+}
+.panneau input[type="range"] { width: 50%; accent-color: var(--rose); }
+.panneau input[type="text"], .panneau select {
+  font: inherit;
+  padding: 8px 12px;
+  border: 2px solid #f1d8cc;
+  border-radius: 12px;
+  background: #fff;
+  -webkit-user-select: text;
+  user-select: text;
+  max-width: 55%;
+}
+.panneau select { flex: 1; }
+.panneau .aide { font-size: 14px; color: #9a7a6c; margin: 4px 0 0; }
+.panneau .petit, .panneau .fermer {
+  padding: 10px 18px;
+  border-radius: 14px;
+  background: var(--rose-clair);
+  color: #b4506f;
+  font-weight: 700;
+  min-height: 48px;
+}
+.panneau .fermer {
+  display: block;
+  width: 100%;
+  margin-top: 20px;
+  background: var(--rose);
+  color: #fff;
+  font-size: 20px;
+}
+.choix-doudous {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 10px;
+}
+.choix {
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 16px;
+  border: 3px solid transparent;
+  opacity: 0.4;
+  filter: grayscale(0.8);
+  font-size: 15px;
+}
+.choix .doudou { width: 70px; height: 70px; }
+.choix.actif { opacity: 1; filter: none; border-color: var(--rose-clair); background: #fff; }
+.choix.refus { animation: refus 0.4s; }
+@keyframes refus {
+  25% { transform: translateX(-6px); }
+  75% { transform: translateX(6px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ami, .porte, .carte.danse { animation: none; }
+}

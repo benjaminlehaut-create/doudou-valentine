@@ -1,0 +1,15 @@
+{
+  "_aide": "Tout ce que dit la voix. {prenom} et {nom} sont remplacés. Plusieurs variantes = une au hasard. Pour un enregistrement : { \"texte\": \"…\", \"audio\": \"assets/voix/fichier.mp3\" }. Pour une phrase propre à un doudou, ajouter une clé suivie de son id, par exemple « memory-paire-nounours ».",
+
+  "accueil": ["Coucou {prenom} ! Choisis un jeu.", "Bonjour {prenom} ! On joue avec les doudous ?"],
+  "coucou-ami": ["Coucou, je suis {nom} !", "Coucou {prenom} ! C’est moi, {nom} !", "{nom} te fait un gros bisou !"],
+
+  "memory-consigne": ["Touche les cartes, et trouve deux doudous pareils !"],
+  "memory-consigne-2": ["Encore plus de cartes ! Trouve deux doudous pareils."],
+  "memory-paire": ["Coucou ! C’est {nom} ! Bravo !", "Bravo ! Tu as trouvé {nom} !", "Youpi ! Voilà {nom} !", "{nom} te fait coucou ! Super !"],
+  "memory-gagne": ["Bravo {prenom} ! Tu as retrouvé tous les doudous !", "Hourra ! Tous les doudous sont là. Tu es trop forte !"],
+  "memory-encore": ["On joue encore ?"],
+
+  "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],
+  "test-voix": ["Bonjour {prenom} ! Je suis la voix des doudous."]
+}

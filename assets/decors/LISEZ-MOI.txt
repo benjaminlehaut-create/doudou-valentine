@@ -1,0 +1,1 @@
+Décors générés par tools/generate-assets.mjs (liste dans data/images-a-generer.json).

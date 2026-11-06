@@ -1,0 +1,12 @@
+{
+  "name": "monde-des-doudous",
+  "private": true,
+  "description": "Le monde des doudous de Valentine : mini-jeux pour une enfant de 3 ans (PWA hors ligne).",
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serveur.mjs --ouvrir",
+    "serveur": "node tools/serveur.mjs",
+    "images": "node tools/generate-assets.mjs",
+    "icones": "node tools/icones.mjs"
+  }
+}

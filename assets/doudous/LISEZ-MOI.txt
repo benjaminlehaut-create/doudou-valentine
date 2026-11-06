@@ -1,0 +1,6 @@
+Mets ici les images des doudous, une par pose, avec les noms indiqués dans data/doudous.json
+(par exemple nounours-face.png, nounours-coucou.png, nounours-dodo.png).
+PNG détouré (fond transparent) de préférence, environ 1024 x 1024.
+Tant qu’une image manque, un doudou dessiné la remplace.
+
+Le dossier photos/ accueille les photos des vrais doudous qui servent de modèle à la génération d’images.
