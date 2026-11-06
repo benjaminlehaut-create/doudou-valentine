@@ -43,6 +43,7 @@ function afficher(force = false) {
   scene.className = 'ecran';
   scene.innerHTML = '';
   nettoyer = ECRANS[nom](scene, { aller }) || null;
+  scene.classList.add('entree'); // petite apparition en fondu (voir css)
 }
 
 // On affiche tout de suite (dans le toucher) pour que la voix soit autorisée sur iPad.

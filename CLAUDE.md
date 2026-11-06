@@ -88,6 +88,8 @@ tools/serveur.mjs     serveur local (ordinateur + iPad sur le même Wi-Fi)
 tools/generate-assets.mjs, tools/icones.mjs
 ```
 
+**Habillage (7 novembre 2026)** : apparition en fondu de chaque écran ; accueil vivant (nuages qui passent, bulles qui montent, derrière tout) ; une couleur par porte de jeu ; reflets brillants sur boutons, cartes et outils. Toutes les cibles font au moins 80 px, même au format téléphone (vérifié).
+
 Les jeux partagent `js/jeux/commun.js` (barre « oreille » et « maison », écran de fin, mélange). Les doudous de l’accueil vivent tout seuls grâce à leurs poses (saut de joie, coucou, dodo avec des « z », tourbillon, respiration) : `SCENES` dans `js/accueil.js`.
 
 Ajouter un jeu : un module `js/jeux/xxx.js` qui exporte `ouvrirXxx(scene, { aller })` et renvoie une fonction de nettoyage ; l’inscrire dans `ECRANS` (`js/app.js`), dans `JEUX` (`js/accueil.js`), dans `ESSENTIELS` (`sw.js`), et ses phrases dans `data/phrases.json`. Un jeu laisse libre le coin haut droit (menu parent) et propose toujours un bouton « maison » et un bouton « oreille ».

@@ -31,7 +31,11 @@ export function ouvrirAccueil(scene, { aller }) {
       </div>
       <div class="cote droite"></div>
     </div>
-    <div class="portes"></div>`;
+    <div class="portes"></div>
+    <div class="ciel-accueil" aria-hidden="true">
+      <span class="nuage n1"></span><span class="nuage n2"></span><span class="nuage n3"></span>
+      ${Array.from({ length: 12 }, (_, k) => `<span class="bulle-deco" style="--k:${k}"></span>`).join('')}
+    </div>`;
 
   // Valentine au centre : coucou à l’arrivée, puis contente ; un toucher, elle saute de joie.
   const centre = scene.querySelector('.valentine-centre');
