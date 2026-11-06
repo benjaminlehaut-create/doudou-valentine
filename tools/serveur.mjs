@@ -52,5 +52,11 @@ serveur.listen(PORT, '0.0.0.0', () => {
   console.log(`  Sur cet ordinateur :  http://localhost:${PORT}`);
   adresses.forEach((a) => console.log(`  Sur l’iPad (même Wi-Fi) :  http://${a}:${PORT}`));
   console.log('\n  Pour arrêter : fermer cette fenêtre (ou Ctrl+C).\n');
-  if (process.argv.includes('--ouvrir')) exec(`start "" http://localhost:${PORT}`);
+  // Ouvre l’app dans Edge, en fenêtre d’application (sans barre d’adresse) : Edge a les voix
+  // françaises « naturelles » (Denise, Vivienne…), bien plus douces. Sinon, le navigateur par défaut.
+  if (process.argv.includes('--ouvrir')) {
+    exec(`start "" msedge --app=http://localhost:${PORT}`, (erreur) => {
+      if (erreur) exec(`start "" http://localhost:${PORT}`);
+    });
+  }
 });

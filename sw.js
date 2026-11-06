@@ -1,7 +1,7 @@
 // Service worker : rend l’application utilisable sans Internet.
 // Si tu ajoutes un fichier JS ou CSS, ajoute-le à ESSENTIELS et augmente VERSION.
 
-const VERSION = 'doudous-v8';
+const VERSION = 'doudous-v9';
 
 const ESSENTIELS = [
   './',
@@ -63,6 +63,11 @@ async function mettreEnCacheLesImages(cache) {
 
   const valentine = await lire('data/valentine.json');
   if (valentine) [valentine.portrait, ...Object.values(valentine.poses || {})].forEach((u) => u && urls.add(u));
+
+  // La voix de conteuse enregistrée (si elle a été fabriquée)
+  const conteuse = await lire('data/voix-enregistrees.json');
+  Object.values(conteuse?.phrases || {}).forEach((u) => urls.add(u));
+  urls.add('data/voix-enregistrees.json');
 
   const phrases = await lire('data/phrases.json');
   Object.values(phrases || {}).flat().forEach((p) => p && p.audio && urls.add(p.audio));

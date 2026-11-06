@@ -36,6 +36,17 @@ Une seule fois :
 3. Lancez l’app une fois avec Internet : ensuite, elle marche **sans Internet**.
 4. Conseil : **Accès guidé** (Réglages › Accessibilité) empêche Valentine de quitter l’app.
 
+## Une voix plus douce
+
+**Sur le PC** : `Lancer.bat` ouvre l’app dans **Microsoft Edge**, qui a des voix françaises « naturelles » (Denise, Vivienne) bien plus douces. Elles ont besoin d’Internet ; sans Internet, Edge reprend une voix plus robotique. On peut choisir la voix dans le menu parent.
+
+**La vraie voix de conteuse (recommandé)** : une voix douce enregistrée pour toutes les phrases de l’app, avec tous les doudous. Elle marche ensuite sans Internet, et pareil sur l’iPad.
+
+1. Mettez votre clé OpenAI dans le fichier `.env` : `OPENAI_API_KEY=sk-...`
+2. `node tools/generer-voix.mjs --essai` montre combien de phrases et le prix (environ 1 200 phrases, moins de 2 $).
+3. `node tools/generer-voix.mjs` enregistre tout (une vingtaine de minutes). Relancez-le après avoir ajouté un doudou ou des phrases : il ne refait jamais ce qui existe.
+4. Pour une autre voix : `node tools/generer-voix.mjs --voix coral` (essayez shimmer, coral, nova, sage).
+
 ## Voix plus naturelle sur iPad
 
 Réglages › Accessibilité › Contenu énoncé › Voix › Français : téléchargez une voix « améliorée » ou « premium ». Puis, dans l’app, menu parent › Voix.
