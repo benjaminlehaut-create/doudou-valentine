@@ -100,3 +100,29 @@ export function berceuse() {
   });
   void do5; void re5;
 }
+
+// Boum-boum du cœur (stéthoscope)
+export function battement() {
+  [0, 0.22, 0.9, 1.12].forEach((t, i) => note(i % 2 ? 55 : 70, t, 0.18, { type: 'sine', volume: 0.6 }));
+}
+
+// Atchoum ! (un doudou enrhumé) : un souffle de bruit qui descend
+export function atchoum() {
+  if (!contexte) return;
+  const t = contexte.currentTime;
+  const duree = 0.45;
+  const tampon = contexte.createBuffer(1, Math.ceil(contexte.sampleRate * duree), contexte.sampleRate);
+  const d = tampon.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.min(1, i / 600) * (1 - i / d.length);
+  const source = contexte.createBufferSource();
+  source.buffer = tampon;
+  const filtre = contexte.createBiquadFilter();
+  filtre.type = 'bandpass';
+  filtre.frequency.setValueAtTime(2600, t);
+  filtre.frequency.exponentialRampToValueAtTime(700, t + duree);
+  const gain = contexte.createGain();
+  gain.gain.value = 0.35 * reglages.volumeSons;
+  source.connect(filtre).connect(gain).connect(contexte.destination);
+  source.start(t + 0.12);
+  note(620, 0, 0.12, { type: 'sine', volume: 0.08 });
+}

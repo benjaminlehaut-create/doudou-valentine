@@ -48,6 +48,23 @@
   "dodo-lumiere": ["On éteint la lumière. Bonne nuit {nom}. Bonne nuit {prenom}. Fais de beaux rêves !"],
   "dodo-encore": ["On recommence avec un autre doudou ?"],
 
+  "docteur-consigne": ["Bienvenue chez le docteur {prenom} ! Les doudous ont des bobos. Regarde bien ce qu’ils ont, et choisis le bon outil pour les soigner."],
+  "docteur-bobo": ["Aïe aïe aïe ! {nom} est tombé, il a un bobo à la patte.", "{nom} s’est fait mal à la patte. Il saigne un tout petit peu !"],
+  "docteur-fievre": ["{nom} a très très chaud… Il a peut-être de la fièvre !", "Oh là là, {nom} est tout chaud. C’est peut-être de la fièvre."],
+  "docteur-rhume": ["Atchoum ! {nom} a un gros rhume, son nez coule.", "{nom} éternue sans arrêt : atchoum ! Il est enrhumé."],
+  "docteur-peur": ["{nom} a fait un cauchemar. Il a un peu peur, il est tout triste.", "Un petit nuage gris au-dessus de {nom} : il a peur du noir."],
+  "docteur-ecoute": ["J’écoute avec le stéthoscope… boum, boum, boum…"],
+  "docteur-pas-ca": ["Hmm, {outil} ne soigne pas ça. Regarde bien ce qu’a {nom} !", "Pas {outil} ! Écoute bien : qu’est-ce qu’il a, {nom} ?"],
+  "docteur-dabord": ["Attends ! D’abord, on vérifie s’il a de la fièvre, avec le thermomètre."],
+  "docteur-soin-pansement": ["Hop, un joli pansement sur le bobo !"],
+  "docteur-soin-thermometre": ["Le thermomètre dit… trente-neuf ! Oui, c’est bien de la fièvre. Il lui faut un médicament."],
+  "docteur-soin-sirop": ["Une cuillère de sirop… mmm, ça fait du bien !"],
+  "docteur-soin-mouchoir": ["Mouche bien ton nez, {nom} ! Pouêt !"],
+  "docteur-soin-calin": ["Un gros câlin magique, et la peur s’envole !"],
+  "docteur-gueri": ["Youpi ! {nom} est guéri ! Merci docteur {prenom} !", "Hourra, {nom} va beaucoup mieux ! Merci docteur !"],
+  "docteur-gagne": ["Bravo docteur {prenom} ! Tous les doudous sont guéris !"],
+  "docteur-encore": ["D’autres doudous attendent le docteur ! On continue ?"],
+
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],
   "test-voix": ["Bonjour {prenom} ! Je suis la voix des doudous."]
 }

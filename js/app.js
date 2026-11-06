@@ -11,6 +11,7 @@ import { ouvrirMemory } from './jeux/memory.js';
 import { ouvrirCacheCache } from './jeux/cache-cache.js';
 import { ouvrirPiqueNique } from './jeux/pique-nique.js';
 import { ouvrirDodo } from './jeux/dodo.js';
+import { ouvrirDocteur } from './jeux/docteur.js';
 
 // Chaque écran : une fonction ouvrir(scene, { aller }) qui renvoie (si besoin) une fonction de nettoyage.
 const ECRANS = {
@@ -19,6 +20,7 @@ const ECRANS = {
   'cache-cache': ouvrirCacheCache,
   'pique-nique': ouvrirPiqueNique,
   dodo: ouvrirDodo,
+  docteur: ouvrirDocteur,
 };
 
 const scene = document.getElementById('scene');

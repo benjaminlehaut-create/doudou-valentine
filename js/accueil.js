@@ -7,6 +7,7 @@ import { gerbeSur } from './recompense.js';
 import { OBJETS } from './jeux/cache-cache.js';
 import { ALIMENTS } from './jeux/aliments.js';
 import { ETAPES } from './jeux/dodo.js';
+import { OUTILS } from './jeux/docteur.js';
 import { placerValentine, valentineLa } from './valentine.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
@@ -15,6 +16,7 @@ const JEUX = [
   { id: 'cache-cache', nom: 'Cache-cache', illustration: illustrationCache },
   { id: 'pique-nique', nom: 'Pique-nique', illustration: illustrationPique },
   { id: 'dodo', nom: 'L’heure du dodo', illustration: illustrationDodo },
+  { id: 'docteur', nom: 'Le docteur', illustration: illustrationDocteur },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -183,5 +185,14 @@ function illustrationDodo(doudous) {
   const d = imageDoudou(doudous[2] || doudous[0], 'dodo');
   d.classList.add('dort');
   boite.append(d);
+  return boite;
+}
+
+// Un doudou avec un pansement, et la croix du docteur
+function illustrationDocteur(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-docteur';
+  boite.append(imageDoudou(doudous[3] || doudous[0], 'bobo'));
+  boite.insertAdjacentHTML('beforeend', `<div class="croix"></div><div class="mini-outil">${OUTILS.pansement.svg}</div>`);
   return boite;
 }

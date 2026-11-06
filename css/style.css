@@ -151,11 +151,11 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5vw;
+  gap: 2vw;
   min-height: 0;
 }
 .porte {
-  width: clamp(104px, 26vh, 230px);
+  width: clamp(92px, min(24vh, 15vw), 220px);
   aspect-ratio: 1;
   border-radius: 40px;
   background: linear-gradient(160deg, #ffffff, #fff0e3);
@@ -1069,3 +1069,94 @@ button {
 .illu-dodo .lune-illu { position: absolute; right: 6%; top: 6%; width: 38%; }
 .illu-dodo .lune-illu svg { width: 100%; height: 100%; }
 .illu-dodo .doudou.dort { position: absolute; left: 6%; bottom: 0; width: 66%; height: 80%; animation: souffle 3s ease-in-out infinite; transform-origin: 50% 100%; }
+
+/* ---------- Le docteur des doudous ---------- */
+
+.ecran-docteur {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+  background:
+    linear-gradient(to bottom, transparent 62%, #d9eef0 62%, #cfe8ea 100%),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.5) 0 40px, transparent 40px 80px),
+    linear-gradient(#e3f6f2, #d2f0ea);
+}
+.cabinet { position: relative; min-width: 0; min-height: 0; }
+.cabinet::before { /* la croix du cabinet, au mur */
+  content: ""; position: absolute; left: 40%; top: 2%; width: 9vh; height: 9vh;
+  background: linear-gradient(#ff8fab, #ff8fab) center / 34% 100% no-repeat, linear-gradient(#ff8fab, #ff8fab) center / 100% 34% no-repeat;
+  opacity: 0.55; border-radius: 8px;
+}
+.patient { position: absolute; left: 0; bottom: 2%; width: min(54%, 80vh); aspect-ratio: 1; }
+.table-soin { position: absolute; left: 6%; right: 6%; bottom: 0; height: 20%; border-radius: 26px 26px 16px 16px;
+  background: linear-gradient(#ffffff, #ffe5ec); box-shadow: 0 10px 18px rgba(80, 120, 120, 0.25), inset 0 -8px 0 rgba(255, 143, 171, 0.25); }
+.malade { position: absolute; left: 12%; right: 12%; bottom: 10%; top: 4%; transform-origin: 50% 100%; }
+.malade .doudou { animation: souffle 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.malade.arrive { animation: arrive-convive 0.7s cubic-bezier(0.3, 1.4, 0.5, 1); }
+.malade.repart { animation: repart-convive 0.6s ease-in forwards; }
+.malade.eternue { animation: eternue 0.6s ease-out; }
+.malade.patraque .doudou { animation: triste 1.8s ease-in-out infinite; filter: saturate(0.75); }
+.malade.content .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 4; }
+@keyframes eternue { 20% { transform: scale(1.04, 0.94) rotate(-3deg); } 45% { transform: scale(0.96, 1.06) rotate(4deg) translateY(-4%); } 100% { transform: none; } }
+
+.maux { position: absolute; left: 12%; right: 12%; bottom: 10%; top: 4%; pointer-events: none; }
+.mal { position: absolute; transition: opacity 0.6s, transform 0.6s; }
+.mal.soigne:not(.mal-bobo) { opacity: 0; transform: translateY(-40%) scale(0.6); }
+/* bobo : une petite plaie qui palpite sur la patte */
+.mal-bobo { left: 18%; bottom: 10%; width: 22%; aspect-ratio: 1; }
+.mal-bobo .plaie { position: absolute; inset: 18%; border-radius: 50%; background: radial-gradient(circle, #ff5a6e 0 35%, rgba(255, 90, 110, 0.35) 36% 60%, transparent 61%); animation: palpite 0.9s ease-in-out infinite; }
+@keyframes palpite { 50% { transform: scale(1.25); } }
+.mal-bobo .pose-pansement { position: absolute; inset: 0; animation: arrivee 0.4s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.mal-bobo .pose-pansement svg { width: 100%; height: 100%; }
+/* fièvre : des vagues de chaleur au-dessus de la tête */
+.mal-fievre { left: 28%; top: -14%; width: 44%; height: 26%; }
+.mal-fievre span { position: absolute; bottom: 0; width: 14%; height: 100%; border-radius: 40%;
+  border-left: 5px solid #ff8a5c; animation: chaleur 1.4s ease-in-out infinite; opacity: 0.8; }
+.mal-fievre span:nth-child(1) { left: 14%; }
+.mal-fievre span:nth-child(2) { left: 44%; animation-delay: 0.45s; }
+.mal-fievre span:nth-child(3) { left: 74%; animation-delay: 0.9s; }
+@keyframes chaleur { 0% { transform: translateY(30%) skewX(-12deg); opacity: 0; } 40% { opacity: 0.9; } 100% { transform: translateY(-40%) skewX(12deg); opacity: 0; } }
+.mal-fievre.mesuree span { border-left-color: #ff5a6e; }
+/* rhume : une goutte au nez */
+.mal-rhume { left: 44%; top: 38%; width: 13%; height: 22%; }
+.mal-rhume .goutte { position: absolute; left: 0; top: 0; width: 100%; aspect-ratio: 0.75; border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: radial-gradient(circle at 35% 35%, #fff, #9ccff2 60%); animation: goutte 1.8s ease-in infinite; }
+@keyframes goutte { 0% { transform: translateY(0) scale(0.4); opacity: 0; } 30% { opacity: 1; transform: scale(1); } 100% { transform: translateY(160%) scale(0.9); opacity: 0; } }
+/* peur : un petit nuage de pluie */
+.mal-peur { left: 24%; top: -18%; width: 52%; animation: flotte 2.6s ease-in-out infinite; }
+.mal-peur svg { width: 100%; }
+
+/* L’outil en action, en grand sur le doudou */
+.outil-en-action { position: absolute; width: 38%; aspect-ratio: 1; z-index: 3; animation: geste 1.6s ease-in-out forwards; filter: drop-shadow(0 8px 10px rgba(60, 60, 80, 0.3)); }
+.outil-en-action svg { width: 100%; height: 100%; }
+.geste-pansement { left: 10%; bottom: 0; }
+.geste-thermometre { left: 52%; top: 12%; }
+.geste-sirop { left: 52%; top: 24%; }
+.geste-mouchoir { left: 34%; top: 22%; }
+.geste-stethoscope { left: 30%; top: 36%; }
+.geste-calin { left: 31%; top: 20%; }
+@keyframes geste {
+  0% { transform: scale(0.2) rotate(-30deg); opacity: 0; }
+  20% { transform: scale(1.1) rotate(8deg); opacity: 1; }
+  35%, 65% { transform: scale(1) rotate(-8deg); }
+  50%, 80% { transform: scale(1) rotate(8deg); opacity: 1; }
+  100% { transform: scale(0.6); opacity: 0; }
+}
+
+/* La boîte à outils */
+.outils { position: absolute; right: 0; top: 14%; bottom: 4%; width: 44%; display: grid; grid-template-columns: repeat(3, 1fr); align-content: center; justify-items: center; gap: 2.4vh 1.6vw; }
+.outil { width: clamp(84px, 18vh, 150px); height: clamp(84px, 18vh, 150px); border-radius: 50%; background: radial-gradient(circle at 40% 35%, #fff, #f1fbf9);
+  border: 5px solid #fff; box-shadow: 0 8px 18px rgba(80, 120, 120, 0.25); padding: 14px; animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; animation-delay: calc(var(--i) * 70ms); }
+.outil svg { width: 100%; height: 100%; }
+.outil:active { transform: scale(0.92); }
+.outil.utilise { animation: coucou 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.outil.non { animation: bond 0.5s ease-out; }
+
+/* Porte du docteur sur l’accueil */
+.illu-docteur { position: relative; width: 82%; height: 74%; border-radius: 20px; background: linear-gradient(#e3f6f2, #c9ebe4); }
+.illu-docteur .doudou { position: absolute; left: 4%; bottom: 0; width: 70%; height: 92%; }
+.illu-docteur .croix { position: absolute; right: 8%; top: 8%; width: 28%; aspect-ratio: 1;
+  background: linear-gradient(#ff8fab, #ff8fab) center / 34% 100% no-repeat, linear-gradient(#ff8fab, #ff8fab) center / 100% 34% no-repeat; animation: respire 1.6s ease-in-out infinite; }
+.illu-docteur .mini-outil { position: absolute; right: 4%; bottom: 6%; width: 36%; }
+.illu-docteur .mini-outil svg { width: 100%; }
