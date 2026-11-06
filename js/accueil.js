@@ -1,4 +1,4 @@
-// Écran d’accueil : les portes des jeux et la ronde des doudous.
+// Écran d’accueil : Valentine debout au centre, tous ses doudous en arc de cercle autour d’elle, les portes des jeux en dessous.
 
 import { doudousActifs, imageDoudou } from './doudous.js';
 import { dire } from './voix.js';
@@ -6,6 +6,7 @@ import { douceur } from './sons.js';
 import { gerbeSur } from './recompense.js';
 import { OBJETS } from './jeux/cache-cache.js';
 import { ALIMENTS } from './jeux/aliments.js';
+import { placerValentine, valentineLa } from './valentine.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
@@ -17,8 +18,27 @@ const JEUX = [
 export function ouvrirAccueil(scene, { aller }) {
   scene.classList.add('ecran-accueil');
   scene.innerHTML = `
-    <div class="portes"></div>
-    <div class="ronde"></div>`;
+    <div class="cercle">
+      <div class="cote gauche"></div>
+      <button class="valentine-centre" aria-label="Valentine"><div class="valentine-ici"></div></button>
+      <div class="cote droite"></div>
+    </div>
+    <div class="portes"></div>`;
+
+  // Valentine au centre : coucou à l’arrivée, puis contente ; un toucher, elle saute de joie.
+  const centre = scene.querySelector('.valentine-centre');
+  const valentine = placerValentine(centre.querySelector('.valentine-ici'), 'content');
+  if (valentineLa()) {
+    valentine.pose('coucou', { duree: 2600 });
+    centre.addEventListener('click', () => {
+      valentine.pose('joie', { duree: 1800 });
+      douceur();
+      gerbeSur(centre, 12);
+      dire('accueil');
+    });
+  } else {
+    centre.remove();
+  }
 
   const doudous = doudousActifs();
 
@@ -33,9 +53,14 @@ export function ouvrirAccueil(scene, { aller }) {
     portes.append(porte);
   });
 
-  // Ronde des doudous : un toucher, et le doudou fait coucou.
-  const ronde = scene.querySelector('.ronde');
-  const amis = doudous.slice(0, 8).map((d, i) => {
+  // Les doudous autour d’elle : la moitié en « ( » à sa gauche, l’autre en « ) » à sa droite.
+  // Chaque côté a sa propre colonne : ils ne peuvent jamais passer devant elle.
+  // Un toucher, et le doudou fait coucou.
+  const gauche = scene.querySelector('.cote.gauche');
+  const droite = scene.querySelector('.cote.droite');
+  const liste = doudous.slice(0, 10);
+  const moitie = Math.ceil(liste.length / 2);
+  const amis = liste.map((d, i) => {
     const ami = document.createElement('button');
     ami.className = 'ami';
     ami.style.setProperty('--i', i);
@@ -48,10 +73,17 @@ export function ouvrirAccueil(scene, { aller }) {
       gerbeSur(ami, 8);
       dire('coucou-ami', { nom: d.nom, id: d.id });
     });
-    ronde.append(ami);
+    const aGauche = i < moitie;
+    const rang = aGauche ? i : i - moitie;
+    const nb = aGauche ? moitie : liste.length - moitie;
+    const t = nb > 1 ? rang / (nb - 1) : 0.5;             // 0 = en haut, 1 = en bas
+    const ecart = 62 * Math.sin(Math.PI * (0.15 + 0.7 * t)); // plus loin d’elle au milieu : une parenthèse
+    ami.style.left = (aGauche ? 82 - ecart : 18 + ecart) + '%';
+    ami.style.top = 16 + 68 * t + '%';
+    (aGauche ? gauche : droite).append(ami);
     return vivant;
   });
-  ronde.style.setProperty('--n', amis.length);
+  scene.style.setProperty('--n', amis.length);
 
   // Petites scènes de vie : de temps en temps, un doudou au hasard bouge tout seul.
   const vie = setInterval(() => {

@@ -1,0 +1,17 @@
+{
+  "_aide": "Valentine, la guide des doudous. Une ligne par pose : nom de la pose et chemin de l’image (PNG détouré). Pour ajouter une pose, ajouter une ligne. calin : où se place le doudou serré dans ses bras (x et y = centre du doudou en % de l’image de Valentine, taille = largeur du doudou en % de l’image).",
+  "nom": "Valentine",
+  "portrait": "assets/valentine/valentine-portrait.png",
+  "poses": {
+    "content": "assets/valentine/valentine-content.png",
+    "coucou": "assets/valentine/valentine-coucou.png",
+    "loupe": "assets/valentine/valentine-loupe.png",
+    "pyjama": "assets/valentine/valentine-pyjama.png",
+    "docteur": "assets/valentine/valentine-docteur.png",
+    "mange": "assets/valentine/valentine-mange.png",
+    "joie": "assets/valentine/valentine-joie.png",
+    "calin": "assets/valentine/valentine-calin.png",
+    "surprise": "assets/valentine/valentine-surprise.png"
+  },
+  "calin": { "x": 50, "y": 46, "taille": 42 }
+}

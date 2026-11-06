@@ -117,6 +117,7 @@ button {
   pointer-events: auto;
   animation: respire 1.8s ease-in-out infinite;
 }
+.jouer .portrait { width: 100%; height: 100%; object-fit: contain; }
 .jouer::after { /* pastille « lecture » */
   content: "";
   position: absolute;
@@ -137,7 +138,8 @@ button {
 
 .ecran-accueil {
   display: grid;
-  grid-template-rows: 1fr auto;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 1vh;
   padding: var(--haut) var(--droite) var(--bas) var(--gauche);
   background:
     url("../assets/decors/accueil.jpg") center / cover no-repeat,
@@ -153,7 +155,7 @@ button {
   min-height: 0;
 }
 .porte {
-  width: clamp(150px, 40vh, 320px);
+  width: clamp(104px, 26vh, 230px);
   aspect-ratio: 1;
   border-radius: 40px;
   background: linear-gradient(160deg, #ffffff, #fff0e3);
@@ -190,14 +192,30 @@ button {
 .mini-carte:nth-child(3) { transform: translateX(52%) rotate(14deg); }
 .mini-carte:nth-child(2) { z-index: 1; transform: translateY(-4%); }
 
-.ronde {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 1.5vw;
+/* Accueil : [doudous en « ( »] [Valentine] [doudous en « ) »] */
+.cercle { display: grid; grid-template-columns: 1fr auto 1fr; grid-template-rows: minmax(0, 1fr); height: 100%; min-height: 0; padding-top: 2vh; }
+.cote { position: relative; min-width: 0; }
+.cote .ami { position: absolute; translate: -50% -50%; }
+.valentine-centre { position: relative; height: 100%; aspect-ratio: 0.6; }
+.valentine-ici { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: 1; translate: -50% 0; }
+.portrait-valentine {
+  width: var(--portrait);
+  height: var(--portrait);
+  flex: none;
+  border-radius: 50%;
+  animation: flotte 3.4s ease-in-out infinite;
+}
+.portrait-valentine img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 18px rgba(150, 80, 50, 0.3)); }
+.portrait-valentine.coucou { animation: coucou-portrait 1.3s cubic-bezier(0.3, 1.5, 0.5, 1); }
+@keyframes coucou-portrait {
+  0%   { transform: scale(0.3) rotate(-20deg); opacity: 0; }
+  35%  { transform: scale(1.12) rotate(6deg); opacity: 1; }
+  55%  { transform: scale(0.98) rotate(-6deg); }
+  75%  { transform: scale(1.04) rotate(4deg); }
+  100% { transform: scale(1) rotate(0); }
 }
 .ami {
-  --taille: min(clamp(80px, 28vh, 240px), calc((100vw - 60px) / var(--n, 6) - 1.5vw));
+  --taille: clamp(64px, 15vh, 140px);
   position: relative;
   width: var(--taille);
   height: var(--taille);
@@ -310,8 +328,39 @@ button {
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  gap: 18px;
+  gap: 12px;
   padding-top: 100px; /* le coin haut droit reste au menu parent */
+}
+.barre { position: relative; z-index: 6; }
+.barre .boutons { display: flex; gap: 12px; }
+.barre .bouton-rond { width: clamp(80px, 12vh, 96px); height: clamp(80px, 12vh, 96px); }
+.coin-valentine { width: 25vh; height: 25vh; flex: none; }
+
+/* ---------- Valentine ---------- */
+
+.valentine { position: relative; transform-origin: 50% 100%; }
+.valentine .souffle { position: absolute; inset: 0; transform-origin: 50% 100%; animation: souffle-v 3.2s ease-in-out infinite; }
+@keyframes souffle-v {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.02); }
+}
+.valentine .pose-v { position: absolute; inset: 0; opacity: 0; transition: opacity 0.2s ease; }
+.valentine .pose-v.visible { opacity: 1; }
+.valentine .pose-v > img { width: 100%; height: 100%; object-fit: contain; transform: scale(1.3); transform-origin: 50% 94%; filter: drop-shadow(0 6px 8px rgba(120, 60, 30, 0.22)); pointer-events: none; }
+.valentine.rebond { animation: rebond-v 0.45s cubic-bezier(0.3, 1.6, 0.5, 1); }
+@keyframes rebond-v {
+  0%   { transform: scale(0.95, 0.95) translateY(2%); }
+  60%  { transform: scale(1.03, 1.03) translateY(-2%); }
+  100% { transform: none; }
+}
+/* Pose câlin : le doudou devant, entre ses bras */
+.valentine .dans-les-bras {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--t);
+  height: var(--t);
+  translate: -50% -50%;
 }
 
 .carte {
@@ -632,12 +681,12 @@ button {
   position: relative;
   min-width: 0;
   min-height: 0;
-  --cache: 58%;   /* bien caché */
+  --cache: 82%;   /* bien caché : rien ne dépasse */
   --pointe: 26%;  /* quand il pointe le bout du nez */
 }
-.chambre.oreilles { --cache: 14%; --pointe: -4%; }
+/* (les doudous cachés ne dépassent plus : il faut se souvenir ou suivre les indices) */
 
-.compteur {
+.compteur, .cibles {
   position: absolute;
   top: 0;
   left: 0;
@@ -654,6 +703,10 @@ button {
   padding: 7px;
 }
 .pastille .doudou img { filter: brightness(0) opacity(0.22); transition: filter 0.4s; }
+.cibles .pastille .doudou img { filter: grayscale(1) opacity(0.4); transition: filter 0.4s; }
+.cibles .pastille.en-cours { width: clamp(80px, 15vh, 120px); height: clamp(80px, 15vh, 120px); background: #fff; box-shadow: 0 0 0 5px var(--rose), 0 6px 14px rgba(150, 80, 50, 0.25); animation: respire 1.4s ease-in-out infinite; }
+.cibles .pastille.en-cours .doudou img { filter: none; }
+.cibles .pastille.trouvee .doudou img { filter: none; }
 .pastille.trouvee { animation: coucou 0.7s cubic-bezier(0.3, 1.6, 0.5, 1); background: #fff; box-shadow: 0 0 0 4px var(--or), 0 4px 10px rgba(150, 80, 50, 0.18); }
 .pastille.trouvee .doudou img { filter: none; }
 
@@ -720,9 +773,16 @@ button {
   to   { transform: translate(-50%, -150%) scale(1.3) rotate(40deg); opacity: 0; }
 }
 
-/* Trouvé : l’objet se pousse, le doudou sort et fait coucou */
+/* Les doudous se montrent devant leur cachette avant d’aller s’y cacher */
+.cachette.montre .cachee { z-index: 3; clip-path: none; }
+.cachette.montre .cachee .doudou { transform: translateY(-58%); }
+
+/* Trouvé (ou un autre doudou qui dit bonjour) : l’objet se pousse, le doudou sort */
+.cachette.apercu .objet,
 .cachette.trouve .objet { transform: translateX(52%) rotate(12deg) scale(0.78); }
+.cachette.apercu .cachee,
 .cachette.trouve .cachee { z-index: 3; clip-path: none; }
+.cachette.apercu .cachee .doudou,
 .cachette.trouve .cachee .doudou { transform: translateY(-4%) scale(1.08); animation: none; }
 .cachette.trouve.bouge .cachee .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 0.2s 2; }
 .cachette.danse .cachee .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) infinite; animation-delay: calc(var(--i) * -0.15s); }
@@ -847,3 +907,44 @@ button {
 .illu-pique .fruit:nth-child(2) { left: 4%; }
 .illu-pique .fruit:nth-child(3) { right: 4%; animation-delay: -1.3s; }
 .illu-pique .fruit svg { width: 100%; height: 100%; }
+
+/* Bulle de la demande, au-dessus du doudou */
+.bulle {
+  position: absolute;
+  left: calc(4% + min(44%, 52vh) * 0.62);
+  bottom: calc(26% + min(44%, 52vh) * 0.78);
+  z-index: 4;
+  display: flex;
+  gap: 1vh;
+  padding: 1.6vh 2vh;
+  background: #fff;
+  border-radius: 28px;
+  box-shadow: 0 8px 18px rgba(120, 60, 40, 0.22);
+  animation: bulle-arrive 0.45s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+.bulle::after { /* la queue de la bulle, vers le doudou */
+  content: "";
+  position: absolute;
+  left: 18%;
+  bottom: -14px;
+  width: 28px;
+  height: 28px;
+  background: #fff;
+  border-radius: 0 0 0 26px;
+  transform: skewX(20deg);
+}
+@keyframes bulle-arrive { from { transform: scale(0.2); opacity: 0; } }
+.bulle.secoue { animation: secoue 0.45s ease-in-out; }
+@keyframes secoue { 25% { transform: rotate(-6deg) scale(1.08); } 75% { transform: rotate(6deg) scale(1.08); } }
+.bulle .tache {
+  width: clamp(70px, 17vh, 150px);
+  height: clamp(70px, 17vh, 150px);
+  background: var(--teinte);
+  border-radius: 46% 54% 42% 58% / 55% 45% 55% 45%;
+  box-shadow: inset -6px -8px 0 rgba(0, 0, 0, 0.12), inset 6px 6px 0 rgba(255, 255, 255, 0.35);
+  animation: tache 2.4s ease-in-out infinite;
+}
+@keyframes tache { 50% { border-radius: 56% 44% 58% 42% / 45% 55% 45% 55%; transform: scale(1.06); } }
+.bulle .voulu { width: clamp(56px, 14vh, 120px); height: clamp(56px, 14vh, 120px); filter: grayscale(1) brightness(1.6) opacity(0.35); transition: filter 0.3s; }
+.bulle .voulu svg { width: 100%; height: 100%; }
+.bulle .voulu.recu { filter: none; animation: coucou 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }

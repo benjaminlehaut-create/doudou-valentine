@@ -9,13 +9,31 @@ Une application pour **Valentine, 3 ans**, utilisée sur **iPad et smartphone**.
 Jeux, dans l’ordre de réalisation :
 
 1. **Memory des doudous** — fait (4 paires, puis 6).
-2. **Cache-cache des doudous** — fait (`js/jeux/cache-cache.js`). Des doudous se cachent derrière des objets dessinés en SVG (coussin, carton, plante, panier, coffre, pouf). On touche une cachette : l’objet se pousse et le doudou sort (fête, voix, pastille du compteur qui se colore), ou l’objet se soulève sur une petite étoile (« Personne ici… cherche encore ! »). Niveau 1 : 3 doudous dans 5 cachettes, leurs oreilles dépassent. Niveau 2 : 4 doudous dans 6 cachettes, cachés ; ils pointent le bout du nez de temps en temps (indice). Seul le haut d’un doudou caché peut dépasser de son objet. **Retour du parent (6 novembre 2026) : « un peu trop facile », à revoir plus tard** (pistes : un niveau 3 avec plus de cachettes et aucun indice, des doudous qui changent de cachette, un doudou précis à trouver).
-3. **Le pique-nique** — fait (`js/jeux/pique-nique.js`, aliments dessinés en SVG dans `js/jeux/aliments.js`). Un doudou a faim, on touche un aliment, il vole jusqu’à son assiette ; le doudou mange (pose « mange », bruit de croque), puis saute de joie. Niveau 1, les couleurs : « Sacha voudrait un fruit jaune » parmi 3 fruits. Niveau 2, les quantités : « Debby voudrait deux fraises », la voix compte. Un mauvais choix fait un petit bond et la demande est redite gentiment ; après 7 s, le bon aliment se dandine.
+2. **Cache-cache des doudous** — fait, refait le 6 novembre 2026 car trop facile (« elle est très évoluée »). `js/jeux/cache-cache.js`. Les doudous se cachent derrière des objets dessinés en SVG (coussin rose, carton marron, plante verte, panier jaune, coffre violet, pouf bleu : chaque couleur est unique, elle sert d’indice). Rien ne dépasse des cachettes. Il faut retrouver les doudous **un par un, dans l’ordre demandé** (le doudou cherché est en grand en haut à gauche). Ouvrir la mauvaise cachette n’est pas un échec : le doudou qui s’y trouve dit bonjour (« Coucou, c’est moi Cappy ! Mais où est Debby ? ») puis se recache. Niveau 1, « Regarde bien » : on voit les 3 doudous aller se cacher, puis « Où est Debby ? ». Niveau 2, « Les indices » : on ne les voit pas se cacher ; « Sacha se cache derrière quelque chose de bleu ». Niveau 3, « La mémoire » : 4 doudous, 6 cachettes, ils se cachent vite. Pistes si c’est encore trop facile : indices de position (« à côté de la plante »), doudous qui changent de cachette, plus de cachettes.
+3. **Le pique-nique** — fait (`js/jeux/pique-nique.js`, aliments dessinés en SVG dans `js/jeux/aliments.js`). Un doudou a faim : **une bulle au-dessus de lui montre ce qu’il veut** (une grosse tache de la couleur voulue, ou autant d’aliments en ombre qu’il en faut, qui se colorent un à un) et la voix le dit. On touche un aliment, il vole jusqu’à son assiette ; le doudou mange (pose « mange », bruit de croque), puis saute de joie. Niveau 1, les couleurs : « Sacha voudrait un fruit jaune » parmi 3 fruits. Niveau 2, les quantités : « Debby voudrait deux fraises », la voix compte. Un mauvais choix fait un petit bond, la bulle se secoue et la demande est redite gentiment ; après 7 s, le bon aliment se dandine. (Retour du parent le 6 novembre 2026 : sans la bulle, on ne comprenait pas l’objectif.)
 4. L’heure du dodo (rituel du coucher).
 5. Le docteur des doudous.
 6. L’histoire dont Valentine est l’héroïne.
 
 L’interlocuteur (le parent) a un **profil métier, pas développeur** : explique simplement, en français, ce qui a changé et comment le voir. Code simple, lisible, commenté en français.
+
+## 1 bis. Valentine, la guide (décidé le 6 novembre 2026)
+
+Valentine elle-même est le personnage principal : la guide qui accompagne ses doudous dans tous les jeux.
+
+- **Images** : `assets/valentine/` (PNG détourés 768 × 768 : `valentine-content`, `coucou`, `loupe`, `pyjama`, `docteur`, `mange`, `joie`, `calin`, `surprise`, plus `valentine-portrait`, portrait rond). Décrites dans `data/valentine.json` (nom de pose → chemin), pour remplacer ou ajouter une pose en une ligne. Les images ChatGPT arrivent souvent un peu transparentes : `node tools/opacifier.mjs assets/valentine` les rend opaques (sans risque si on le relance).
+- **Confidentialité** : ce sont des portraits reconnaissables de l’enfant. `assets/valentine/` est dans `.gitignore` : **jamais publié sur GitHub** (dépôt public). Sans ces images (version en ligne), Valentine n’apparaît simplement pas et tout le reste fonctionne.
+- **Code** : `js/valentine.js`. `placerValentine(conteneur, poseDeFond)` renvoie `{ pose(nom, { duree, doudou }), fond(nom) }`. Dans un jeu : `valentineDuJeu(scene, 'content')` (de `js/jeux/commun.js`) la place dans son coin, au-dessus des boutons « oreille » et « maison », à environ 25 % de la hauteur d’écran.
+- **Animation** : changement de pose en fondu de 200 ms et petit rebond doux ; respiration continue (échelle 1 → 1,02).
+- **Pose câlin** : le doudou choisi est superposé devant elle, entre ses bras (`pose('calin', { doudou })`). Position et taille réglables dans `data/valentine.json` (`calin` : x, y, taille en %).
+- **Accueil** : Valentine debout au centre (coucou à l’arrivée, joie si on la touche), avec la voix « Coucou Valentine ! Avec qui tu veux jouer aujourd’hui ? ». Ses doudous sont autour d’elle, la moitié en « ( » à sa gauche, l’autre en « ) » à sa droite, dans des colonnes à part : **un doudou ne doit jamais passer devant elle**. Son portrait rond orne le bouton de démarrage.
+- **Poses dans les jeux** :
+  - Memory : content pendant la partie, surprise quand on retourne une carte, joie quand on trouve une paire et à la fin.
+  - Cache-cache : loupe pendant la recherche, surprise quand on ouvre la mauvaise cachette, joie quand on trouve un doudou.
+  - Pique-nique : content, mange quand un doudou mange, joie à la fin.
+  - Dodo (à faire) : pyjama pendant tout le rituel ; à la fin, câlin avec le doudou choisi.
+  - Docteur (à faire) : docteur pendant les soins ; câlin quand le doudou est guéri.
+  - Histoire (à faire) : c’est l’héroïne, avec les poses selon les pages.
 
 ## 2. Règles pour une enfant de 3 ans (non négociables)
 
@@ -52,7 +70,8 @@ manifest.webmanifest  PWA
 sw.js                 service worker (hors ligne)
 css/style.css         tout le style
 js/app.js             démarrage, navigation (#accueil, #memory), pause
-js/accueil.js         écran d’accueil (portes des jeux + ronde des doudous)
+js/accueil.js         écran d’accueil (Valentine au centre, doudous autour, portes des jeux)
+js/valentine.js       Valentine, la guide (poses, fondu, câlin)
 js/jeux/memory.js     jeu 1
 js/doudous.js         chargement des doudous, images, dessins provisoires
 js/voix.js            voix (synthèse ou enregistrement)
@@ -78,4 +97,5 @@ Ajouter un jeu : un module `js/jeux/xxx.js` qui exporte `ouvrirXxx(scene, { alle
 - Petites étapes visibles. Vérifie toi-même dans le navigateur (aperçu, captures, format téléphone paysage 844 × 390 et iPad 1180 × 820) avant de dire qu’une étape est finie.
 - Un commit git par étape réussie.
 - Textes en français, typographie française (’ « » espaces insécables).
-- Confidentialité : le dépôt et le site GitHub Pages sont publics (sauf compte payant). Ne jamais y mettre de photo de Valentine ni d’information personnelle au-delà de son prénom.
+- Confidentialité : le dépôt et le site GitHub Pages sont publics (sauf compte payant). Ne jamais y mettre de photo ou d’illustration ressemblante de Valentine (`assets/valentine/` est exclu de git) ni d’information personnelle au-delà de son prénom.
+- Pièges déjà rencontrés : un `padding` en % se calcule sur la largeur du parent (utiliser des px) ; une hauteur en % dans une grille exige une ligne de taille fixe (`minmax(0, 1fr)`) ; dans l’aperçu caché, les animations et `requestAnimationFrame` sont gelés, donc ne jamais faire dépendre la logique du jeu de la fin d’une animation (utiliser `setTimeout`).

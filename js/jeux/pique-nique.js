@@ -9,8 +9,8 @@ import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
 import { pop, carillon, fanfare, croque } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
-import { BARRE, brancherBarre, afficherFin, melanger } from './commun.js';
-import { ALIMENTS, COULEURS, A_COMPTER, nombre, quantite } from './aliments.js';
+import { BARRE, brancherBarre, afficherFin, melanger, valentineDuJeu } from './commun.js';
+import { ALIMENTS, COULEURS, A_COMPTER, TEINTES, nombre, quantite } from './aliments.js';
 
 const NIVEAUX = [
   { type: 'couleur', choix: 3, demandes: 3 },
@@ -24,6 +24,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
     <div class="pre">
       <div class="progres"></div>
       <div class="convive"></div>
+      <div class="bulle cache"></div>
       <div class="assiette"><div class="dans-assiette"></div></div>
       <div class="panier"></div>
     </div>
@@ -33,6 +34,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
   const pre = scene.querySelector('.pre');
   const progres = scene.querySelector('.progres');
   const convive = scene.querySelector('.convive');
+  const bulle = scene.querySelector('.bulle');
   const dansAssiette = scene.querySelector('.dans-assiette');
   const panier = scene.querySelector('.panier');
   const fin = scene.querySelector('.fin');
@@ -50,11 +52,13 @@ export function ouvrirPiqueNique(scene, { aller }) {
     else dire('pique-compte', { nom: demande.doudou.nom, quantite: quantite(demande.n, demande.aliment) });
   };
   brancherBarre(scene, { ecouter: redire, aller });
+  const valentine = valentineDuJeu(scene, 'content');
 
   function nouvellePartie() {
     minuteries.forEach(clearTimeout);
     minuteries = [];
     fin.classList.add('cache');
+    valentine.fond('content');
     const regle = NIVEAUX[niveau];
     const convives = melanger([...doudousActifs()]).slice(0, regle.demandes);
     progres.replaceChildren(...convives.map((d) => {
@@ -89,8 +93,25 @@ export function ouvrirPiqueNique(scene, { aller }) {
     dansAssiette.replaceChildren();
     convive.replaceChildren(imageDoudou(doudou));
     convive.classList.remove('arrive', 'repart'); void convive.offsetWidth; convive.classList.add('arrive');
+    plusTard(montrerBulle, 500);
     plusTard(redire, 700);
     relancerIndice();
+  }
+
+  // La bulle montre la demande sans avoir besoin de lire :
+  // une grosse tache de la couleur voulue, ou autant d’aliments en ombre qu’il en faut (ils se colorent un à un).
+  function montrerBulle() {
+    if (!demande) return;
+    if (demande.type === 'couleur') {
+      bulle.innerHTML = `<div class="tache" style="--teinte:${TEINTES[demande.aliment.couleur]}"></div>`;
+    } else {
+      bulle.innerHTML = Array.from({ length: demande.n }, () => `<div class="voulu">${demande.aliment.svg}</div>`).join('');
+    }
+    bulle.classList.remove('cache', 'secoue');
+  }
+
+  function secouerBulle() {
+    bulle.classList.remove('secoue'); void bulle.offsetWidth; bulle.classList.add('secoue');
   }
 
   function remplirPanier(ids) {
@@ -125,6 +146,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
     if (id !== demande.idBon) {
       pop();
       bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
+      secouerBulle();
       dire('pique-autre', { aliment: ALIMENTS[id].un, nom: demande.doudou.nom, couleur: demande.aliment.couleur });
       return;
     }
@@ -137,6 +159,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
       plusTard(manger, 650);
     } else {
       demande.donnes++;
+      bulle.children[demande.donnes - 1]?.classList.add('recu');
       dire('pique-nombre', { mot: nombre(demande.donnes, demande.aliment.genre) });
       if (demande.donnes >= demande.n) {
         demande.servi = true;
@@ -191,6 +214,8 @@ export function ouvrirPiqueNique(scene, { aller }) {
     clearTimeout(indice);
     convive.replaceChildren(imageDoudou(doudou, 'mange'));
     convive.classList.add('mange');
+    bulle.classList.add('cache');
+    valentine.pose('mange', { duree: 1400 });
     croque();
     dansAssiette.classList.add('miam');
     plusTard(() => croque(), 450);
@@ -213,10 +238,12 @@ export function ouvrirPiqueNique(scene, { aller }) {
   }
 
   function partieGagnee() {
+    valentine.fond('joie');
     demande = null;
     clearTimeout(indice);
     panier.replaceChildren();
     convive.replaceChildren();
+    bulle.classList.add('cache');
     // Tous les convives reviennent danser
     convive.classList.remove('repart', 'arrive');
     const ronde = document.createElement('div');

@@ -6,7 +6,7 @@ import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
 import { pop, carillon, fanfare } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
-import { BARRE, brancherBarre, afficherFin, melanger } from './commun.js';
+import { BARRE, brancherBarre, afficherFin, melanger, valentineDuJeu } from './commun.js';
 
 const NIVEAUX = [4, 6];          // nombre de paires
 const ATTENTE_ERREUR = 1500;     // temps pour bien voir deux cartes différentes (ms)
@@ -32,6 +32,7 @@ export function ouvrirMemory(scene, { aller }) {
   const consigne = () => dire(niveau === 0 ? 'memory-consigne' : 'memory-consigne-2');
 
   brancherBarre(scene, { ecouter: consigne, aller });
+  const valentine = valentineDuJeu(scene, 'content');
 
   function nouvellePartie() {
     minuteries.forEach(clearTimeout);
@@ -39,6 +40,7 @@ export function ouvrirMemory(scene, { aller }) {
     numeroPartie++;
     fin.classList.add('cache');
     centre.replaceChildren();
+    valentine.fond('content');
 
     const actifs = doudousActifs();
     const nbPaires = Math.min(NIVEAUX[niveau], actifs.length);
@@ -65,6 +67,7 @@ export function ouvrirMemory(scene, { aller }) {
       if (verrou || carte.classList.contains('retournee')) return;
       carte.classList.add('retournee');
       pop();
+      valentine.pose('surprise', { duree: 1000 });
 
       if (!premiere) {
         premiere = { carte, doudou };
@@ -84,6 +87,7 @@ export function ouvrirMemory(scene, { aller }) {
             c.querySelector('.face').replaceChildren(imageDoudou(doudou, 'joie'));
           });
           carillon();
+          valentine.pose('joie', { duree: 1900 });
           gerbeSur(autre.carte, 8);
           gerbeSur(carte, 8);
           faireCoucou(doudou);
@@ -117,6 +121,7 @@ export function ouvrirMemory(scene, { aller }) {
   }
 
   function partieGagnee() {
+    valentine.fond('joie');
     confettis();
     fanfare();
     plateau.querySelectorAll('.carte').forEach((c) => c.classList.add('danse'));

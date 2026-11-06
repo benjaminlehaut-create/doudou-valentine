@@ -6,6 +6,7 @@ import { debloquerSons, douceur } from './sons.js';
 import { installerCoinParent } from './parent.js';
 import { demarrerMinuteur, tempsRestant } from './minuteur.js';
 import { ouvrirAccueil } from './accueil.js';
+import { chargerValentine, portraitValentine } from './valentine.js';
 import { ouvrirMemory } from './jeux/memory.js';
 import { ouvrirCacheCache } from './jeux/cache-cache.js';
 import { ouvrirPiqueNique } from './jeux/pique-nique.js';
@@ -92,7 +93,7 @@ if ('serviceWorker' in navigator) {
 // --- Démarrage ---
 
 async function demarrer() {
-  await Promise.all([chargerDoudous(), chargerPhrases()]);
+  await Promise.all([chargerDoudous(), chargerPhrases(), chargerValentine()]);
 
   installerCoinParent(() => {
     verifierPause();
@@ -100,7 +101,9 @@ async function demarrer() {
   });
 
   const ecranDemarrage = document.getElementById('demarrage');
-  ecranDemarrage.querySelector('.jouer').append(imageDoudou(doudousActifs()[0], 'coucou'));
+  const portrait = portraitValentine();
+  if (portrait) ecranDemarrage.querySelector('.jouer').insertAdjacentHTML('beforeend', `<img class="portrait" src="${portrait}" alt="" draggable="false">`);
+  else ecranDemarrage.querySelector('.jouer').append(imageDoudou(doudousActifs()[0], 'coucou'));
   ecranDemarrage.classList.add('pret');
 
   ecranDemarrage.querySelector('.jouer').addEventListener('click', () => {

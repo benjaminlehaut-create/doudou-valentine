@@ -1,18 +1,21 @@
 // Jeu 2 : le cache-cache des doudous.
-// Des doudous se cachent derrière des objets de la chambre. On touche une cachette :
-// l’objet se pousse, et soit un doudou apparaît (fête !), soit c’est vide (on cherche encore, sans reproche).
-// Niveau 1 : 3 doudous, 5 cachettes, les oreilles dépassent.
-// Niveau 2 : 4 doudous, 6 cachettes, bien cachés (ils ne pointent le bout du nez que de temps en temps).
+// Les doudous se cachent derrière les objets de la chambre. Valentine demande de les retrouver
+// UN PAR UN, DANS L’ORDRE (le doudou cherché est montré en haut de l’écran).
+// Si on ouvre la mauvaise cachette, le doudou qui s’y trouve dit bonjour, rappelle qui on cherche et se recache.
+// Niveau 1, « Regarde bien » : on voit les doudous aller se cacher, puis « Où est Debby ? ».
+// Niveau 2, « Les indices » : on ne les voit pas se cacher ; « Sacha se cache derrière quelque chose de bleu ».
+// Niveau 3, « La mémoire » : 4 doudous, 6 cachettes, ils se cachent vite ; il faut se souvenir.
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
-import { pop, carillon, fanfare, douceur } from '../sons.js';
+import { pop, carillon, fanfare } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
-import { BARRE, brancherBarre, afficherFin, melanger } from './commun.js';
+import { BARRE, brancherBarre, afficherFin, melanger, valentineDuJeu } from './commun.js';
 
 const NIVEAUX = [
-  { doudous: 3, cachettes: 5, oreilles: true },
-  { doudous: 4, cachettes: 6, oreilles: false },
+  { doudous: 3, cachettes: 5, montrer: true, vitesse: 1100, indice: 'nom' },
+  { doudous: 3, cachettes: 6, montrer: false, indice: 'couleur' },
+  { doudous: 4, cachettes: 6, montrer: true, vitesse: 650, indice: 'nom' },
 ];
 
 // Emplacements (en % de l’aire de jeu) : x = centre, y = bas de l’objet, t = taille.
@@ -42,8 +45,8 @@ export const OBJETS = {
     <path d="M6 40 H114 L102 96 H18 Z" fill="#e6b468"/>
     <path d="M10 56 H110 M13 72 H107 M16 87 H104" stroke="#c98f4a" stroke-width="3"/>
     <path d="M30 40 V96 M50 40 V96 M70 40 V96 M90 40 V96" stroke="#d6a056" stroke-width="2.5"/>
-    <path d="M8 38 Q10 12 40 14 Q60 4 82 14 Q112 12 112 38 Z" fill="#f7c6d4"/>
-    <path d="M20 30 h80" stroke="#fbe0e8" stroke-width="5" stroke-dasharray="8 7" stroke-linecap="round"/>
+    <path d="M8 38 Q10 12 40 14 Q60 4 82 14 Q112 12 112 38 Z" fill="#ffdc6a"/>
+    <path d="M20 30 h80" stroke="#fff1b8" stroke-width="5" stroke-dasharray="8 7" stroke-linecap="round"/>
     <rect x="2" y="34" width="116" height="10" rx="5" fill="#d9a052"/></svg>`,
   coffre: `<svg viewBox="0 0 120 100"><ellipse cx="60" cy="97" rx="54" ry="4" fill="rgba(120,60,40,.18)"/>
     <rect x="6" y="40" width="108" height="56" rx="10" fill="#b9a3e6"/>
@@ -57,130 +60,170 @@ export const OBJETS = {
     <path d="M60 18 Q50 56 60 96 M24 30 Q22 64 30 94 M96 30 Q100 64 90 94" stroke="#7fbbe6" stroke-width="3" fill="none"/></svg>`,
 };
 
+// Ce que dit la voix de chaque cachette (pour les indices).
+export const OBJETS_INFOS = {
+  coussin: { couleur: 'rose' },
+  carton: { couleur: 'marron' },
+  plante: { couleur: 'vert' },
+  panier: { couleur: 'jaune' },
+  coffre: { couleur: 'violet' },
+  pouf: { couleur: 'bleu' },
+};
+
 export function ouvrirCacheCache(scene, { aller }) {
   scene.classList.add('ecran-cache');
   scene.innerHTML = `
     <div class="chambre">
-      <div class="compteur"></div>
+      <div class="cibles"></div>
       <div class="cachettes"></div>
     </div>
     ${BARRE}
     <div class="fin cache"></div>`;
 
   const chambre = scene.querySelector('.chambre');
-  const compteur = scene.querySelector('.compteur');
+  const cibles = scene.querySelector('.cibles');
   const zone = scene.querySelector('.cachettes');
   const fin = scene.querySelector('.fin');
 
   let niveau = 0;
   let numeroPartie = 0;
   let actif = true;
-  let restants = 0;
   let minuteries = [];
-  let coucous = null;
+  let etat = null; // { cachettes, ordre, rang, pret }
   const plusTard = (fn, ms) => minuteries.push(setTimeout(fn, ms));
 
-  const consigne = () => {
-    const cle = niveau === 0 ? 'cache-consigne' : 'cache-consigne-2';
-    if (restants > 0 && zone.querySelector('.trouve')) dire('cache-reste', { n: restants === 1 ? 'un' : restants });
-    else dire(cle);
-  };
-  brancherBarre(scene, { ecouter: consigne, aller });
+  // La question en cours (bouton « oreille »)
+  function question() {
+    if (!etat || !etat.pret) return dire(NIVEAUX[niveau].montrer ? 'cache-regarde' : 'cache-ecoute');
+    const cible = etat.ordre[etat.rang];
+    if (!cible) return;
+    if (NIVEAUX[niveau].indice === 'couleur') {
+      dire('cache-indice', { nom: cible.doudou.nom, id: cible.doudou.id, couleur: OBJETS_INFOS[cible.objet].couleur });
+    } else {
+      dire('cache-ou', { nom: cible.doudou.nom, id: cible.doudou.id });
+    }
+  }
+  brancherBarre(scene, { ecouter: question, aller });
+  const valentine = valentineDuJeu(scene, 'loupe');
 
   function nouvellePartie() {
     minuteries.forEach(clearTimeout);
     minuteries = [];
-    clearInterval(coucous);
     numeroPartie++;
     fin.classList.add('cache');
+    valentine.fond('loupe');
 
     const regle = NIVEAUX[niveau];
     const actifs = doudousActifs();
     const nbDoudous = Math.min(regle.doudous, actifs.length);
     const caches = melanger([...actifs]).slice(0, nbDoudous);
-    const emplacements = melanger([...EMPLACEMENTS]).slice(0, regle.cachettes)
-      .sort((a, b) => a.y - b.y); // ceux du fond d’abord, ceux de devant par-dessus
+    const emplacements = melanger([...EMPLACEMENTS]).slice(0, regle.cachettes).sort((a, b) => a.y - b.y);
     const objets = melanger(Object.keys(OBJETS));
     const contenus = melanger([...caches, ...Array(regle.cachettes - nbDoudous).fill(null)]);
-    restants = nbDoudous;
-    chambre.classList.toggle('oreilles', regle.oreilles);
 
-    // Compteur : une pastille par doudou caché, en ombre, qui se colore quand on le trouve.
-    compteur.replaceChildren(...caches.map((d) => {
-      const p = document.createElement('div');
-      p.className = 'pastille';
-      p.dataset.id = d.id;
-      p.append(imageDoudou(d));
-      return p;
-    }));
-
-    zone.replaceChildren(...emplacements.map((e, i) => {
+    const liste = emplacements.map((e, i) => {
       const doudou = contenus[i];
+      const objet = objets[i % objets.length];
       const c = document.createElement('button');
       c.className = 'cachette';
       c.style.setProperty('--x', e.x + '%');
       c.style.setProperty('--y', e.y + '%');
       c.style.setProperty('--t', e.t);
       c.style.setProperty('--i', i);
-      c.innerHTML = `<div class="cachee"></div><div class="objet">${OBJETS[objets[i % objets.length]]}</div>`;
+      c.innerHTML = `<div class="cachee"></div><div class="objet">${OBJETS[objet]}</div>`;
       if (doudou) c.querySelector('.cachee').append(imageDoudou(doudou));
-      c.addEventListener('click', () => chercher(c, doudou));
-      return c;
+      const cachette = { el: c, doudou, objet, trouve: false };
+      c.addEventListener('click', () => chercher(cachette));
+      return cachette;
+    });
+    zone.replaceChildren(...liste.map((c) => c.el));
+
+    // L’ordre dans lequel il faudra les trouver
+    const ordre = melanger(liste.filter((c) => c.doudou));
+    etat = { cachettes: liste, ordre, rang: 0, pret: false, occupe: false };
+    cibles.replaceChildren(...ordre.map((c) => {
+      const p = document.createElement('div');
+      p.className = 'pastille';
+      p.append(imageDoudou(c.doudou));
+      return p;
     }));
 
-    // De temps en temps, un doudou caché pointe le bout de son nez (un indice).
-    coucous = setInterval(() => {
-      const caches = [...zone.querySelectorAll('.cachette:not(.trouve)')].filter((c) => c.querySelector('.doudou'));
-      if (!caches.length) return;
-      const c = caches[Math.floor(Math.random() * caches.length)];
-      c.classList.remove('pointe'); void c.offsetWidth; c.classList.add('pointe');
-    }, regle.oreilles ? 3500 : 5000);
-
-    consigne();
+    if (regle.montrer) {
+      // Les doudous se montrent devant leur cachette, puis vont s’y cacher un par un.
+      liste.filter((c) => c.doudou).forEach((c) => c.el.classList.add('montre'));
+      dire('cache-regarde');
+      const avecDoudou = melanger(liste.filter((c) => c.doudou));
+      avecDoudou.forEach((c, k) => plusTard(() => { c.el.classList.remove('montre'); pop(); }, 2600 + k * regle.vitesse));
+      plusTard(commencer, 2600 + avecDoudou.length * regle.vitesse + 500);
+    } else {
+      dire('cache-ecoute');
+      plusTard(commencer, 2800);
+    }
   }
 
-  function chercher(cachette, doudou) {
-    if (cachette.classList.contains('bouge')) return;
+  function commencer() {
+    etat.pret = true;
+    montrerCible();
+  }
 
-    // Déjà trouvé : il refait coucou, pour le plaisir.
-    if (cachette.classList.contains('trouve')) {
-      douceur();
-      montrerPose(cachette, doudou, 'coucou', 'joie', 1400);
-      dire('coucou-ami', { nom: doudou.nom, id: doudou.id });
-      return;
-    }
+  function montrerCible() {
+    [...cibles.children].forEach((p, k) => p.classList.toggle('en-cours', k === etat.rang));
+    question();
+  }
 
+  function chercher(cachette) {
+    if (!etat || !etat.pret || etat.occupe || cachette.trouve) return;
+    const cible = etat.ordre[etat.rang];
+    const el = cachette.el;
     pop();
-    if (!doudou) {
-      // Personne ici : l’objet se soulève et retombe, une petite étoile s’envole.
-      cachette.classList.add('bouge', 'vide');
+
+    // Personne ici
+    if (!cachette.doudou) {
+      etat.occupe = true;
+      el.classList.add('vide');
       dire('cache-vide');
-      plusTard(() => cachette.classList.remove('bouge', 'vide'), 1100);
+      plusTard(() => { el.classList.remove('vide'); etat.occupe = false; }, 1100);
       return;
     }
 
-    // Trouvé !
-    cachette.classList.add('bouge', 'trouve');
-    montrerPose(cachette, doudou, 'coucou');
-    carillon();
-    gerbeSur(cachette, 10);
-    dire('cache-trouve', { nom: doudou.nom, id: doudou.id });
-    compteur.querySelector(`[data-id="${doudou.id}"]`)?.classList.add('trouvee');
-    restants--;
-    plusTard(() => {
-      cachette.classList.remove('bouge');
-      montrerPose(cachette, doudou, 'joie');
-      if (restants === 0) partieGagnee();
-    }, 1500);
-  }
+    // Un autre doudou : il dit bonjour, rappelle qui on cherche, et se recache.
+    if (cachette !== cible) {
+      etat.occupe = true;
+      valentine.pose('surprise', { duree: 1600 });
+      el.classList.add('apercu');
+      el.querySelector('.cachee').replaceChildren(imageDoudou(cachette.doudou, 'coucou'));
+      dire('cache-pas-lui', { autre: cachette.doudou.nom, nom: cible.doudou.nom });
+      plusTard(() => {
+        el.classList.remove('apercu');
+        el.querySelector('.cachee').replaceChildren(imageDoudou(cachette.doudou));
+        etat.occupe = false;
+      }, 1900);
+      return;
+    }
 
-  function montrerPose(cachette, doudou, pose, ensuite, delai) {
-    cachette.querySelector('.cachee').replaceChildren(imageDoudou(doudou, pose));
-    if (ensuite) plusTard(() => cachette.querySelector('.cachee').replaceChildren(imageDoudou(doudou, ensuite)), delai);
+    // C’est lui !
+    etat.occupe = true;
+    cachette.trouve = true;
+    valentine.pose('joie', { duree: 1800 });
+    el.classList.add('bouge', 'trouve');
+    el.querySelector('.cachee').replaceChildren(imageDoudou(cachette.doudou, 'coucou'));
+    carillon();
+    gerbeSur(el, 10);
+    dire('cache-trouve', { nom: cachette.doudou.nom, id: cachette.doudou.id });
+    cibles.children[etat.rang]?.classList.add('trouvee');
+    plusTard(() => {
+      el.classList.remove('bouge');
+      el.querySelector('.cachee').replaceChildren(imageDoudou(cachette.doudou, 'joie'));
+      etat.rang++;
+      etat.occupe = false;
+      if (etat.rang >= etat.ordre.length) partieGagnee();
+      else montrerCible();
+    }, 2200);
   }
 
   function partieGagnee() {
-    clearInterval(coucous);
+    valentine.fond('joie');
+    etat.pret = false;
     confettis();
     fanfare();
     zone.querySelectorAll('.cachette.trouve').forEach((c) => c.classList.add('danse'));
@@ -203,7 +246,6 @@ export function ouvrirCacheCache(scene, { aller }) {
   return () => {
     actif = false;
     minuteries.forEach(clearTimeout);
-    clearInterval(coucous);
     taire();
   };
 }

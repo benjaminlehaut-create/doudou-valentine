@@ -1,7 +1,7 @@
 // Service worker : rend l’application utilisable sans Internet.
 // Si tu ajoutes un fichier JS ou CSS, ajoute-le à ESSENTIELS et augmente VERSION.
 
-const VERSION = 'doudous-v3';
+const VERSION = 'doudous-v4';
 
 const ESSENTIELS = [
   './',
@@ -18,6 +18,8 @@ const ESSENTIELS = [
   'js/minuteur.js',
   'js/reglages.js',
   'js/icones.js',
+  'js/valentine.js',
+  'data/valentine.json',
   'js/jeux/memory.js',
   'js/jeux/cache-cache.js',
   'js/jeux/commun.js',
@@ -54,6 +56,9 @@ async function mettreEnCacheLesImages(cache) {
 
   const images = await lire('data/images-a-generer.json');
   images?.images?.forEach((i) => i.fichier && urls.add(i.fichier));
+
+  const valentine = await lire('data/valentine.json');
+  if (valentine) [valentine.portrait, ...Object.values(valentine.poses || {})].forEach((u) => u && urls.add(u));
 
   const phrases = await lire('data/phrases.json');
   Object.values(phrases || {}).flat().forEach((p) => p && p.audio && urls.add(p.audio));
