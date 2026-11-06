@@ -29,6 +29,8 @@ L’interlocuteur (le parent) a un **profil métier, pas développeur** : expliq
 
 ## 3. Technique
 
+- **Priorité actuelle (décidé le 6 novembre 2026)** : faire tourner l’app sur le PC Windows du parent (navigateur, `Lancer.bat`, souris). Le test et l’installation sur iPad viendront plus tard ; ne rien faire qui les bloque.
+
 - **Vanilla JS en modules ES, sans étape de compilation** (pas de Vite pour l’instant : le dossier se déploie tel quel). Pas de framework.
 - **PWA** : `manifest.webmanifest` (plein écran, paysage), `sw.js` (hors ligne). Le service worker met en cache les fichiers essentiels, toutes les images listées dans `data/doudous.json` et `data/images-a-generer.json`, puis applique « cache d’abord, mise à jour en arrière-plan » : une modification apparaît au **deuxième** lancement. Sur `localhost`, le service worker est volontairement désactivé (et nettoyé) pour voir chaque modification tout de suite ; le hors-ligne se teste sur GitHub Pages. Si tu ajoutes un fichier JS ou CSS, **ajoute-le à la liste `ESSENTIELS` de `sw.js`** et augmente `VERSION`.
 - **Tous les chemins sont relatifs** (`assets/…`, jamais `/assets/…`) : le site est servi depuis un sous-dossier sur GitHub Pages.
