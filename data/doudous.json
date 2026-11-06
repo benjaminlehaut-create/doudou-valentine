@@ -7,6 +7,6 @@
     { "id": "panda", "nom": "Pandy Panda", "couleur": "#f4f0ea", "dossier": "assets/doudous/panda" },
     { "id": "poussin-jaune", "nom": "Poussin", "couleur": "#f7d54a", "dossier": "assets/doudous/poussin-jaune" },
     { "id": "koala-doux", "nom": "Koala Doux", "couleur": "#8a8170", "dossier": "assets/doudous/koala-doux" },
-    { "id": "goubi", "nom": "Goubi", "couleur": "#c9bba8", "dossier": "assets/doudous/goubi" }
+    { "id": "kiki", "nom": "Kiki", "couleur": "#c9bba8", "dossier": "assets/doudous/kiki" }
   ]
 }
