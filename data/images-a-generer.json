@@ -25,6 +25,11 @@
       "prompt": "Une chambre d’enfant douce et lumineuse, vue de face à hauteur d’enfant : un mur pêche avec un papier peint à petits pois, une plinthe claire, un parquet blond chaleureux qui occupe la moitié basse de l’image. Pièce vide et calme, sans meuble ni objet, car des cachettes y seront posées."
     },
     {
+      "fichier": "assets/decors/pique-nique.jpg",
+      "taille": "1536x1024",
+      "prompt": "Un pique-nique dans un pré au printemps, vu de face à hauteur d’enfant : un ciel bleu tendre avec de petits nuages en coton en haut, une colline d’herbe verte douce, et une grande nappe à carreaux rose et blanc posée au sol qui occupe toute la moitié basse de l’image. Aucun objet sur la nappe, car des assiettes et des fruits y seront posés."
+    },
+    {
       "fichier": "assets/decors/pause.jpg",
       "taille": "1536x1024",
       "prompt": "Une chambre d’enfant la nuit, très calme : un ciel étoilé bleu nuit par la fenêtre, une lune souriante en tissu, une veilleuse dorée, un petit lit avec une couverture douce. Ambiance de dodo apaisante."

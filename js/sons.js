@@ -64,3 +64,25 @@ export function fanfare() {
   note(1568, melodie.length * 0.14, 1.4, { volume: 0.16 });
   note(784, melodie.length * 0.14, 1.4, { volume: 0.12 });
 }
+
+// Croque ! (un doudou mange) : petits bruits secs et filtrés
+export function croque() {
+  if (!contexte) return;
+  const t0 = contexte.currentTime;
+  for (let k = 0; k < 3; k++) {
+    const t = t0 + k * 0.11;
+    const duree = 0.07;
+    const tampon = contexte.createBuffer(1, Math.ceil(contexte.sampleRate * duree), contexte.sampleRate);
+    const d = tampon.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / d.length) ** 2;
+    const source = contexte.createBufferSource();
+    source.buffer = tampon;
+    const filtre = contexte.createBiquadFilter();
+    filtre.type = 'bandpass';
+    filtre.frequency.value = 1800 + k * 300;
+    const gain = contexte.createGain();
+    gain.gain.value = 0.5 * reglages.volumeSons;
+    source.connect(filtre).connect(gain).connect(contexte.destination);
+    source.start(t);
+  }
+}

@@ -1,7 +1,7 @@
 // Service worker : rend l’application utilisable sans Internet.
 // Si tu ajoutes un fichier JS ou CSS, ajoute-le à ESSENTIELS et augmente VERSION.
 
-const VERSION = 'doudous-v2';
+const VERSION = 'doudous-v3';
 
 const ESSENTIELS = [
   './',
@@ -21,6 +21,8 @@ const ESSENTIELS = [
   'js/jeux/memory.js',
   'js/jeux/cache-cache.js',
   'js/jeux/commun.js',
+  'js/jeux/pique-nique.js',
+  'js/jeux/aliments.js',
   'data/doudous.json',
   'data/phrases.json',
   'data/images-a-generer.json',

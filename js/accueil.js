@@ -5,11 +5,13 @@ import { dire } from './voix.js';
 import { douceur } from './sons.js';
 import { gerbeSur } from './recompense.js';
 import { OBJETS } from './jeux/cache-cache.js';
+import { ALIMENTS } from './jeux/aliments.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
   { id: 'memory', nom: 'Memory', illustration: illustrationMemory },
   { id: 'cache-cache', nom: 'Cache-cache', illustration: illustrationCache },
+  { id: 'pique-nique', nom: 'Pique-nique', illustration: illustrationPique },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -118,5 +120,13 @@ function illustrationCache(doudous) {
   objet.className = 'objet';
   objet.innerHTML = OBJETS.coussin;
   boite.append(cachee, objet);
+  return boite;
+}
+
+// Une nappe à carreaux et deux fruits
+function illustrationPique() {
+  const boite = document.createElement('div');
+  boite.className = 'illu-pique';
+  boite.innerHTML = `<div class="nappe"></div><div class="fruit">${ALIMENTS.pomme.svg}</div><div class="fruit">${ALIMENTS.banane.svg}</div>`;
   return boite;
 }
