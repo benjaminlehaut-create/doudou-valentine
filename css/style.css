@@ -153,7 +153,7 @@ button {
   min-height: 0;
 }
 .porte {
-  width: clamp(160px, 44vh, 340px);
+  width: clamp(150px, 40vh, 320px);
   aspect-ratio: 1;
   border-radius: 40px;
   background: linear-gradient(160deg, #ffffff, #fff0e3);
@@ -197,12 +197,64 @@ button {
   gap: 1.5vw;
 }
 .ami {
-  width: clamp(80px, 21vh, 190px);
-  height: clamp(80px, 21vh, 190px);
+  --taille: min(clamp(80px, 28vh, 240px), calc((100vw - 60px) / var(--n, 6) - 1.5vw));
+  position: relative;
+  width: var(--taille);
+  height: var(--taille);
   animation: balance 2.6s ease-in-out infinite;
   animation-delay: calc(var(--i) * -0.37s);
 }
-.ami.coucou { animation: coucou 0.9s cubic-bezier(0.3, 1.6, 0.5, 1); }
+/* respiration douce, en permanence */
+.ami .doudou {
+  transform-origin: 50% 100%;
+  animation: souffle 2.8s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -0.5s);
+}
+@keyframes souffle {
+  0%, 100% { transform: scale(1, 1); }
+  50%      { transform: scale(0.985, 1.035); }
+}
+
+/* Petites scènes de vie (js/accueil.js) */
+.ami.scene-coucou { animation: coucou 0.9s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.ami.scene-coucou .doudou { animation: salue 0.45s ease-in-out 4 alternate; }
+@keyframes salue {
+  from { transform: rotate(-5deg); }
+  to   { transform: rotate(5deg); }
+}
+.ami.scene-saute { animation: none; }
+.ami.scene-saute .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 2; }
+@keyframes saute {
+  0%   { transform: translateY(0) scale(1, 1); }
+  15%  { transform: translateY(0) scale(1.12, 0.86); }
+  50%  { transform: translateY(-38%) scale(0.94, 1.08); }
+  80%  { transform: translateY(0) scale(1.1, 0.9); }
+  100% { transform: translateY(0) scale(1, 1); }
+}
+.ami.scene-tourbillon { animation: none; }
+.ami.scene-tourbillon .doudou { animation: tourbillon 1.2s cubic-bezier(0.4, 0, 0.3, 1); }
+@keyframes tourbillon {
+  0%   { transform: translateY(0) scale(1, 1); }
+  20%  { transform: translateY(0) scale(1.1, 0.88); }
+  60%  { transform: translateY(-30%) rotateY(360deg) scale(1); }
+  85%  { transform: translateY(0) rotateY(360deg) scale(1.08, 0.92); }
+  100% { transform: translateY(0) rotateY(360deg) scale(1, 1); }
+}
+.ami.scene-dodo { animation: none; transform: rotate(-3deg); }
+.ami.scene-dodo .doudou { animation: souffle 1.8s ease-in-out infinite; }
+.zzz-mini {
+  position: absolute;
+  top: 0;
+  right: 4%;
+  font-size: calc(var(--taille) * 0.2);
+  font-weight: 800;
+  color: #8f7fd9;
+  text-shadow: 0 2px 0 #fff;
+  pointer-events: none;
+}
+.zzz-mini span { display: inline-block; opacity: 0; animation: zzz 1.8s ease-in-out infinite; }
+.zzz-mini span:nth-child(2) { animation-delay: 0.45s; font-size: 0.8em; }
+.zzz-mini span:nth-child(3) { animation-delay: 0.9s; font-size: 0.6em; }
 @keyframes balance {
   0%, 100% { transform: rotate(-4deg); }
   50%      { transform: rotate(4deg) translateY(-4px); }
@@ -302,6 +354,7 @@ button {
   background: radial-gradient(circle at 50% 40%, #ffffff, #fff4e8);
   padding: 8%;
 }
+.carte.trouvee .face .doudou { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 0.45s 2; transform-origin: 50% 100%; }
 .carte.trouvee .face {
   border-color: var(--or);
   box-shadow: 0 0 0 3px #fff, 0 0 26px rgba(255, 196, 80, 0.9);

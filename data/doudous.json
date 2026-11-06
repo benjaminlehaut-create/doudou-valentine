@@ -6,6 +6,7 @@
     { "id": "chat-rose", "nom": "Debby", "couleur": "#f2a0c0", "dossier": "assets/doudous/chat-rose" },
     { "id": "panda", "nom": "Pandy Panda", "couleur": "#f4f0ea", "dossier": "assets/doudous/panda" },
     { "id": "poussin-jaune", "nom": "Poussin", "couleur": "#f7d54a", "dossier": "assets/doudous/poussin-jaune" },
-    { "id": "lapinou", "nom": "Lapinou", "couleur": "#c9b5f2", "forme": "lapin", "provisoire": true }
+    { "id": "koala-doux", "nom": "Koala Doux", "couleur": "#8a8170", "dossier": "assets/doudous/koala-doux" },
+    { "id": "goubi", "nom": "Goubi", "couleur": "#c9bba8", "dossier": "assets/doudous/goubi" }
   ]
 }

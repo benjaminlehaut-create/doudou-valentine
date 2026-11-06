@@ -82,8 +82,11 @@ export function ouvrirMemory(scene, { aller }) {
       if (autre.doudou.id === doudou.id) {
         // Paire trouvée !
         plusTard(() => {
-          autre.carte.classList.add('trouvee');
-          carte.classList.add('trouvee');
+          // Les doudous retrouvés sautent de joie sur leurs cartes
+          [autre.carte, carte].forEach((c) => {
+            c.classList.add('trouvee');
+            c.querySelector('.face').replaceChildren(imageDoudou(doudou, 'joie'));
+          });
           carillon();
           gerbeSur(autre.carte, 8);
           gerbeSur(carte, 8);

@@ -31,26 +31,64 @@ export function ouvrirAccueil(scene, { aller }) {
 
   // Ronde des doudous : un toucher, et le doudou fait coucou.
   const ronde = scene.querySelector('.ronde');
-  doudous.slice(0, 7).forEach((d, i) => {
+  const amis = doudous.slice(0, 8).map((d, i) => {
     const ami = document.createElement('button');
     ami.className = 'ami';
     ami.style.setProperty('--i', i);
     ami.setAttribute('aria-label', d.nom);
     ami.append(imageDoudou(d));
-    let enCours = null;
+    const vivant = { ami, doudou: d, minuterie: null, occupe: false };
     ami.addEventListener('click', () => {
-      clearTimeout(enCours);
-      ami.replaceChildren(imageDoudou(d, 'coucou'));
-      ami.classList.remove('coucou'); void ami.offsetWidth; ami.classList.add('coucou');
+      jouerScene(vivant, 'coucou');
       douceur();
       gerbeSur(ami, 8);
       dire('coucou-ami', { nom: d.nom, id: d.id });
-      enCours = setTimeout(() => { ami.classList.remove('coucou'); ami.replaceChildren(imageDoudou(d)); }, 1800);
     });
     ronde.append(ami);
+    return vivant;
   });
+  ronde.style.setProperty('--n', amis.length);
+
+  // Petites scènes de vie : de temps en temps, un doudou au hasard bouge tout seul.
+  const vie = setInterval(() => {
+    const libres = amis.filter((a) => !a.occupe);
+    if (!libres.length) return;
+    const choix = libres[Math.floor(Math.random() * libres.length)];
+    jouerScene(choix, SCENES[Math.floor(Math.random() * SCENES.length)]);
+  }, 2600);
 
   dire('accueil');
+
+  return () => {
+    clearInterval(vie);
+    amis.forEach((a) => clearTimeout(a.minuterie));
+  };
+}
+
+// Chaque scène : une pose du doudou, une animation CSS (classe), une durée.
+const SCENES_DEFINIES = {
+  coucou: { pose: 'coucou', duree: 1800 },
+  saute: { pose: 'joie', duree: 1200 },
+  tourbillon: { pose: 'joie', duree: 1300 },
+  dodo: { pose: 'dodo', duree: 3600 },
+};
+const SCENES = ['saute', 'coucou', 'dodo', 'tourbillon', 'saute'];
+
+function jouerScene(vivant, nom) {
+  const { ami, doudou } = vivant;
+  const scene = SCENES_DEFINIES[nom];
+  clearTimeout(vivant.minuterie);
+  vivant.occupe = true;
+  ami.className = 'ami';
+  ami.replaceChildren(imageDoudou(doudou, scene.pose));
+  if (nom === 'dodo') ami.insertAdjacentHTML('beforeend', '<span class="zzz-mini"><span>z</span><span>z</span><span>z</span></span>');
+  void ami.offsetWidth; // relance l’animation même si c’est la même
+  ami.classList.add('scene-' + nom);
+  vivant.minuterie = setTimeout(() => {
+    ami.className = 'ami';
+    ami.replaceChildren(imageDoudou(doudou));
+    vivant.occupe = false;
+  }, scene.duree);
 }
 
 // Trois petites cartes en éventail

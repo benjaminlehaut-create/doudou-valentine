@@ -4,7 +4,9 @@
     {
       "name": "doudous",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["tools/serveur.mjs"],
+      "runtimeArgs": [
+        "tools/serveur.mjs"
+      ],
       "port": 8080
     }
   ]
