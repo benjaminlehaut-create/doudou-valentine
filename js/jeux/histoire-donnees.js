@@ -13,6 +13,10 @@ export const DEBUTS = {
   oiseau: `<svg viewBox="0 0 120 100"><rect x="8" y="8" width="104" height="84" rx="10" fill="#cfeaf8" stroke="#fff" stroke-width="6"/><path d="M60 8 V92 M8 50 H112" stroke="#fff" stroke-width="5"/>
     <ellipse cx="62" cy="58" rx="22" ry="17" fill="#4f9be0"/><circle cx="80" cy="46" r="11" fill="#4f9be0"/><circle cx="83" cy="44" r="2.6" fill="#1d2a40"/><path d="M90 46 l9 2 l-9 3 z" fill="#ffb02e"/>
     <path d="M52 52 Q40 40 30 50 Q42 54 52 62 Z" fill="#7fc1f0"/><path d="M42 66 l-10 6 M48 70 l-6 8" stroke="#ffb02e" stroke-width="3" stroke-linecap="round"/></svg>`,
+  graine: `<svg viewBox="0 0 120 100"><path d="M60 94 V40" stroke="#6cc070" stroke-width="5"/><path d="M60 60 Q40 50 34 30 Q54 34 60 54 Q66 34 86 30 Q80 50 60 60 Z" fill="#8fd09b"/>
+    <ellipse cx="60" cy="88" rx="16" ry="8" fill="#a8774f"/><circle cx="60" cy="18" r="10" fill="#ffd36b" stroke="#f0b92a" stroke-width="3"/><path d="M60 8 v6 M52 12 l4 5 M68 12 l-4 5" stroke="#ffd36b" stroke-width="3" stroke-linecap="round"/></svg>`,
+  filante: `<svg viewBox="0 0 120 100"><path d="M20 20 L90 70" stroke="#ffd36b" stroke-width="3" stroke-dasharray="2 6" opacity=".7"/><path d="M90 70 L104 62 L100 78 L116 74 L96 90 L90 70 Z" fill="#ffd36b" stroke="#f0b92a" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="20" cy="20" r="7" fill="#fff6c9"/><path d="M8 20 h8 M20 8 v8 M12 12 l6 6" stroke="#fff6c9" stroke-width="2.5" stroke-linecap="round"/></svg>`,
 };
 
 // --- 3. Le moyen de transport ---
@@ -28,6 +32,11 @@ export const TRANSPORTS = {
   train: { nom: 'train', svg: `<svg viewBox="0 0 130 80"><rect x="6" y="30" width="58" height="34" rx="6" fill="#4f9be0"/><rect x="40" y="10" width="24" height="24" rx="4" fill="#4f9be0"/><rect x="12" y="20" width="10" height="12" fill="#5e6b8a"/>
     <rect x="44" y="14" width="16" height="12" rx="2" fill="#cfeaf8"/><rect x="70" y="34" width="54" height="30" rx="6" fill="#ffb3c9"/><rect x="78" y="40" width="14" height="12" rx="2" fill="#fff"/><rect x="100" y="40" width="14" height="12" rx="2" fill="#fff"/>
     <circle cx="20" cy="68" r="8" fill="#5e6b8a"/><circle cx="50" cy="68" r="8" fill="#5e6b8a"/><circle cx="84" cy="68" r="8" fill="#5e6b8a"/><circle cx="110" cy="68" r="8" fill="#5e6b8a"/><circle cx="10" cy="12" r="6" fill="#fff" opacity=".8"/></svg>` },
+  carrosse: { nom: 'carrosse', svg: `<svg viewBox="0 0 130 90"><path d="M30 50 Q30 24 65 24 Q100 24 100 50 V66 H30 Z" fill="#c9b5f2" stroke="#a58fd8" stroke-width="3"/>
+    <circle cx="46" cy="66" r="14" fill="#ffd36b" stroke="#f0b92a" stroke-width="4"/><circle cx="84" cy="66" r="14" fill="#ffd36b" stroke="#f0b92a" stroke-width="4"/>
+    <path d="M65 24 V10" stroke="#f0b92a" stroke-width="3"/><path d="M65 4 l3 6 l6 1 l-6 3 l-1 6 l-2 -6 l-6 -3 l6 -1 z" fill="#ffd36b"/></svg>` },
+  tapis: { nom: 'tapis volant', svg: `<svg viewBox="0 0 130 80"><path d="M10 50 Q65 26 120 50 Q65 60 10 50 Z" fill="#9b5fc8" stroke="#7a3fae" stroke-width="3"/>
+    <path d="M20 50 Q65 36 110 50" stroke="#ffd36b" stroke-width="3" fill="none"/><circle cx="30" cy="48" r="3" fill="#ffd36b"/><circle cx="65" cy="42" r="3" fill="#ffd36b"/><circle cx="100" cy="48" r="3" fill="#ffd36b"/></svg>` },
 };
 
 // --- 4. Le lieu de l’aventure, et ce qu’on y ramasse ---
@@ -120,6 +129,8 @@ export const TRESORS = {
   collier: { nom: 'un collier de perles arc-en-ciel', svg: `<svg viewBox="0 0 100 100"><path d="M14 22 Q50 96 86 22" stroke="#e8e8f0" stroke-width="3" fill="none"/>${['#ef4d5a', '#ff9a2e', '#ffd23a', '#6cc070', '#4f9be0', '#9b5fc8', '#ff8fab'].map((c, i) => { const t = (i + 1) / 8; const x = 14 + 72 * t; const y = 22 + 4 * 74 * t * (1 - t) * 1.3; return `<circle cx="${x}" cy="${y}" r="7" fill="${c}"/>`; }).join('')}</svg>` },
   licorne: { nom: 'une petite licorne en peluche', svg: `<svg viewBox="0 0 100 100"><ellipse cx="54" cy="70" rx="30" ry="20" fill="#fff" stroke="#e8e0f4" stroke-width="3"/><circle cx="34" cy="44" r="18" fill="#fff" stroke="#e8e0f4" stroke-width="3"/><path d="M30 28 L40 4 L42 28 Z" fill="#ffd36b"/>
     <path d="M44 30 Q62 26 66 46 Q56 40 48 42 Z" fill="#ff8fab"/><path d="M46 36 Q66 40 64 58 Q56 48 48 48 Z" fill="#c9b5f2"/><circle cx="28" cy="44" r="3" fill="#2e2226"/><circle cx="22" cy="52" r="3" fill="#ffc2d2"/><path d="M34 86 v10 M70 86 v10" stroke="#e8e0f4" stroke-width="6" stroke-linecap="round"/></svg>` },
+  epee: { nom: 'une épée magique', svg: `<svg viewBox="0 0 100 100"><path d="M50 10 L56 70 L50 80 L44 70 Z" fill="#c9d3e8" stroke="#9aa6c0" stroke-width="2"/><rect x="30" y="66" width="40" height="8" rx="3" fill="#ffd36b"/><rect x="46" y="74" width="8" height="20" rx="3" fill="#b9773e"/><circle cx="50" cy="94" r="6" fill="#ffd36b"/></svg>` },
+  oeuf: { nom: 'un œuf de dragon qui scintille', svg: `<svg viewBox="0 0 100 100"><ellipse cx="50" cy="56" rx="30" ry="38" fill="#8fd6ac" stroke="#5fae6e" stroke-width="3"/><path d="M34 30 Q50 44 40 60 M66 26 Q54 42 64 56" stroke="#5fae6e" stroke-width="3" fill="none"/><circle cx="50" cy="20" r="4" fill="#ffd36b"/></svg>` },
 };
 
 // --- 8. Comment ça finit ---

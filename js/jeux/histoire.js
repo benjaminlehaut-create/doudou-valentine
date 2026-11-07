@@ -4,7 +4,7 @@
 //   2. Valentine choisit son doudou compagnon.
 //   3. Elle choisit le transport (3 au hasard parmi vélo, montgolfière, bateau, fusée, train) → petit voyage animé.
 //   4. Elle choisit le lieu (3 au hasard parmi 6) : forêt, plage, lune, château, montagne enneigée, fond de la mer.
-//   5. Une rencontre (au hasard) : un petit animal a perdu son ballon d’une couleur ; il faut trouver le bon.
+//   5. Deux rencontres (au hasard) : des petits animaux ont perdu leur ballon d’une couleur ; il faut trouver le bon.
 //   6. Elle ramasse de 3 à 5 objets dans le décor (la voix compte).
 //   7. Elle choisit une clé pour ouvrir le coffre : chaque clé donne un trésor différent.
 //   8. Retour à la maison dans le même transport, et une fin au hasard (dodo, fête, ou on raconte tout à Maman).
@@ -114,6 +114,38 @@ export function ouvrirHistoire(scene, { aller }) {
     return rangee;
   }
 
+  // Une rencontre : retrouver le ballon de la bonne couleur (i = 0 la première, 1 la seconde)
+  function etapeRencontre(i) {
+    return () => {
+      decor(recit.lieu);
+      valentine.fond('content');
+      const { animal, couleur } = recit.rencontres[i];
+      const genre = ANIMAUX[animal].genre === 'f' ? '-f' : '';
+      raconter('h-rencontre' + (i ? '-2' : '') + genre, { animal: ANIMAUX[animal].nom, couleur }, false);
+      const bete = document.createElement('div');
+      bete.className = 'animal triste';
+      bete.innerHTML = ANIMAUX[animal].svg;
+      interactif.append(bete);
+      const couleurs = melanger([couleur, ...melanger(Object.keys(BALLONS).filter((c) => c !== couleur)).slice(0, 2)]);
+      choixEnImages('ballons', couleurs.map((c) => ({ id: c, label: 'ballon ' + c, svg: ballon(BALLONS[c]) })), (c, bouton) => {
+        if (c !== couleur) {
+          pop();
+          bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
+          valentine.pose('surprise', { duree: 1200 });
+          dire('h-rencontre-pas-ca', { couleur });
+          return false;
+        }
+        carillon();
+        valentine.pose('joie', { duree: 2400 });
+        bete.classList.replace('triste', 'heureux');
+        bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(BALLONS[c])}</div>`);
+        dire('h-rencontre-merci' + genre, { animal: ANIMAUX[animal].nom });
+        plusTard(() => tourner.classList.remove('cache'), 4500);
+        return true;
+      });
+    };
+  }
+
   // ---- Les étapes de l’histoire ----
   const ETAPES = [
     // 1. Le début
@@ -164,35 +196,9 @@ export function ouvrirHistoire(scene, { aller }) {
         plusTard(suivante, 2600);
       });
     },
-    // 5. La rencontre : retrouver le ballon de la bonne couleur
-    () => {
-      decor(recit.lieu);
-      valentine.fond('content');
-      const { animal, couleur } = recit.rencontre;
-      const genre = ANIMAUX[animal].genre === 'f' ? '-f' : '';
-      raconter('h-rencontre' + genre, { animal: ANIMAUX[animal].nom, couleur }, false);
-      const bete = document.createElement('div');
-      bete.className = 'animal triste';
-      bete.innerHTML = ANIMAUX[animal].svg;
-      interactif.append(bete);
-      const couleurs = melanger([couleur, ...melanger(Object.keys(BALLONS).filter((c) => c !== couleur)).slice(0, 2)]);
-      choixEnImages('ballons', couleurs.map((c) => ({ id: c, label: 'ballon ' + c, svg: ballon(BALLONS[c]) })), (c, bouton) => {
-        if (c !== couleur) {
-          pop();
-          bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
-          valentine.pose('surprise', { duree: 1200 });
-          dire('h-rencontre-pas-ca', { couleur });
-          return false;
-        }
-        carillon();
-        valentine.pose('joie', { duree: 2400 });
-        bete.classList.replace('triste', 'heureux');
-        bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(BALLONS[c])}</div>`);
-        dire('h-rencontre-merci' + genre, { animal: ANIMAUX[animal].nom });
-        plusTard(() => tourner.classList.remove('cache'), 4500);
-        return true;
-      });
-    },
+    // 5 et 6. Deux rencontres : retrouver le ballon de la bonne couleur
+    etapeRencontre(0),
+    etapeRencontre(1),
     // 6. Ramasser des objets (de 3 à 5)
     () => {
       const lieu = LIEUX[recit.lieu];
@@ -301,7 +307,7 @@ export function ouvrirHistoire(scene, { aller }) {
       doudou: null,
       transport: null,
       lieu: null,
-      rencontre: { animal: auHasard(Object.keys(ANIMAUX)), couleur: auHasard(Object.keys(BALLONS)) },
+      rencontres: melanger(Object.keys(ANIMAUX)).slice(0, 2).map((animal) => ({ animal, couleur: auHasard(Object.keys(BALLONS)) })),
       combien: 3 + Math.floor(Math.random() * 3),
       tresor: null,
       fin: auHasard(FINS),
