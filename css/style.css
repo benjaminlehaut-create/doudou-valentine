@@ -1237,17 +1237,14 @@ button {
 
 .trouvaille { position: absolute; width: clamp(80px, 16vh, 130px); height: clamp(80px, 16vh, 130px); translate: -50% -50%;
   animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards, flotte 2.4s ease-in-out infinite; animation-delay: calc(var(--i) * 0.4s + 0.6s), calc(var(--i) * -0.8s); }
-.trouvaille svg { width: 100%; height: 100%; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2)); }
+.trouvaille svg, .trouvaille img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 6px 8px rgba(0, 0, 0, 0.2)); }
 .trouvaille.ramasse { animation: ramasse 0.6s ease-in forwards; pointer-events: none; }
 @keyframes ramasse { 30% { transform: scale(1.3); } to { transform: translateY(-120%) scale(0.2); opacity: 0; } }
 
 .coffre-tresor { position: absolute; left: 18%; right: 18%; top: 26%; bottom: 10%; animation: respire 1.4s ease-in-out infinite; }
-.coffre-tresor > svg { width: 100%; height: 100%; filter: drop-shadow(0 12px 16px rgba(80, 40, 20, 0.35)); }
-.coffre-tresor .couvercle { transform-box: fill-box; transform-origin: 50% 100%; transition: transform 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
-.coffre-tresor.ouvert { animation: none; }
-.coffre-tresor.ouvert .couvercle { transform: translateY(-30%) rotate(-12deg); }
+.coffre-tresor > svg, .coffre-tresor > img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 12px 16px rgba(80, 40, 20, 0.35)); }
 .tresor { position: absolute; left: 18%; right: 18%; top: -42%; aspect-ratio: 1; animation: tresor 1.2s cubic-bezier(0.3, 1.5, 0.5, 1) both; filter: drop-shadow(0 0 20px rgba(255, 211, 107, 0.9)); }
-.tresor svg { width: 100%; height: 100%; }
+.tresor svg, .tresor img { width: 100%; height: 100%; object-fit: contain; }
 @keyframes tresor { from { transform: translateY(60%) scale(0.2); opacity: 0; } to { transform: none; opacity: 1; } }
 
 .tourner { position: absolute; right: 2.5%; bottom: 4%; z-index: 6; width: clamp(84px, 16vh, 130px); height: clamp(84px, 16vh, 130px); border-radius: 50%;
@@ -1331,7 +1328,7 @@ button {
   background: radial-gradient(circle at 80% 22%, rgba(255, 246, 201, 0.5) 0 6%, transparent 12%), rgba(30, 28, 80, 0.55); }
 
 .objet-debut { position: absolute; inset: 12% 8%; animation: carte 2.4s ease-in-out infinite alternate; }
-.objet-debut svg { width: 100%; height: 100%; filter: drop-shadow(0 12px 16px rgba(120, 60, 40, 0.3)); }
+.objet-debut svg, .objet-debut img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 12px 16px rgba(120, 60, 40, 0.3)); }
 
 /* Rangées de choix en images (doudous, transports, lieux, ballons, clés) */
 .choix-images { position: absolute; inset: 0; display: flex; flex-wrap: wrap; align-content: center; justify-content: center; gap: 2vh 1.6vw; }
@@ -1363,13 +1360,13 @@ button {
 /* L’obstacle sur le chemin : un seul geste (toucher) pour le dégager */
 .obstacle { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); width: clamp(140px, 36vh, 260px); aspect-ratio: 1.2;
   background: none; border: none; padding: 0; cursor: pointer; animation: respire 1.6s ease-in-out infinite; }
-.obstacle svg { width: 100%; height: 100%; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25)); }
+.obstacle svg, .obstacle img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25)); }
 .obstacle.degage { animation: ramasse 0.6s ease-in forwards; pointer-events: none; }
 
 /* Le voyage : le transport traverse la page */
 .voyage { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
 .vehicule { position: absolute; top: 18%; width: 34%; opacity: 0; }
-.vehicule svg { width: 100%; filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.25)); }
+.vehicule svg, .vehicule img { width: 100%; filter: drop-shadow(0 12px 16px rgba(0, 0, 0, 0.25)); }
 .voyage.part .vehicule { animation: traverse 3.2s ease-in-out forwards; }
 .voyage.revient .vehicule { animation: traverse-retour 3.2s ease-in-out forwards; }
 .vehicule.fusee, .vehicule.montgolfiere { width: 20%; }
@@ -1382,7 +1379,7 @@ button {
 .fete-doudous { position: absolute; inset: 10% 0 0 0; display: flex; flex-wrap: wrap; align-content: flex-end; justify-content: center; gap: 1vw; }
 .fete-doudous .doudou { width: min(16vh, 13vw); height: min(16vh, 13vw); animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) infinite; animation-delay: calc(var(--i) * -0.15s); transform-origin: 50% 100%; }
 .tresor-final { position: absolute; left: 30%; right: 10%; top: 14%; aspect-ratio: 1; animation: flotte 2.6s ease-in-out infinite; filter: drop-shadow(0 0 24px rgba(255, 211, 107, 0.9)); }
-.tresor-final svg { width: 100%; height: 100%; }
+.tresor-final svg, .tresor-final img { width: 100%; height: 100%; object-fit: contain; }
 
 /* Le dessin du lieu, en grand décor */
 .livre .decor { position: absolute; inset: 0; z-index: 0; }

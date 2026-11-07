@@ -25,7 +25,7 @@ import { gerbeSur, confettis } from '../recompense.js';
 import { BARRE, brancherBarre, afficherFin, melanger } from './commun.js';
 import { placerValentine, valentineLa } from '../valentine.js';
 import { SUIVANT } from '../icones.js';
-import { DEBUTS, TRANSPORTS, LIEUX, ANIMAUX, OBSTACLES, chemin, BALLONS, ballon, CLES, cle, COFFRE, TRESORS, FINS, DECORS } from './histoire-donnees.js';
+import { DEBUTS, TRANSPORTS, LIEUX, ANIMAUX, OBSTACLES, chemin, BALLONS, ballon, CLES, cle, COFFRE_FERME, COFFRE_OUVERT, TRESORS, FINS, DECORS } from './histoire-donnees.js';
 
 const auHasard = (liste) => liste[Math.floor(Math.random() * liste.length)];
 const NOMBRES = { m: ['', 'un', 'deux', 'trois', 'quatre', 'cinq'], f: ['', 'une', 'deux', 'trois', 'quatre', 'cinq'] };
@@ -303,7 +303,7 @@ export function ouvrirHistoire(scene, { aller }) {
     raconter('h-coffre', {}, false);
     const coffre = document.createElement('div');
     coffre.className = 'coffre-tresor';
-    coffre.innerHTML = COFFRE;
+    coffre.innerHTML = COFFRE_FERME;
     interactif.append(coffre);
     // chaque clé cache un trésor différent
     const tresors = melanger(Object.keys(TRESORS)).slice(0, 3);
@@ -311,7 +311,7 @@ export function ouvrirHistoire(scene, { aller }) {
     choixEnImages('cles', cles.map((id) => ({ id, label: 'clé ' + id, svg: cle(CLES[id]) })), (id) => {
       const tresor = tresors[cles.indexOf(id)];
       recit.tresor = tresor;
-      coffre.classList.add('ouvert');
+      coffre.innerHTML = COFFRE_OUVERT;
       fanfare();
       confettis(50);
       coffre.insertAdjacentHTML('beforeend', `<div class="tresor">${TRESORS[tresor].svg}</div>`);
