@@ -1311,6 +1311,9 @@ button {
   radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.5) 0 0.8%, transparent 1.2%), radial-gradient(circle at 70% 50%, rgba(255, 255, 255, 0.5) 0 1%, transparent 1.4%),
   radial-gradient(ellipse 80% 22% at 50% 104%, #f6dfb0 0 70%, transparent 71%),
   linear-gradient(#5fb0e0, #2f73b0); }
+.page-repaire { background:
+  radial-gradient(ellipse 60% 30% at 50% 100%, #ff9a4a 0 60%, transparent 61%),
+  linear-gradient(#2a1830, #5c3568); }
 .livre.nuit-histoire::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
   background: radial-gradient(circle at 80% 22%, rgba(255, 246, 201, 0.5) 0 6%, transparent 12%), rgba(30, 28, 80, 0.55); }
 

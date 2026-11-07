@@ -169,7 +169,8 @@ export function ouvrirHistoire(scene, { aller }) {
       decor(recit.lieu);
       valentine.fond('content');
       const { animal, couleur } = recit.rencontre;
-      raconter('h-rencontre', { animal: ANIMAUX[animal].nom, couleur }, false);
+      const genre = ANIMAUX[animal].genre === 'f' ? '-f' : '';
+      raconter('h-rencontre' + genre, { animal: ANIMAUX[animal].nom, couleur }, false);
       const bete = document.createElement('div');
       bete.className = 'animal triste';
       bete.innerHTML = ANIMAUX[animal].svg;
@@ -187,7 +188,7 @@ export function ouvrirHistoire(scene, { aller }) {
         valentine.pose('joie', { duree: 2400 });
         bete.classList.replace('triste', 'heureux');
         bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(BALLONS[c])}</div>`);
-        dire('h-rencontre-merci', { animal: ANIMAUX[animal].nom });
+        dire('h-rencontre-merci' + genre, { animal: ANIMAUX[animal].nom });
         plusTard(() => tourner.classList.remove('cache'), 4500);
         return true;
       });

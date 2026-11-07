@@ -65,18 +65,37 @@ export const LIEUX = {
       <ellipse cx="50" cy="44" rx="14" ry="9" fill="#ffb02e"/><path d="M62 44 L74 36 V52 Z" fill="#ffb02e"/><circle cx="44" cy="42" r="2" fill="#1d2a40"/><circle cx="30" cy="20" r="3" fill="#cfeaf8"/><circle cx="36" cy="10" r="2" fill="#cfeaf8"/></svg>`,
     trouvaille: `<svg viewBox="0 0 100 100"><path d="M8 62 Q8 30 50 26 Q92 30 92 62 Z" fill="#c9b5f2" stroke="#a58fd8" stroke-width="3"/><path d="M8 62 Q50 92 92 62 Z" fill="#b8a4f0" stroke="#a58fd8" stroke-width="3"/><circle cx="50" cy="56" r="14" fill="#fff"/><circle cx="45" cy="51" r="4" fill="#fff" opacity=".9"/><circle cx="50" cy="56" r="14" fill="url(#)" opacity="0"/></svg>`,
   },
+  repaire: {
+    nom: 'le repaire du dragon', objet: 'gemme', objets: 'gemmes', genre: 'f',
+    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3a2440"/><path d="M8 92 L38 28 L50 48 L64 14 L94 92 Z" fill="#6b4a7a"/><path d="M64 14 L54 36 L64 31 L74 36 Z" fill="#ff9a4a"/>
+      <path d="M0 92 H100 V100 H0 Z" fill="#2a1830"/><circle cx="20" cy="18" r="2" fill="#ffd36b"/><circle cx="80" cy="26" r="2.5" fill="#ffd36b"/></svg>`,
+    trouvaille: `<svg viewBox="0 0 100 100"><path d="M50 10 L80 34 L68 90 L32 90 L20 34 Z" fill="#ff8a5c" stroke="#e85a30" stroke-width="3" stroke-linejoin="round"/><path d="M20 34 H80 M32 90 L50 34 L68 90 M50 10 L32 34 M50 10 L68 34" stroke="#e85a30" stroke-width="2" fill="none"/><path d="M38 24 l4 6" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>`,
+  },
 };
 
-// --- 5. La rencontre : un petit animal a perdu son ballon ---
+// --- 5. La rencontre : un petit animal (ou personnage) a perdu son ballon ---
 export const ANIMAUX = {
-  lapin: { nom: 'lapin', svg: `<svg viewBox="0 0 100 100"><ellipse cx="38" cy="22" rx="8" ry="20" fill="#f1ece6"/><ellipse cx="62" cy="22" rx="8" ry="20" fill="#f1ece6"/><ellipse cx="38" cy="24" rx="4" ry="13" fill="#ffc2d2"/><ellipse cx="62" cy="24" rx="4" ry="13" fill="#ffc2d2"/>
+  lapin: { nom: 'lapin', genre: 'm', svg: `<svg viewBox="0 0 100 100"><ellipse cx="38" cy="22" rx="8" ry="20" fill="#f1ece6"/><ellipse cx="62" cy="22" rx="8" ry="20" fill="#f1ece6"/><ellipse cx="38" cy="24" rx="4" ry="13" fill="#ffc2d2"/><ellipse cx="62" cy="24" rx="4" ry="13" fill="#ffc2d2"/>
     <ellipse cx="50" cy="76" rx="26" ry="20" fill="#f1ece6"/><circle cx="50" cy="50" r="20" fill="#f1ece6"/><circle cx="43" cy="48" r="3" fill="#2e2226"/><circle cx="57" cy="48" r="3" fill="#2e2226"/><ellipse cx="50" cy="56" rx="3" ry="2" fill="#ff8fab"/><circle cx="38" cy="56" r="4" fill="#ffc2d2" opacity=".7"/><circle cx="62" cy="56" r="4" fill="#ffc2d2" opacity=".7"/></svg>` },
-  chaton: { nom: 'chaton', svg: `<svg viewBox="0 0 100 100"><path d="M30 40 L32 16 L48 32 Z M70 40 L68 16 L52 32 Z" fill="#ffb877"/><ellipse cx="50" cy="76" rx="26" ry="20" fill="#ffb877"/><circle cx="50" cy="48" r="22" fill="#ffb877"/>
+  chaton: { nom: 'chaton', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M30 40 L32 16 L48 32 Z M70 40 L68 16 L52 32 Z" fill="#ffb877"/><ellipse cx="50" cy="76" rx="26" ry="20" fill="#ffb877"/><circle cx="50" cy="48" r="22" fill="#ffb877"/>
     <path d="M40 30 l4 8 M50 28 v8 M60 30 l-4 8" stroke="#e8904a" stroke-width="3" stroke-linecap="round"/><circle cx="42" cy="48" r="3" fill="#2e2226"/><circle cx="58" cy="48" r="3" fill="#2e2226"/><path d="M47 56 h6 l-3 3 z" fill="#ff8fab"/><path d="M34 56 h-12 M34 60 l-11 4 M66 56 h12 M66 60 l11 4" stroke="#e8904a" stroke-width="2"/></svg>` },
-  herisson: { nom: 'hérisson', svg: `<svg viewBox="0 0 100 100"><path d="M14 74 Q10 40 40 30 L36 22 L46 28 L48 18 L56 28 L62 20 L66 32 L76 28 L74 40 Q90 50 86 74 Z" fill="#8a6a50"/><ellipse cx="62" cy="68" rx="22" ry="18" fill="#e8c9a0"/>
+  herisson: { nom: 'hérisson', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M14 74 Q10 40 40 30 L36 22 L46 28 L48 18 L56 28 L62 20 L66 32 L76 28 L74 40 Q90 50 86 74 Z" fill="#8a6a50"/><ellipse cx="62" cy="68" rx="22" ry="18" fill="#e8c9a0"/>
     <circle cx="70" cy="62" r="3" fill="#2e2226"/><circle cx="84" cy="68" r="4" fill="#2e2226"/><circle cx="62" cy="70" r="4" fill="#ffc2d2" opacity=".7"/><ellipse cx="40" cy="88" rx="8" ry="4" fill="#8a6a50"/><ellipse cx="66" cy="88" rx="8" ry="4" fill="#8a6a50"/></svg>` },
-  ecureuil: { nom: 'écureuil', svg: `<svg viewBox="0 0 100 100"><path d="M70 90 Q100 70 88 36 Q80 14 64 22 Q80 40 70 60 Z" fill="#e0884a"/><ellipse cx="44" cy="74" rx="20" ry="18" fill="#f0a060"/><circle cx="42" cy="46" r="18" fill="#f0a060"/>
+  ecureuil: { nom: 'écureuil', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M70 90 Q100 70 88 36 Q80 14 64 22 Q80 40 70 60 Z" fill="#e0884a"/><ellipse cx="44" cy="74" rx="20" ry="18" fill="#f0a060"/><circle cx="42" cy="46" r="18" fill="#f0a060"/>
     <path d="M30 32 L28 18 L40 28 Z M54 32 L58 18 L46 28 Z" fill="#e0884a"/><ellipse cx="44" cy="78" rx="10" ry="10" fill="#ffe0c2"/><circle cx="36" cy="44" r="3" fill="#2e2226"/><circle cx="50" cy="44" r="3" fill="#2e2226"/><ellipse cx="43" cy="52" rx="3" ry="2" fill="#5a3020"/></svg>` },
+  loup: { nom: 'loup', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M26 34 L16 12 L40 26 Z M74 34 L84 12 L60 26 Z" fill="#9aa6c0"/><path d="M28 32 L22 18 L38 28 Z M72 32 L78 18 L62 28 Z" fill="#7b88a8"/>
+    <ellipse cx="50" cy="76" rx="26" ry="20" fill="#aab4cc"/><circle cx="50" cy="48" r="22" fill="#aab4cc"/><path d="M36 50 Q50 46 64 50 Q58 38 50 38 Q42 38 36 50 Z" fill="#e9ecf4"/>
+    <circle cx="41" cy="46" r="3" fill="#2e2226"/><circle cx="59" cy="46" r="3" fill="#2e2226"/><path d="M47 58 h6 l-3 4 z" fill="#5e6b8a"/></svg>` },
+  dragon: { nom: 'dragon', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M78 66 Q94 60 92 76 Q84 82 76 74 Z" fill="#6cc070"/><ellipse cx="50" cy="78" rx="28" ry="18" fill="#7fd0a0"/><circle cx="50" cy="48" r="22" fill="#8fd6ac"/>
+    <path d="M30 30 Q36 16 44 28 Z M70 30 Q64 16 56 28 Z" fill="#5fae6e"/><path d="M46 24 Q50 12 54 24 Q50 18 46 24 Z" fill="#ffd36b"/>
+    <circle cx="42" cy="46" r="3" fill="#2e2226"/><circle cx="58" cy="46" r="3" fill="#2e2226"/><ellipse cx="50" cy="57" rx="4" ry="2.5" fill="#e8904a"/></svg>` },
+  renard: { nom: 'renard', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M26 34 L12 12 L40 28 Z M74 34 L88 12 L60 28 Z" fill="#e0884a"/><path d="M28 32 L20 18 L38 30 Z M72 32 L80 18 L62 30 Z" fill="#fff6ee"/>
+    <ellipse cx="50" cy="78" rx="26" ry="18" fill="#e0884a"/><circle cx="50" cy="48" r="22" fill="#eb9c5e"/><path d="M36 56 Q50 68 64 56 Q50 62 36 56 Z" fill="#fff6ee"/>
+    <circle cx="41" cy="46" r="3" fill="#2e2226"/><circle cx="59" cy="46" r="3" fill="#2e2226"/><path d="M47 54 h6 l-3 4 z" fill="#2e2226"/></svg>` },
+  princesse: { nom: 'princesse', genre: 'f', svg: `<svg viewBox="0 0 100 100"><path d="M28 94 Q50 58 72 94 Z" fill="#c9b5f2"/><path d="M40 70 Q50 80 60 70 L64 94 H36 Z" fill="#b8a4f0"/>
+    <circle cx="50" cy="50" r="20" fill="#ffe0c2"/><path d="M30 44 Q50 18 70 44 Q68 28 50 26 Q32 28 30 44 Z" fill="#8a5a3a"/>
+    <path d="M38 22 L41 12 L45 20 L50 10 L55 20 L59 12 L62 22 Z" fill="#ffd36b" stroke="#f0b92a" stroke-width="2" stroke-linejoin="round"/>
+    <circle cx="43" cy="50" r="3" fill="#2e2226"/><circle cx="57" cy="50" r="3" fill="#2e2226"/><ellipse cx="50" cy="58" rx="3" ry="2" fill="#ff8fab"/></svg>` },
 };
 
 // Les ballons (une couleur chacun)
@@ -131,4 +150,9 @@ export const DECORS = {
     <rect width="300" height="150" fill="url(#eau)"/><path d="M0 132 Q150 120 300 132 V150 H0 Z" fill="#f6dfb0"/>${algue(150, 50, '#6cc070')}${algue(166, 36, '#5fae6e')}${algue(280, 60, '#6cc070')}${algue(292, 40, '#ff8fab')}
     <g transform="translate(214 56)"><ellipse rx="16" ry="10" fill="#ffb02e"/><path d="M14 0 L26 -9 V9 Z" fill="#ffb02e"/><circle cx="-7" cy="-2" r="2.2" fill="#1d2a40"/></g>
     <circle cx="190" cy="40" r="3" fill="#cfeaf8"/><circle cx="196" cy="28" r="2" fill="#cfeaf8"/><circle cx="260" cy="20" r="2.5" fill="#cfeaf8"/></svg>`,
+  repaire: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#3a2440"/>
+    <path d="M0 0 H300 V96 Q150 64 0 96 Z" fill="#5c3568"/><path d="M0 150 V96 Q150 64 300 96 V150 Z" fill="#2a1830"/>
+    <path d="M0 150 Q150 130 300 150 Z" fill="#ff7a3c"/><path d="M46 150 Q56 126 66 150 M126 150 Q138 120 150 150 M210 150 Q222 128 234 150 M262 150 Q274 132 286 150" fill="#ffb366" opacity=".85"/>
+    <path d="M20 96 L8 70 L28 68 Z M66 84 L56 60 L80 66 Z M250 90 L238 64 L262 68 Z M290 80 L280 56 L300 62 Z" fill="#2a1830"/>
+    <circle cx="70" cy="30" r="7" fill="#ffd36b" opacity=".35"/><circle cx="240" cy="22" r="9" fill="#ffd36b" opacity=".25"/></svg>`,
 };
