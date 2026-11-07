@@ -25,15 +25,17 @@ export const OUTILS = {
     ${[[40, 44], [50, 44], [60, 44], [40, 56], [50, 56], [60, 56], [18, 50], [82, 50]].map(([x, y]) => `<circle cx="${x}" cy="${y}" r="2" fill="#e3a873"/>`).join('')}</g><path d="M48 46 l4 0 M50 44 l0 4" stroke="#ff8fab" stroke-width="3" stroke-linecap="round"/></svg>` },
   thermometre: { le: 'le thermomètre', svg: `<svg viewBox="0 0 100 100"><g transform="rotate(35 50 50)"><rect x="42" y="6" width="16" height="66" rx="8" fill="#fff" stroke="#9ccff2" stroke-width="3"/><rect x="47" y="30" width="6" height="46" rx="3" fill="#ff6b7d"/><circle cx="50" cy="80" r="13" fill="#ff6b7d" stroke="#fff" stroke-width="3"/>
     <path d="M58 18 h6 M58 28 h4 M58 38 h6 M58 48 h4 M58 58 h6" stroke="#9ccff2" stroke-width="2.5" stroke-linecap="round"/></g></svg>` },
-  sirop: { le: 'le sirop', svg: `<svg viewBox="0 0 100 100"><rect x="30" y="6" width="22" height="12" rx="3" fill="#ffffff" stroke="#c9b5f2" stroke-width="3"/><path d="M26 24 Q26 18 34 18 H48 Q56 18 56 24 V84 Q56 92 48 92 H34 Q26 92 26 84 Z" fill="#c78fe0"/>
-    <rect x="30" y="44" width="22" height="22" rx="4" fill="#fff"/><path d="M41 49 v12 M35 55 h12" stroke="#ff6b7d" stroke-width="4" stroke-linecap="round"/>
-    <ellipse cx="78" cy="70" rx="12" ry="8" fill="#e8e8f0" stroke="#b9b9cc" stroke-width="2.5"/><ellipse cx="78" cy="70" rx="7" ry="4" fill="#c78fe0"/><path d="M68 74 L56 94" stroke="#b9b9cc" stroke-width="5" stroke-linecap="round"/></svg>` },
-  mouchoir: { le: 'le mouchoir', svg: `<svg viewBox="0 0 100 100"><path d="M36 40 Q30 14 50 10 Q70 14 64 40 Z" fill="#fff" stroke="#cfe3f2" stroke-width="3"/><rect x="14" y="38" width="72" height="50" rx="10" fill="#9ccff2"/><rect x="34" y="34" width="32" height="10" rx="5" fill="#7fb6e0"/>
-    <path d="M24 70 q6 -8 12 0 t12 0 t12 0 t12 0" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/></svg>` },
+  sirop: { le: 'le sirop', svg: `<svg viewBox="0 0 100 100"><rect x="38" y="4" width="14" height="9" rx="2" fill="#a56bc9"/><path d="M30 22 Q30 13 38 13 H52 Q60 13 60 22 V82 Q60 92 50 92 H40 Q30 92 30 82 Z" fill="#c78fe0" stroke="#a56bc9" stroke-width="2.5"/>
+    <rect x="34" y="46" width="22" height="24" rx="5" fill="#fff"/><path d="M45 52 v12 M39 58 h12" stroke="#ff6b7d" stroke-width="4" stroke-linecap="round"/>
+    <path d="M58 62 Q76 66 82 80" fill="none" stroke="#e3c7f2" stroke-width="5" stroke-linecap="round"/><ellipse cx="85" cy="83" rx="13" ry="8" fill="#fff" stroke="#c9b5f2" stroke-width="3"/><ellipse cx="85" cy="83" rx="7" ry="4" fill="#ff8fab"/></svg>` },
+  mouchoir: { le: 'le mouchoir', svg: `<svg viewBox="0 0 100 100"><rect x="12" y="40" width="76" height="46" rx="12" fill="#9ccff2" stroke="#6fa8d8" stroke-width="3"/><ellipse cx="50" cy="40" rx="25" ry="7" fill="#6fa8d8"/>
+    <path d="M30 40 Q28 18 46 10 Q50 24 48 40 Z" fill="#fff" stroke="#9fb6d6" stroke-width="2.5"/><path d="M50 40 Q56 16 72 16 Q68 30 58 40 Z" fill="#f3f7ff" stroke="#9fb6d6" stroke-width="2.5"/>
+    <path d="M24 66 q6 -8 12 0 t12 0 t12 0 t12 0" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/></svg>` },
   stethoscope: { le: 'le stéthoscope', svg: `<svg viewBox="0 0 100 100"><path d="M24 8 V34 Q24 54 44 54 Q64 54 64 34 V8" fill="none" stroke="#5e6b8a" stroke-width="6" stroke-linecap="round"/><circle cx="24" cy="8" r="5" fill="#5e6b8a"/><circle cx="64" cy="8" r="5" fill="#5e6b8a"/>
     <path d="M44 54 V70 Q44 84 60 84 Q72 84 72 74" fill="none" stroke="#5e6b8a" stroke-width="6" stroke-linecap="round"/><circle cx="74" cy="66" r="13" fill="#c9d3e8" stroke="#5e6b8a" stroke-width="5"/><circle cx="74" cy="66" r="5" fill="#fff"/></svg>` },
-  calin: { le: 'le câlin', svg: `<svg viewBox="0 0 100 100"><path d="M50 88 C22 70 6 52 8 34 C10 18 30 10 42 20 Q48 25 50 30 Q52 25 58 20 C70 10 90 18 92 34 C94 52 78 70 50 88 Z" fill="#ff8fab"/>
-    <path d="M70 6 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" fill="#ffd36b"/><ellipse cx="30" cy="34" rx="8" ry="11" fill="#fff" opacity=".45" transform="rotate(-25 30 34)"/></svg>` },
+  calin: { le: 'le câlin', svg: `<svg viewBox="0 0 100 100"><path d="M18 46 Q6 58 14 76 Q20 88 36 90" fill="none" stroke="#f6c99b" stroke-width="11" stroke-linecap="round"/><path d="M82 46 Q94 58 86 76 Q80 88 64 90" fill="none" stroke="#f6c99b" stroke-width="11" stroke-linecap="round"/>
+    <path d="M50 82 C24 66 10 50 12 34 C14 18 32 11 43 21 Q48 26 50 31 Q52 26 57 21 C68 11 86 18 88 34 C90 50 76 66 50 82 Z" fill="#ff8fab"/>
+    <path d="M70 6 l3 7 l7 3 l-7 3 l-3 7 l-3 -7 l-7 -3 l7 -3 z" fill="#ffd36b"/></svg>` },
 };
 
 // Les problèmes, les outils qui les soignent (dans l’ordre) et l’indice.
@@ -44,7 +46,8 @@ const PROBLEMES = {
   peur: { soins: ['calin'] },
 };
 
-const NUAGE = `<svg viewBox="0 0 120 80"><path d="M24 54 Q6 54 8 38 Q10 24 26 26 Q30 8 52 10 Q72 8 78 24 Q98 20 104 36 Q110 54 92 56 Z" fill="#a9b3c9"/><path d="M34 62 l-4 10 M58 62 l-4 10 M82 62 l-4 10" stroke="#7fb6e0" stroke-width="4" stroke-linecap="round"/></svg>`;
+const NUAGE = `<svg viewBox="0 0 120 90"><path d="M24 54 Q6 54 8 38 Q10 24 26 26 Q30 8 52 10 Q72 8 78 24 Q98 20 104 36 Q110 54 92 56 Z" fill="#8d98bf" stroke="#6b779e" stroke-width="2"/>
+  <path d="M60 30 L48 52 L58 52 L52 72 L76 44 L62 44 Z" fill="#ffd36b" stroke="#e8a93f" stroke-width="2.5" stroke-linejoin="round"/></svg>`;
 
 export function ouvrirDocteur(scene, { aller }) {
   scene.classList.add('ecran-docteur');
