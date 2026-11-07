@@ -1179,6 +1179,19 @@ button {
   box-shadow: 0 14px 30px rgba(120, 60, 40, 0.25), inset 0 0 0 6px rgba(255, 255, 255, 0.7);
   transition: background 0.8s;
 }
+/* Petite animation à chaque page tournée, façon bande dessinée animée */
+.livre.tourne { animation: tourne-page 0.45s ease-out; }
+@keyframes tourne-page {
+  0% { filter: brightness(0.75) saturate(0.85); transform: scale(0.985); }
+  55% { filter: brightness(1.08); }
+  100% { filter: brightness(1) saturate(1); transform: scale(1); }
+}
+/* Le décor bouge tout doucement, comme une caméra qui dérive (sans vidéo) */
+.livre .decor img { animation: decor-derive 20s ease-in-out infinite alternate; }
+@keyframes decor-derive {
+  from { transform: scale(1.02) translate(0, 0); }
+  to { transform: scale(1.1) translate(-1.5%, -1%); }
+}
 .page-chambre { background:
   radial-gradient(circle at 80% 22%, #fff6c9 0 6%, transparent 7%),
   linear-gradient(to bottom, transparent 70%, #f2c3a8 70%),
@@ -1326,6 +1339,7 @@ button {
   border: 5px solid #fff; box-shadow: 0 10px 20px rgba(120, 60, 40, 0.22); padding: 10px; overflow: hidden; position: relative;
   animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; animation-delay: calc(var(--i) * 80ms); }
 .choix-images .option svg, .choix-images .option .doudou { width: 100%; height: 100%; }
+.choix-images .option img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .choix-images.doudous .option { width: clamp(80px, 17vh, 140px); height: clamp(80px, 17vh, 140px); background: transparent; border-color: transparent; box-shadow: none; }
 .choix-images.lieux .option { padding: 0; }
 .choix-images .option.elu { animation: coucou 0.9s cubic-bezier(0.3, 1.6, 0.5, 1); box-shadow: 0 0 0 6px var(--or), 0 10px 20px rgba(120, 60, 40, 0.22); }
@@ -1340,11 +1354,17 @@ button {
 
 /* Le petit animal qui a perdu son ballon */
 .animal { position: absolute; right: 0; bottom: 4%; width: 36%; aspect-ratio: 1; }
-.animal svg { width: 100%; height: 100%; }
+.animal svg, .animal img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.2)); }
 .animal.triste { animation: triste 1.6s ease-in-out infinite; }
 .animal.heureux { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 4; transform-origin: 50% 100%; }
 .ballon-rendu { position: absolute; left: 40%; top: -70%; width: 40%; animation: flotte 2s ease-in-out infinite; }
 .ballon-rendu svg { width: 100%; }
+
+/* L’obstacle sur le chemin : un seul geste (toucher) pour le dégager */
+.obstacle { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); width: clamp(140px, 36vh, 260px); aspect-ratio: 1.2;
+  background: none; border: none; padding: 0; cursor: pointer; animation: respire 1.6s ease-in-out infinite; }
+.obstacle svg { width: 100%; height: 100%; filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.25)); }
+.obstacle.degage { animation: ramasse 0.6s ease-in forwards; pointer-events: none; }
 
 /* Le voyage : le transport traverse la page */
 .voyage { position: absolute; inset: 0; z-index: 7; pointer-events: none; }
@@ -1366,4 +1386,4 @@ button {
 
 /* Le dessin du lieu, en grand décor */
 .livre .decor { position: absolute; inset: 0; z-index: 0; }
-.livre .decor svg { width: 100%; height: 100%; display: block; }
+.livre .decor svg, .livre .decor img { width: 100%; height: 100%; display: block; object-fit: cover; }

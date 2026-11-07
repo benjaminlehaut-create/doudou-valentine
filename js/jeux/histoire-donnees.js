@@ -44,68 +44,69 @@ const etoile = `<svg viewBox="0 0 100 100"><path d="M50 6 L62 36 L94 38 L69 58 L
 export const LIEUX = {
   foret: {
     nom: 'la forêt enchantée', objet: 'champignon', objets: 'champignons', genre: 'm',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#c9ecd0"/><circle cx="50" cy="44" r="36" fill="#8fd09b"/><circle cx="28" cy="58" r="24" fill="#6db87c"/><circle cx="74" cy="58" r="24" fill="#78c086"/><rect x="44" y="66" width="12" height="34" rx="4" fill="#a8774f"/><circle cx="40" cy="36" r="5" fill="#ff8fab"/><circle cx="64" cy="30" r="5" fill="#fff3a6"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/foret.jpg" alt="">`,
     trouvaille: `<svg viewBox="0 0 100 100"><path d="M14 52 Q14 14 50 12 Q86 14 86 52 Z" fill="#ef4d5a"/><circle cx="34" cy="34" r="7" fill="#fff"/><circle cx="60" cy="26" r="5" fill="#fff"/><circle cx="68" cy="42" r="6" fill="#fff"/><path d="M36 52 H64 V82 Q64 90 50 90 Q36 90 36 82 Z" fill="#fff4e6" stroke="#f2c9a8" stroke-width="3"/></svg>`,
   },
   plage: {
     nom: 'la plage', objet: 'coquillage', objets: 'coquillages', genre: 'm',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#bfe7fb"/><circle cx="72" cy="28" r="14" fill="#ffd36b"/><path d="M0 60 Q25 50 50 60 T100 60 V100 H0 Z" fill="#6cc4e8"/><path d="M0 78 Q25 70 50 78 T100 78 V100 H0 Z" fill="#f6dfb0"/><path d="M14 58 q6 -6 12 0 M60 56 q6 -6 12 0" stroke="#fff" stroke-width="3" fill="none"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/plage.jpg" alt="">`,
     trouvaille: `<svg viewBox="0 0 100 100"><path d="M50 88 L14 40 Q30 12 50 12 Q70 12 86 40 Z" fill="#ffb3c9" stroke="#e98aa8" stroke-width="3" stroke-linejoin="round"/><path d="M50 88 L32 22 M50 88 L50 12 M50 88 L68 22 M50 88 L22 34 M50 88 L78 34" stroke="#e98aa8" stroke-width="3"/><rect x="40" y="82" width="20" height="10" rx="4" fill="#e98aa8"/></svg>`,
   },
   lune: {
     nom: 'la lune', objet: 'étoile', objets: 'étoiles', genre: 'f',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3b3f7a"/><circle cx="50" cy="58" r="30" fill="#e9e4d4"/><circle cx="40" cy="50" r="6" fill="#cfc8b4"/><circle cx="60" cy="66" r="8" fill="#cfc8b4"/><circle cx="58" cy="44" r="4" fill="#cfc8b4"/><circle cx="18" cy="18" r="2" fill="#fff"/><circle cx="82" cy="22" r="2.5" fill="#fff"/><circle cx="28" cy="84" r="2" fill="#fff"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/lune.jpg" alt="">`,
     trouvaille: etoile,
   },
   chateau: {
     nom: 'le château de la princesse', objet: 'diamant', objets: 'diamants', genre: 'm',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#ffe1ec"/><rect x="22" y="40" width="56" height="50" fill="#c9b5f2"/><rect x="12" y="30" width="18" height="60" fill="#b8a4f0"/><rect x="70" y="30" width="18" height="60" fill="#b8a4f0"/>
-      <path d="M10 30 L21 12 L32 30 Z M68 30 L79 12 L90 30 Z" fill="#ff8fab"/><path d="M38 40 L50 20 L62 40 Z" fill="#ff8fab"/><path d="M42 90 V72 Q50 62 58 72 V90 Z" fill="#8a6fd0"/><path d="M21 12 V4 l8 3 l-8 3" fill="#ffd36b" stroke="#ffd36b"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/chateau.jpg" alt="">`,
     trouvaille: `<svg viewBox="0 0 100 100"><path d="M24 14 H76 L94 38 L50 92 L6 38 Z" fill="#9ad0f5" stroke="#5aa6e0" stroke-width="3" stroke-linejoin="round"/><path d="M6 38 H94 M24 14 L38 38 L50 14 L62 38 L76 14 M38 38 L50 92 L62 38" stroke="#5aa6e0" stroke-width="2.5" fill="none"/><path d="M30 22 l4 6" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>`,
   },
   neige: {
     nom: 'la montagne enneigée', objet: 'flocon', objets: 'flocons', genre: 'm',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#dcefff"/><path d="M0 90 L30 34 L50 62 L68 26 L100 90 Z" fill="#9db8d8"/><path d="M30 34 L22 50 L30 46 L38 50 Z M68 26 L58 46 L68 40 L78 46 Z" fill="#fff"/><path d="M0 100 V84 Q50 70 100 84 V100 Z" fill="#fff"/><circle cx="20" cy="20" r="2" fill="#fff"/><circle cx="84" cy="16" r="2.5" fill="#fff"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/neige.jpg" alt="">`,
     trouvaille: `<svg viewBox="0 0 100 100"><g stroke="#7fc1f0" stroke-width="7" stroke-linecap="round"><path d="M50 8 V92 M14 29 L86 71 M14 71 L86 29"/></g><g stroke="#7fc1f0" stroke-width="5" stroke-linecap="round"><path d="M40 16 L50 26 L60 16 M40 84 L50 74 L60 84 M18 44 L30 38 L26 24 M82 56 L70 62 L74 76 M18 56 L30 62 L26 76 M82 44 L70 38 L74 24"/></g><circle cx="50" cy="50" r="8" fill="#fff" stroke="#7fc1f0" stroke-width="4"/></svg>`,
   },
   mer: {
     nom: 'le fond de la mer', objet: 'perle', objets: 'perles', genre: 'f',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3f8fc8"/><path d="M0 86 Q50 74 100 86 V100 H0 Z" fill="#f6dfb0"/><path d="M18 90 Q10 70 20 56 Q28 70 22 90 M80 90 Q90 66 78 50 Q72 70 84 90" fill="#6cc070"/>
-      <ellipse cx="50" cy="44" rx="14" ry="9" fill="#ffb02e"/><path d="M62 44 L74 36 V52 Z" fill="#ffb02e"/><circle cx="44" cy="42" r="2" fill="#1d2a40"/><circle cx="30" cy="20" r="3" fill="#cfeaf8"/><circle cx="36" cy="10" r="2" fill="#cfeaf8"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/mer.jpg" alt="">`,
     trouvaille: `<svg viewBox="0 0 100 100"><path d="M8 62 Q8 30 50 26 Q92 30 92 62 Z" fill="#c9b5f2" stroke="#a58fd8" stroke-width="3"/><path d="M8 62 Q50 92 92 62 Z" fill="#b8a4f0" stroke="#a58fd8" stroke-width="3"/><circle cx="50" cy="56" r="14" fill="#fff"/><circle cx="45" cy="51" r="4" fill="#fff" opacity=".9"/><circle cx="50" cy="56" r="14" fill="url(#)" opacity="0"/></svg>`,
   },
   repaire: {
     nom: 'le repaire du dragon', objet: 'gemme', objets: 'gemmes', genre: 'f',
-    dessin: `<svg viewBox="0 0 100 100"><rect width="100" height="100" fill="#3a2440"/><path d="M8 92 L38 28 L50 48 L64 14 L94 92 Z" fill="#6b4a7a"/><path d="M64 14 L54 36 L64 31 L74 36 Z" fill="#ff9a4a"/>
-      <path d="M0 92 H100 V100 H0 Z" fill="#2a1830"/><circle cx="20" cy="18" r="2" fill="#ffd36b"/><circle cx="80" cy="26" r="2.5" fill="#ffd36b"/></svg>`,
+    dessin: `<img src="assets/decors/histoire/repaire.jpg" alt="">`,
     trouvaille: `<svg viewBox="0 0 100 100"><path d="M50 10 L80 34 L68 90 L32 90 L20 34 Z" fill="#ff8a5c" stroke="#e85a30" stroke-width="3" stroke-linejoin="round"/><path d="M20 34 H80 M32 90 L50 34 L68 90 M50 10 L32 34 M50 10 L68 34" stroke="#e85a30" stroke-width="2" fill="none"/><path d="M38 24 l4 6" stroke="#fff" stroke-width="4" stroke-linecap="round"/></svg>`,
   },
 };
 
 // --- 5. La rencontre : un petit animal (ou personnage) a perdu son ballon ---
 export const ANIMAUX = {
-  lapin: { nom: 'lapin', genre: 'm', svg: `<svg viewBox="0 0 100 100"><ellipse cx="38" cy="22" rx="8" ry="20" fill="#f1ece6"/><ellipse cx="62" cy="22" rx="8" ry="20" fill="#f1ece6"/><ellipse cx="38" cy="24" rx="4" ry="13" fill="#ffc2d2"/><ellipse cx="62" cy="24" rx="4" ry="13" fill="#ffc2d2"/>
-    <ellipse cx="50" cy="76" rx="26" ry="20" fill="#f1ece6"/><circle cx="50" cy="50" r="20" fill="#f1ece6"/><circle cx="43" cy="48" r="3" fill="#2e2226"/><circle cx="57" cy="48" r="3" fill="#2e2226"/><ellipse cx="50" cy="56" rx="3" ry="2" fill="#ff8fab"/><circle cx="38" cy="56" r="4" fill="#ffc2d2" opacity=".7"/><circle cx="62" cy="56" r="4" fill="#ffc2d2" opacity=".7"/></svg>` },
-  chaton: { nom: 'chaton', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M30 40 L32 16 L48 32 Z M70 40 L68 16 L52 32 Z" fill="#ffb877"/><ellipse cx="50" cy="76" rx="26" ry="20" fill="#ffb877"/><circle cx="50" cy="48" r="22" fill="#ffb877"/>
-    <path d="M40 30 l4 8 M50 28 v8 M60 30 l-4 8" stroke="#e8904a" stroke-width="3" stroke-linecap="round"/><circle cx="42" cy="48" r="3" fill="#2e2226"/><circle cx="58" cy="48" r="3" fill="#2e2226"/><path d="M47 56 h6 l-3 3 z" fill="#ff8fab"/><path d="M34 56 h-12 M34 60 l-11 4 M66 56 h12 M66 60 l11 4" stroke="#e8904a" stroke-width="2"/></svg>` },
-  herisson: { nom: 'hérisson', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M14 74 Q10 40 40 30 L36 22 L46 28 L48 18 L56 28 L62 20 L66 32 L76 28 L74 40 Q90 50 86 74 Z" fill="#8a6a50"/><ellipse cx="62" cy="68" rx="22" ry="18" fill="#e8c9a0"/>
-    <circle cx="70" cy="62" r="3" fill="#2e2226"/><circle cx="84" cy="68" r="4" fill="#2e2226"/><circle cx="62" cy="70" r="4" fill="#ffc2d2" opacity=".7"/><ellipse cx="40" cy="88" rx="8" ry="4" fill="#8a6a50"/><ellipse cx="66" cy="88" rx="8" ry="4" fill="#8a6a50"/></svg>` },
-  ecureuil: { nom: 'écureuil', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M70 90 Q100 70 88 36 Q80 14 64 22 Q80 40 70 60 Z" fill="#e0884a"/><ellipse cx="44" cy="74" rx="20" ry="18" fill="#f0a060"/><circle cx="42" cy="46" r="18" fill="#f0a060"/>
-    <path d="M30 32 L28 18 L40 28 Z M54 32 L58 18 L46 28 Z" fill="#e0884a"/><ellipse cx="44" cy="78" rx="10" ry="10" fill="#ffe0c2"/><circle cx="36" cy="44" r="3" fill="#2e2226"/><circle cx="50" cy="44" r="3" fill="#2e2226"/><ellipse cx="43" cy="52" rx="3" ry="2" fill="#5a3020"/></svg>` },
-  loup: { nom: 'loup', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M26 34 L16 12 L40 26 Z M74 34 L84 12 L60 26 Z" fill="#9aa6c0"/><path d="M28 32 L22 18 L38 28 Z M72 32 L78 18 L62 28 Z" fill="#7b88a8"/>
-    <ellipse cx="50" cy="76" rx="26" ry="20" fill="#aab4cc"/><circle cx="50" cy="48" r="22" fill="#aab4cc"/><path d="M36 50 Q50 46 64 50 Q58 38 50 38 Q42 38 36 50 Z" fill="#e9ecf4"/>
-    <circle cx="41" cy="46" r="3" fill="#2e2226"/><circle cx="59" cy="46" r="3" fill="#2e2226"/><path d="M47 58 h6 l-3 4 z" fill="#5e6b8a"/></svg>` },
-  dragon: { nom: 'dragon', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M78 66 Q94 60 92 76 Q84 82 76 74 Z" fill="#6cc070"/><ellipse cx="50" cy="78" rx="28" ry="18" fill="#7fd0a0"/><circle cx="50" cy="48" r="22" fill="#8fd6ac"/>
-    <path d="M30 30 Q36 16 44 28 Z M70 30 Q64 16 56 28 Z" fill="#5fae6e"/><path d="M46 24 Q50 12 54 24 Q50 18 46 24 Z" fill="#ffd36b"/>
-    <circle cx="42" cy="46" r="3" fill="#2e2226"/><circle cx="58" cy="46" r="3" fill="#2e2226"/><ellipse cx="50" cy="57" rx="4" ry="2.5" fill="#e8904a"/></svg>` },
-  renard: { nom: 'renard', genre: 'm', svg: `<svg viewBox="0 0 100 100"><path d="M26 34 L12 12 L40 28 Z M74 34 L88 12 L60 28 Z" fill="#e0884a"/><path d="M28 32 L20 18 L38 30 Z M72 32 L80 18 L62 30 Z" fill="#fff6ee"/>
-    <ellipse cx="50" cy="78" rx="26" ry="18" fill="#e0884a"/><circle cx="50" cy="48" r="22" fill="#eb9c5e"/><path d="M36 56 Q50 68 64 56 Q50 62 36 56 Z" fill="#fff6ee"/>
-    <circle cx="41" cy="46" r="3" fill="#2e2226"/><circle cx="59" cy="46" r="3" fill="#2e2226"/><path d="M47 54 h6 l-3 4 z" fill="#2e2226"/></svg>` },
-  princesse: { nom: 'princesse', genre: 'f', svg: `<svg viewBox="0 0 100 100"><path d="M28 94 Q50 58 72 94 Z" fill="#c9b5f2"/><path d="M40 70 Q50 80 60 70 L64 94 H36 Z" fill="#b8a4f0"/>
-    <circle cx="50" cy="50" r="20" fill="#ffe0c2"/><path d="M30 44 Q50 18 70 44 Q68 28 50 26 Q32 28 30 44 Z" fill="#8a5a3a"/>
-    <path d="M38 22 L41 12 L45 20 L50 10 L55 20 L59 12 L62 22 Z" fill="#ffd36b" stroke="#f0b92a" stroke-width="2" stroke-linejoin="round"/>
-    <circle cx="43" cy="50" r="3" fill="#2e2226"/><circle cx="57" cy="50" r="3" fill="#2e2226"/><ellipse cx="50" cy="58" rx="3" ry="2" fill="#ff8fab"/></svg>` },
+  lapin: { nom: 'lapin', genre: 'm', image: 'assets/personnages/lapin.png' },
+  chaton: { nom: 'chaton', genre: 'm', image: 'assets/personnages/chaton.png' },
+  herisson: { nom: 'hérisson', genre: 'm', image: 'assets/personnages/herisson.png' },
+  ecureuil: { nom: 'écureuil', genre: 'm', image: 'assets/personnages/ecureuil.png' },
+  loup: { nom: 'loup', genre: 'm', image: 'assets/personnages/loup.png' },
+  dragon: { nom: 'dragon', genre: 'm', image: 'assets/personnages/dragon.png' },
+  renard: { nom: 'renard', genre: 'm', image: 'assets/personnages/renard.png' },
+  princesse: { nom: 'princesse', genre: 'f', image: 'assets/personnages/princesse.png' },
 };
+
+// --- 6. Un obstacle sur le chemin : un petit geste pour le dégager (pas un choix, pour varier) ---
+export const OBSTACLES = {
+  rocher: { nom: 'un énorme rocher', svg: `<svg viewBox="0 0 120 100"><ellipse cx="60" cy="90" rx="50" ry="8" fill="#00000018"/><path d="M20 80 Q10 50 30 34 Q24 14 50 14 Q70 8 86 24 Q106 28 104 52 Q112 70 92 82 Q70 94 44 90 Q28 92 20 80 Z" fill="#9a8f82" stroke="#7a7266" stroke-width="3"/>
+    <path d="M40 30 Q50 44 44 58 M70 24 Q66 40 76 50" stroke="#7a7266" stroke-width="3" fill="none" opacity=".6"/></svg>` },
+  buisson: { nom: 'un buisson tout emmêlé', svg: `<svg viewBox="0 0 120 100"><ellipse cx="60" cy="92" rx="50" ry="6" fill="#00000018"/><circle cx="40" cy="60" r="34" fill="#6db87c"/><circle cx="72" cy="56" r="30" fill="#78c086"/><circle cx="56" cy="40" r="28" fill="#8fd09b"/>
+    <circle cx="34" cy="48" r="4" fill="#ff8fab"/><circle cx="68" cy="36" r="4" fill="#fff3a6"/><circle cx="84" cy="58" r="4" fill="#ff8fab"/></svg>` },
+  flaque: { nom: 'une flaque qui scintille', svg: `<svg viewBox="0 0 120 100"><ellipse cx="60" cy="70" rx="56" ry="24" fill="#6fc0ea"/><ellipse cx="60" cy="70" rx="40" ry="15" fill="#8fd4f2" opacity=".6"/>
+    <path d="M30 62 q8 -6 16 0 M70 60 q8 -6 16 0" stroke="#fff" stroke-width="3" fill="none" opacity=".7"/></svg>` },
+};
+
+// Un deuxième type de petit défi, pour que l’aventure ne soit pas toujours pareille :
+// plusieurs chemins possibles, il faut trouver celui décoré de la bonne couleur.
+export function chemin(teinte) {
+  return `<svg viewBox="0 0 100 100"><path d="M20 90 Q46 60 20 40 Q-4 20 30 10" stroke="#d8b778" stroke-width="14" fill="none" stroke-linecap="round"/>
+    <circle cx="30" cy="10" r="7" fill="${teinte}"/><circle cx="16" cy="42" r="6" fill="${teinte}"/><circle cx="22" cy="78" r="6" fill="${teinte}"/></svg>`;
+}
 
 // Les ballons (une couleur chacun)
 export const BALLONS = { rouge: '#ef4d5a', bleu: '#4f9be0', jaune: '#ffd23a', vert: '#6cc070' };
@@ -136,34 +137,13 @@ export const TRESORS = {
 // --- 8. Comment ça finit ---
 export const FINS = ['dodo', 'fete', 'maman'];
 
-// --- Les grands décors des lieux (dessins larges, le sol en bas pour les personnages) ---
-const arbre = (x, s, c) => `<g transform="translate(${x} ${120 - 60 * s}) scale(${s})"><rect x="-5" y="20" width="10" height="40" rx="3" fill="#a8774f"/><circle cx="0" cy="10" r="22" fill="${c}"/><circle cx="-14" cy="20" r="14" fill="${c}"/><circle cx="14" cy="20" r="14" fill="${c}"/></g>`;
-const sapin = (x, s) => `<g transform="translate(${x} ${130 - 50 * s}) scale(${s})"><rect x="-4" y="36" width="8" height="14" fill="#8a6a50"/><path d="M0 -10 L22 38 H-22 Z" fill="#5f9e7a"/><path d="M0 -10 L10 12 Q0 16 -10 12 Z" fill="#fff"/></g>`;
-const algue = (x, h, c) => `<path d="M${x} 150 Q${x - 8} ${150 - h / 2} ${x} ${150 - h} Q${x + 8} ${150 - h / 2} ${x + 4} 150 Z" fill="${c}"/>`;
-const etoiles = Array.from({ length: 22 }, (_, i) => `<circle cx="${(i * 47) % 300}" cy="${(i * 29) % 90}" r="${i % 3 ? 0.9 : 1.6}" fill="#fff"/>`).join('');
+// --- Les grands décors des lieux : vraies photos, posées en CSS/<img> derrière les personnages ---
 export const DECORS = {
-  foret: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#d6f0dc"/><circle cx="240" cy="28" r="16" fill="#fff6c9"/>
-    <path d="M0 110 Q60 80 130 100 T300 92 V150 H0 Z" fill="#a6dcb0"/>${arbre(150, 1, '#6db87c')}${arbre(200, 1.25, '#78c086')}${arbre(258, 1.1, '#5fae6e')}${arbre(290, 0.8, '#6db87c')}
-    <path d="M0 128 Q150 114 300 128 V150 H0 Z" fill="#8fd09b"/><circle cx="176" cy="132" r="3" fill="#ff8fab"/><circle cx="222" cy="138" r="3" fill="#fff3a6"/><circle cx="270" cy="134" r="3" fill="#ff8fab"/></svg>`,
-  plage: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#cdeefc"/><circle cx="250" cy="30" r="18" fill="#ffd36b"/><circle cx="250" cy="30" r="26" fill="#ffd36b" opacity=".25"/>
-    <path d="M0 78 H300 V108 H0 Z" fill="#6cc4e8"/><path d="M0 84 q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0" stroke="#fff" stroke-width="2" fill="none" opacity=".8"/>
-    <path d="M0 104 Q150 94 300 104 V150 H0 Z" fill="#f6dfb0"/><path d="M226 104 V64" stroke="#8a6a50" stroke-width="3"/><path d="M196 70 Q226 44 256 70 Z" fill="#ff8fab"/><path d="M211 70 Q226 50 241 70" fill="#fff" opacity=".6"/></svg>`,
-  lune: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#2d2f66"/>${etoiles}<circle cx="246" cy="34" r="14" fill="#6cb4f0"/><path d="M238 28 q6 -4 10 2 q4 8 -4 10" fill="#6cc070"/>
-    <path d="M0 120 Q150 92 300 120 V150 H0 Z" fill="#e9e4d4"/><ellipse cx="180" cy="124" rx="16" ry="4" fill="#cfc8b4"/><ellipse cx="260" cy="132" rx="12" ry="3" fill="#cfc8b4"/><ellipse cx="60" cy="136" rx="10" ry="3" fill="#cfc8b4"/></svg>`,
-  chateau: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#ffe1ec"/><circle cx="60" cy="24" r="10" fill="#fff"/><circle cx="76" cy="30" r="8" fill="#fff"/>
-    <g transform="translate(150 22)"><rect x="20" y="40" width="80" height="70" fill="#c9b5f2"/><rect x="4" y="26" width="24" height="84" fill="#b8a4f0"/><rect x="92" y="26" width="24" height="84" fill="#b8a4f0"/>
-    <path d="M2 26 L16 2 L30 26 Z M90 26 L104 2 L118 26 Z" fill="#ff8fab"/><path d="M42 40 L60 12 L78 40 Z" fill="#ff8fab"/><path d="M50 110 V86 Q60 74 70 86 V110 Z" fill="#8a6fd0"/><rect x="34" y="56" width="10" height="12" rx="5" fill="#fff6c9"/><rect x="76" y="56" width="10" height="12" rx="5" fill="#fff6c9"/></g>
-    <path d="M0 126 Q150 116 300 126 V150 H0 Z" fill="#b8e3a6"/></svg>`,
-  neige: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#dcefff"/><path d="M100 120 L170 34 L220 92 L250 60 L320 120 Z" fill="#9db8d8"/><path d="M170 34 L152 56 L170 50 L188 58 Z M250 60 L238 76 L250 72 L262 78 Z" fill="#fff"/>
-    ${sapin(150, 1)}${sapin(270, 1.2)}${sapin(230, 0.8)}<path d="M0 122 Q150 108 300 122 V150 H0 Z" fill="#fff"/>
-    ${Array.from({ length: 18 }, (_, i) => `<circle cx="${(i * 53) % 300}" cy="${(i * 37) % 110}" r="1.6" fill="#fff"/>`).join('')}</svg>`,
-  mer: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><defs><linearGradient id="eau" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6fc0ea"/><stop offset="1" stop-color="#2f73b0"/></linearGradient></defs>
-    <rect width="300" height="150" fill="url(#eau)"/><path d="M0 132 Q150 120 300 132 V150 H0 Z" fill="#f6dfb0"/>${algue(150, 50, '#6cc070')}${algue(166, 36, '#5fae6e')}${algue(280, 60, '#6cc070')}${algue(292, 40, '#ff8fab')}
-    <g transform="translate(214 56)"><ellipse rx="16" ry="10" fill="#ffb02e"/><path d="M14 0 L26 -9 V9 Z" fill="#ffb02e"/><circle cx="-7" cy="-2" r="2.2" fill="#1d2a40"/></g>
-    <circle cx="190" cy="40" r="3" fill="#cfeaf8"/><circle cx="196" cy="28" r="2" fill="#cfeaf8"/><circle cx="260" cy="20" r="2.5" fill="#cfeaf8"/></svg>`,
-  repaire: `<svg viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice"><rect width="300" height="150" fill="#3a2440"/>
-    <path d="M0 0 H300 V96 Q150 64 0 96 Z" fill="#5c3568"/><path d="M0 150 V96 Q150 64 300 96 V150 Z" fill="#2a1830"/>
-    <path d="M0 150 Q150 130 300 150 Z" fill="#ff7a3c"/><path d="M46 150 Q56 126 66 150 M126 150 Q138 120 150 150 M210 150 Q222 128 234 150 M262 150 Q274 132 286 150" fill="#ffb366" opacity=".85"/>
-    <path d="M20 96 L8 70 L28 68 Z M66 84 L56 60 L80 66 Z M250 90 L238 64 L262 68 Z M290 80 L280 56 L300 62 Z" fill="#2a1830"/>
-    <circle cx="70" cy="30" r="7" fill="#ffd36b" opacity=".35"/><circle cx="240" cy="22" r="9" fill="#ffd36b" opacity=".25"/></svg>`,
+  foret: `<img src="assets/decors/histoire/foret.jpg" alt="">`,
+  plage: `<img src="assets/decors/histoire/plage.jpg" alt="">`,
+  lune: `<img src="assets/decors/histoire/lune.jpg" alt="">`,
+  chateau: `<img src="assets/decors/histoire/chateau.jpg" alt="">`,
+  neige: `<img src="assets/decors/histoire/neige.jpg" alt="">`,
+  mer: `<img src="assets/decors/histoire/mer.jpg" alt="">`,
+  repaire: `<img src="assets/decors/histoire/repaire.jpg" alt="">`,
 };

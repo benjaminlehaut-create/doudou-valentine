@@ -33,6 +33,91 @@
       "fichier": "assets/decors/pause.jpg",
       "taille": "1536x1024",
       "prompt": "Une chambre d’enfant la nuit, très calme : un ciel étoilé bleu nuit par la fenêtre, une lune souriante en tissu, une veilleuse dorée, un petit lit avec une couverture douce. Ambiance de dodo apaisante."
+    },
+
+    {
+      "fichier": "assets/decors/histoire/foret.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une forêt enchantée vue de face : grands arbres ronds et moelleux au feuillage vert et rose, un rayon de soleil doré qui traverse les branches, petites lucioles qui scintillent, un sentier de mousse douce. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+    {
+      "fichier": "assets/decors/histoire/plage.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une plage douce vue de face : sable couleur crème, mer turquoise aux vaguelettes calmes, ciel d’un coucher de soleil rose et orangé, quelques coquillages sur le sable. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+    {
+      "fichier": "assets/decors/histoire/lune.jpg",
+      "taille": "1536x1024",
+      "prompt": "La surface de la lune, féerique et accueillante (pas froide ni vide) : sol gris perle avec de petits cratères arrondis, ciel violet nuit étoilé, la Terre bleue qui brille au loin. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+    {
+      "fichier": "assets/decors/histoire/chateau.jpg",
+      "taille": "1536x1024",
+      "prompt": "Un château de princesse vu de face : tours roses et violettes aux toits pointus dorés, drapeaux colorés, ciel pastel avec des nuages en forme de cœur, fleurs grimpantes sur les murs. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+    {
+      "fichier": "assets/decors/histoire/neige.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une montagne enneigée douce et féerique : sapins couverts de neige scintillante, ciel bleu pastel, petits flocons qui tombent doucement, ambiance cosy, aucune sensation de froid ou de danger. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+    {
+      "fichier": "assets/decors/histoire/mer.jpg",
+      "taille": "1536x1024",
+      "prompt": "Le fond d’un océan magique et lumineux : algues ondulantes douces, coraux ronds colorés, bulles qui montent, lumière turquoise et dorée filtrée depuis la surface, petits poissons qui nagent. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+    {
+      "fichier": "assets/decors/histoire/repaire.jpg",
+      "taille": "1536x1024",
+      "prompt": "Une grotte de dragon chaleureuse, vide de tout personnage : parois douces couleur améthyste, lueur orange et dorée façon veilleuse, cristaux scintillants au plafond, ambiance cosy et magique, pas effrayante. Le centre et le bas restent calmes et dégagés, car un personnage y sera posé."
+    },
+
+    {
+      "fichier": "assets/personnages/lapin.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un petit lapin tout doux, poil blanc crème, grandes oreilles roses à l’intérieur, assis de face, souriant, yeux grands et attendrissants, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/chaton.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un petit chaton tout doux, pelage roux clair avec de légères rayures plus foncées, oreilles pointues, petites moustaches, assis de face, souriant, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/herisson.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un petit hérisson tout doux, piquants façon velours (pas pointus), pelage marron et beige, museau rose, assis de face, souriant, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/ecureuil.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un petit écureuil tout doux, pelage roux orangé, grande queue touffue dressée derrière lui, assis de face, tenant une petite noisette, souriant, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/loup.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un bébé loup tout doux et adorable, pas du tout effrayant, fourrure grise et bleutée, grandes oreilles rondes, assis sagement de face, sourire gentil, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/dragon.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un petit dragon bébé, rond et mignon, écailles vert tendre, petites ailes douces repliées dans le dos, pas de dents ni de griffes visibles, assis de face, souriant, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/renard.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Un petit renard tout doux, pelage orange avec la poitrine blanche, oreilles pointues, grande queue touffue, assis de face, souriant, sur fond transparent."
+    },
+    {
+      "fichier": "assets/personnages/princesse.png",
+      "taille": "1024x1024",
+      "transparent": true,
+      "prompt": "Une petite princesse de conte de fées façon poupée douce, robe pastel vaporeuse, couronne dorée scintillante, joues roses, cheveux bouclés, debout ou assise de face, sourire doux, sur fond transparent."
     }
   ],
 

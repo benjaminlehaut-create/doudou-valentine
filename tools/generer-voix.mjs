@@ -62,6 +62,7 @@ const DOMAINES = {
   lieu: Object.values(H.LIEUX).map((l) => l.nom),
   animal: Object.values(H.ANIMAUX).map((a) => a.nom),
   tresor: Object.values(H.TRESORS).map((t) => t.nom),
+  obstacle: Object.values(H.OBSTACLES).map((o) => o.nom),
 };
 // Certaines variables dépendent du jeu
 function domaine(cle, variable) {
