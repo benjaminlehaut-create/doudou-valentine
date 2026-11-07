@@ -118,7 +118,63 @@
       "taille": "1024x1024",
       "transparent": true,
       "prompt": "Une petite princesse de conte de fées façon poupée douce, robe pastel vaporeuse, couronne dorée scintillante, joues roses, cheveux bouclés, debout ou assise de face, sourire doux, sur fond transparent."
-    }
+    },
+
+    { "fichier": "assets/objets/debut-carte.png", "taille": "1536x1024", "transparent": true, "prompt": "Une carte au trésor en parchemin doré, avec un tracé en pointillés et une croix rouge, sur fond transparent." },
+    { "fichier": "assets/objets/debut-lettre.png", "taille": "1024x1024", "transparent": true, "prompt": "Une lettre magique : enveloppe crème avec un gros cœur rouge en cire, scintillante, sur fond transparent." },
+    { "fichier": "assets/objets/debut-porte.png", "taille": "1024x1024", "transparent": true, "prompt": "Une petite porte dorée arrondie, avec de petites étincelles tout autour, sur fond transparent." },
+    { "fichier": "assets/objets/debut-oiseau.png", "taille": "1536x1024", "transparent": true, "prompt": "Un petit oiseau bleu magique, les ailes déployées, avec une touche de lumière dorée, sur fond transparent." },
+    { "fichier": "assets/objets/debut-graine.png", "taille": "1024x1024", "transparent": true, "prompt": "Une graine magique qui germe : une pousse verte avec une petite étoile dorée au bout, sur fond transparent." },
+    { "fichier": "assets/objets/debut-filante.png", "taille": "1536x1024", "transparent": true, "prompt": "Une étoile filante scintillante, avec une traînée de lumière dorée derrière elle, sur fond transparent." },
+
+    { "fichier": "assets/objets/coffre-ferme.png", "taille": "1536x1024", "transparent": true, "prompt": "Un coffre au trésor en bois, avec des ferrures dorées, fermé, posé de face, sur fond transparent." },
+    { "fichier": "assets/objets/coffre-ouvert.png", "taille": "1536x1024", "transparent": true, "prompt": "Le même coffre au trésor en bois à ferrures dorées, ouvert, avec une lumière dorée et des étincelles qui sortent de l’intérieur, sur fond transparent." },
+
+    { "fichier": "assets/objets/obstacle-rocher.png", "taille": "1536x1024", "transparent": true, "prompt": "Un énorme rocher rond et doux, couleur pierre beige-gris, sur fond transparent." },
+    { "fichier": "assets/objets/obstacle-buisson.png", "taille": "1536x1024", "transparent": true, "prompt": "Un gros buisson tout emmêlé, vert tendre, avec quelques petites fleurs roses et jaunes, sur fond transparent." },
+    { "fichier": "assets/objets/obstacle-flaque.png", "taille": "1536x1024", "transparent": true, "prompt": "Une grande flaque magique qui scintille, bleu turquoise avec des reflets, sur fond transparent." },
+
+    { "fichier": "assets/objets/transport-velo.png", "taille": "1024x1024", "transparent": true, "prompt": "Un vélo d’enfant pastel, avec un petit panier de fleurs à l’avant, vu de profil, sur fond transparent." },
+    { "fichier": "assets/objets/transport-montgolfiere.png", "taille": "1024x1024", "transparent": true, "prompt": "Une montgolfière ronde rayée rose et dorée, avec une nacelle en osier, sur fond transparent." },
+    { "fichier": "assets/objets/transport-bateau.png", "taille": "1024x1024", "transparent": true, "prompt": "Un petit voilier en bois avec une voile blanche, vu de profil, sur fond transparent." },
+    { "fichier": "assets/objets/transport-fusee.png", "taille": "1024x1024", "transparent": true, "prompt": "Une fusée ronde, blanche et rouge, avec un hublot, sur fond transparent." },
+    { "fichier": "assets/objets/transport-train.png", "taille": "1536x1024", "transparent": true, "prompt": "Un petit train à vapeur bleu et rose, avec des wagons tout ronds, vu de profil, sur fond transparent." },
+    { "fichier": "assets/objets/transport-carrosse.png", "taille": "1024x1024", "transparent": true, "prompt": "Un carrosse de princesse doré, avec de grandes roues dorées, sur fond transparent." },
+    { "fichier": "assets/objets/transport-tapis.png", "taille": "1536x1024", "transparent": true, "prompt": "Un tapis volant violet et doré, couvert de motifs scintillants, qui vole dans les airs, sur fond transparent." },
+
+    { "fichier": "assets/objets/trouvaille-champignon.png", "taille": "1024x1024", "transparent": true, "prompt": "Un champignon rouge à pois blancs, tout mignon, sur fond transparent." },
+    { "fichier": "assets/objets/trouvaille-coquillage.png", "taille": "1024x1024", "transparent": true, "prompt": "Un coquillage rose pastel, nacré et brillant, sur fond transparent." },
+    { "fichier": "assets/objets/trouvaille-etoile.png", "taille": "1024x1024", "transparent": true, "prompt": "Une étoile dorée, scintillante, sur fond transparent." },
+    { "fichier": "assets/objets/trouvaille-diamant.png", "taille": "1024x1024", "transparent": true, "prompt": "Un diamant bleu pâle, façon bijou scintillant, sur fond transparent." },
+    { "fichier": "assets/objets/trouvaille-flocon.png", "taille": "1024x1024", "transparent": true, "prompt": "Un flocon de neige bleu glacé, scintillant, sur fond transparent." },
+    { "fichier": "assets/objets/trouvaille-perle.png", "taille": "1024x1024", "transparent": true, "prompt": "Une perle blanche, nacrée, irisée, sur fond transparent." },
+    { "fichier": "assets/objets/trouvaille-gemme.png", "taille": "1024x1024", "transparent": true, "prompt": "Une gemme orange et rouge, façon petit rubis, sur fond transparent." },
+
+    { "fichier": "assets/objets/tresor-couronne.png", "taille": "1024x1024", "transparent": true, "prompt": "Une couronne dorée scintillante, sertie de pierres précieuses roses, bleues et vertes, sur fond transparent." },
+    { "fichier": "assets/objets/tresor-baguette.png", "taille": "1024x1024", "transparent": true, "prompt": "Une baguette de fée dorée, avec une étoile scintillante au bout et un peu de poudre magique, sur fond transparent." },
+    { "fichier": "assets/objets/tresor-gateau.png", "taille": "1024x1024", "transparent": true, "prompt": "Un gâteau géant au chocolat avec un glaçage brillant, une cerise et une petite bougie allumée, sur fond transparent." },
+    { "fichier": "assets/objets/tresor-collier.png", "taille": "1024x1024", "transparent": true, "prompt": "Un collier de perles arc-en-ciel, chaque perle d’une couleur différente, posé en cercle, sur fond transparent." },
+    { "fichier": "assets/objets/tresor-licorne.png", "taille": "1024x1024", "transparent": true, "prompt": "Une petite licorne en peluche toute douce, avec une crinière arc-en-ciel, sur fond transparent." },
+    { "fichier": "assets/objets/tresor-epee.png", "taille": "1024x1024", "transparent": true, "prompt": "Une petite épée magique et scintillante, façon jouet enchanté, sur fond transparent." },
+    { "fichier": "assets/objets/tresor-oeuf.png", "taille": "1024x1024", "transparent": true, "prompt": "Un œuf de dragon qui scintille, motifs d’écailles vert tendre, lueur dorée tout autour, sur fond transparent." },
+
+    { "fichier": "assets/objets/ballon-rouge.png", "taille": "1024x1024", "transparent": true, "prompt": "Un ballon de baudruche tout simple, rouge, avec un joli reflet brillant, et une ficelle qui pend, sur fond transparent." },
+    { "fichier": "assets/objets/ballon-bleu.png", "taille": "1024x1024", "transparent": true, "prompt": "Le même ballon de baudruche, bleu, sur fond transparent." },
+    { "fichier": "assets/objets/ballon-jaune.png", "taille": "1024x1024", "transparent": true, "prompt": "Le même ballon de baudruche, jaune, sur fond transparent." },
+    { "fichier": "assets/objets/ballon-vert.png", "taille": "1024x1024", "transparent": true, "prompt": "Le même ballon de baudruche, vert, sur fond transparent." },
+
+    { "fichier": "assets/objets/cle-or.png", "taille": "1024x1024", "transparent": true, "prompt": "Une petite clé magique et scintillante, couleur or, sur fond transparent." },
+    { "fichier": "assets/objets/cle-argent.png", "taille": "1024x1024", "transparent": true, "prompt": "La même clé magique, couleur argent, sur fond transparent." },
+    { "fichier": "assets/objets/cle-rose.png", "taille": "1024x1024", "transparent": true, "prompt": "La même clé magique, couleur rose doré, sur fond transparent." },
+
+    { "fichier": "assets/objets/dodo-bain.png", "taille": "1024x1024", "transparent": true, "prompt": "Une baignoire ronde et douce, pleine de mousse et de bulles, avec quelques bulles de savon qui flottent au-dessus, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-pyjama.png", "taille": "1024x1024", "transparent": true, "prompt": "Un pyjama d’enfant tout doux et moelleux, bleu pastel à petites étoiles, plié ou posé à plat, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-brosse.png", "taille": "1024x1024", "transparent": true, "prompt": "Une brosse à dents avec un peu de dentifrice dessus, et quelques petites étincelles de propreté autour, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-livre.png", "taille": "1024x1024", "transparent": true, "prompt": "Un livre de contes ouvert, pages crème, avec un peu de lumière dorée qui en sort comme de la magie, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-calin.png", "taille": "1024x1024", "transparent": true, "prompt": "Deux petits bras doux et potelés qui enlacent un cœur rose scintillant, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-veilleuse.png", "taille": "1024x1024", "transparent": true, "prompt": "Une petite veilleuse ronde en forme de lune souriante, lumière dorée douce, avec quelques étoiles autour, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-bonnet.png", "taille": "1536x1024", "transparent": true, "prompt": "Un bonnet de nuit en tissu doux, bleu pastel, avec un pompon, vu de face, sur fond transparent." },
+    { "fichier": "assets/objets/dodo-lit.png", "taille": "1536x1024", "transparent": true, "prompt": "Un lit d’enfant douillet vu de face, couette violette pastel à pois dorés, gros oreiller blanc, cadre en bois, sur fond transparent." }
   ],
 
   "_exemple_pour_un_vrai_doudou": {

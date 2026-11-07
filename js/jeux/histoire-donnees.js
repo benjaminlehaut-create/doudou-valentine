@@ -90,15 +90,14 @@ export function chemin(teinte) {
 
 // Les ballons (une couleur chacun)
 export const BALLONS = { rouge: '#ef4d5a', bleu: '#4f9be0', jaune: '#ffd23a', vert: '#6cc070' };
-export function ballon(teinte) {
-  return `<svg viewBox="0 0 60 100"><ellipse cx="30" cy="32" rx="24" ry="28" fill="${teinte}"/><path d="M26 60 h8 l-4 5 z" fill="${teinte}"/><ellipse cx="22" cy="22" rx="6" ry="9" fill="#fff" opacity=".45"/>
-    <path d="M30 64 Q24 76 32 86 Q38 94 30 100" stroke="#8a8a9a" stroke-width="2" fill="none"/></svg>`;
+export function ballon(id) {
+  return `<img src="assets/objets/ballon-${id}.png" alt="">`;
 }
 
 // --- 7. Les clés du coffre, et les trésors ---
-export const CLES = { doree: '#ffd23a', argent: '#c9d3e8', rose: '#ff8fab' };
-export function cle(teinte) {
-  return `<svg viewBox="0 0 100 100"><circle cx="30" cy="34" r="20" fill="none" stroke="${teinte}" stroke-width="10"/><path d="M44 48 L86 90 M66 70 L76 60 M76 80 L86 70" stroke="${teinte}" stroke-width="10" stroke-linecap="round"/><circle cx="30" cy="34" r="20" fill="none" stroke="rgba(0,0,0,.12)" stroke-width="2"/></svg>`;
+export const CLES = { or: '#ffd23a', argent: '#c9d3e8', rose: '#ff8fab' };
+export function cle(id) {
+  return `<img src="assets/objets/cle-${id}.png" alt="">`;
 }
 export const COFFRE_FERME = `<img src="assets/objets/coffre-ferme.png" alt="">`;
 export const COFFRE_OUVERT = `<img src="assets/objets/coffre-ouvert.png" alt="">`;

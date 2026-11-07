@@ -138,7 +138,7 @@ export function ouvrirHistoire(scene, { aller }) {
     bete.innerHTML = `<img src="${ANIMAUX[animal].image}" alt="">`;
     interactif.append(bete);
     const couleurs = melanger([couleur, ...melanger(Object.keys(BALLONS).filter((c) => c !== couleur)).slice(0, 2)]);
-    choixEnImages('ballons', couleurs.map((c) => ({ id: c, label: 'ballon ' + c, svg: ballon(BALLONS[c]) })), (c, bouton) => {
+    choixEnImages('ballons', couleurs.map((c) => ({ id: c, label: 'ballon ' + c, svg: ballon(c) })), (c, bouton) => {
       if (c !== couleur) {
         pop();
         bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
@@ -149,7 +149,7 @@ export function ouvrirHistoire(scene, { aller }) {
       carillon();
       valentine.pose('joie', { duree: 2400 });
       bete.classList.replace('triste', 'heureux');
-      bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(BALLONS[c])}</div>`);
+      bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(c)}</div>`);
       dire('h-rencontre-merci' + genre, { animal: ANIMAUX[animal].nom });
       plusTard(() => tourner.classList.remove('cache'), 4500);
       return true;
@@ -308,7 +308,7 @@ export function ouvrirHistoire(scene, { aller }) {
     // chaque clé cache un trésor différent
     const tresors = melanger(Object.keys(TRESORS)).slice(0, 3);
     const cles = Object.keys(CLES);
-    choixEnImages('cles', cles.map((id) => ({ id, label: 'clé ' + id, svg: cle(CLES[id]) })), (id) => {
+    choixEnImages('cles', cles.map((id) => ({ id, label: 'clé ' + id, svg: cle(id) })), (id) => {
       const tresor = tresors[cles.indexOf(id)];
       recit.tresor = tresor;
       coffre.innerHTML = COFFRE_OUVERT;

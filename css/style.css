@@ -1001,7 +1001,7 @@ button {
 /* Frise du rituel, en haut à gauche */
 .frise { position: absolute; top: 0; left: 0; z-index: 5; display: flex; gap: 8px; }
 .frise .case { width: clamp(44px, 8vh, 64px); height: clamp(44px, 8vh, 64px); border-radius: 14px; background: rgba(255, 255, 255, 0.5); padding: 6px; filter: grayscale(1) opacity(0.45); }
-.frise .case svg { width: 100%; height: 100%; }
+.frise .case svg, .frise .case img { width: 100%; height: 100%; object-fit: contain; }
 .frise .case.faite { filter: none; background: #fff; box-shadow: 0 0 0 3px var(--or); animation: coucou 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
 
 /* 1. Choix du doudou */
@@ -1015,11 +1015,11 @@ button {
 /* 2. Le lit et le doudou */
 .scene-lit { position: absolute; left: 6%; right: 6%; top: 8%; height: 58%; }
 .lit { position: absolute; left: 4%; right: 4%; bottom: 0; height: 58%; }
-.lit svg { width: 100%; height: 100%; filter: drop-shadow(0 10px 14px rgba(60, 30, 80, 0.25)); }
+.lit svg, .lit img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 10px 14px rgba(60, 30, 80, 0.25)); }
 .dormeur { position: absolute; left: 50%; bottom: 26%; height: 72%; aspect-ratio: 1; translate: -50% 0; }
 .dormeur .doudou { animation: souffle 3s ease-in-out infinite; transform-origin: 50% 100%; }
 .dormeur .bonnet { position: absolute; left: 22%; top: -6%; width: 56%; z-index: 2; opacity: 0; transform: translateY(-60%) rotate(-10deg); transition: opacity 0.4s, transform 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
-.dormeur .bonnet svg { width: 100%; }
+.dormeur .bonnet svg, .dormeur .bonnet img { width: 100%; }
 .dormeur.coiffe .bonnet { opacity: 1; transform: none; }
 .effet { position: absolute; left: 50%; bottom: 26%; height: 72%; aspect-ratio: 1; translate: -50% 0; pointer-events: none; z-index: 3; }
 .effet.bain span { position: absolute; bottom: 10%; left: calc(8% + var(--k) * 6%); width: calc(8% + (var(--k) * 7 % 5) * 1%); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, #cfe9ff 60%, rgba(156, 207, 242, 0.6)); animation: bulle 2.4s ease-in infinite; animation-delay: calc(var(--k) * 0.17s); }
@@ -1030,7 +1030,7 @@ button {
 .effet span:nth-child(2) { left: 70%; top: 22%; animation-delay: 0.4s; }
 .effet span:nth-child(3) { left: 46%; top: 6%; animation-delay: 0.8s; }
 @keyframes scintille { from { transform: scale(0.6) rotate(-10deg); opacity: 0.5; } to { transform: scale(1.2) rotate(10deg); opacity: 1; } }
-.effet.histoire svg { position: absolute; left: 55%; bottom: 0; width: 55%; animation: flotte 2.6s ease-in-out infinite; }
+.effet.histoire svg, .effet.histoire img { position: absolute; left: 55%; bottom: 0; width: 55%; animation: flotte 2.6s ease-in-out infinite; }
 .effet.zzz { font-weight: 800; color: #fff6c9; font-size: clamp(30px, 7vh, 60px); }
 .effet.zzz span { position: absolute; left: 62%; top: 10%; opacity: 0; animation: zzz 2.4s ease-in-out infinite; }
 .effet.zzz span:nth-child(2) { animation-delay: 0.8s; font-size: 0.8em; }
@@ -1039,7 +1039,7 @@ button {
 /* Cartes du rituel */
 .choix-dodo.cartes { position: absolute; left: 0; right: 0; bottom: 2%; display: flex; justify-content: center; gap: 1.6vw; }
 .carte-dodo { width: clamp(84px, 19vh, 160px); height: clamp(84px, 19vh, 160px); border-radius: 26px; background: #fff; border: 5px solid #fff; box-shadow: 0 8px 18px rgba(60, 30, 80, 0.25); padding: 12px; animation: arrivee 0.45s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; animation-delay: calc(var(--i) * 70ms); }
-.carte-dodo svg { width: 100%; height: 100%; }
+.carte-dodo svg, .carte-dodo img { width: 100%; height: 100%; object-fit: contain; }
 .carte-dodo:active { transform: scale(0.94); }
 .carte-dodo.faite { opacity: 0.3; filter: grayscale(0.6); pointer-events: none; }
 .carte-dodo.non { animation: bond 0.5s ease-out; }
@@ -1355,7 +1355,7 @@ button {
 .animal.triste { animation: triste 1.6s ease-in-out infinite; }
 .animal.heureux { animation: saute 0.6s cubic-bezier(0.3, 0, 0.4, 1) 4; transform-origin: 50% 100%; }
 .ballon-rendu { position: absolute; left: 40%; top: -70%; width: 40%; animation: flotte 2s ease-in-out infinite; }
-.ballon-rendu svg { width: 100%; }
+.ballon-rendu svg, .ballon-rendu img { width: 100%; }
 
 /* L’obstacle sur le chemin : un seul geste (toucher) pour le dégager */
 .obstacle { position: absolute; left: 50%; bottom: 8%; transform: translateX(-50%); width: clamp(140px, 36vh, 260px); aspect-ratio: 1.2;

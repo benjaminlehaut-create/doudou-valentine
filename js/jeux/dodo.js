@@ -22,35 +22,18 @@ const NIVEAUX = [
 
 // Les étapes du rituel, dans l’ordre, avec leur image.
 export const ETAPES = [
-  { id: 'bain', svg: `<svg viewBox="0 0 100 100"><circle cx="30" cy="28" r="7" fill="#cfe9ff" stroke="#9ccff2" stroke-width="2"/><circle cx="46" cy="18" r="5" fill="#cfe9ff" stroke="#9ccff2" stroke-width="2"/><circle cx="62" cy="26" r="8" fill="#cfe9ff" stroke="#9ccff2" stroke-width="2"/>
-    <path d="M8 46 H92 V58 Q92 82 66 84 H34 Q8 82 8 58 Z" fill="#fff" stroke="#9ccff2" stroke-width="4"/><path d="M12 50 H88 V58 Q88 64 84 66 H16 Q12 64 12 58 Z" fill="#8fd0f5"/>
-    <path d="M26 84 L22 94 M74 84 L78 94" stroke="#9ccff2" stroke-width="5" stroke-linecap="round"/><circle cx="34" cy="48" r="7" fill="#fff"/><circle cx="48" cy="46" r="9" fill="#fff"/><circle cx="64" cy="48" r="7" fill="#fff"/></svg>` },
-  { id: 'pyjama', svg: `<svg viewBox="0 0 100 100"><path d="M34 12 L20 18 L6 40 L20 48 L26 38 V90 H74 V38 L80 48 L94 40 L80 18 L66 12 Q50 26 34 12 Z" fill="#9db8f0" stroke="#7c98d8" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M40 40 l3 6 l7 1 l-5 5 l1 7 l-6 -3 l-6 3 l1 -7 l-5 -5 l7 -1 z" fill="#fff3a6"/><path d="M62 62 l2 5 l5 1 l-4 3 l1 5 l-4 -2 l-5 2 l1 -5 l-4 -3 l5 -1 z" fill="#fff3a6"/><circle cx="58" cy="34" r="3" fill="#fff3a6"/><circle cx="40" cy="74" r="3" fill="#fff3a6"/></svg>` },
-  { id: 'dents', svg: `<svg viewBox="0 0 100 100"><g transform="rotate(-32 50 55)">
-    <rect x="4" y="57" width="64" height="13" rx="6.5" fill="#5fbf95"/><rect x="10" y="60" width="42" height="4" rx="2" fill="#a5e6c6"/>
-    <rect x="60" y="55" width="36" height="16" rx="7" fill="#fff" stroke="#8fcff5" stroke-width="2.5"/>
-    <rect x="64" y="37" width="28" height="19" rx="3" fill="#cfeeff" stroke="#8fcff5" stroke-width="2"/>
-    <path d="M69 39 V54 M74.5 39 V54 M80 39 V54 M85.5 39 V54" stroke="#8fcff5" stroke-width="2"/>
-    <path d="M63 33 Q68 24 73 32 Q78 24 83 32 Q88 25 93 33" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M63 33 Q68 24 73 32 Q78 24 83 32 Q88 25 93 33" fill="none" stroke="#7fd0ff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></g>
-    <path d="M18 14 l2.5 6 l6 2.5 l-6 2.5 l-2.5 6 l-2.5 -6 l-6 -2.5 l6 -2.5 z" fill="#ffd36b"/><path d="M36 6 l1.5 4 l4 1.5 l-4 1.5 l-1.5 4 l-1.5 -4 l-4 -1.5 l4 -1.5 z" fill="#ffd36b"/></svg>` },
-  { id: 'histoire', svg: `<svg viewBox="0 0 100 100"><path d="M50 26 Q32 16 8 20 V82 Q32 78 50 88 Z" fill="#ffb3c9" stroke="#e98aa8" stroke-width="3" stroke-linejoin="round"/><path d="M50 26 Q68 16 92 20 V82 Q68 78 50 88 Z" fill="#ffc9d8" stroke="#e98aa8" stroke-width="3" stroke-linejoin="round"/>
-    <path d="M18 36 Q30 32 42 36 M18 48 Q30 44 42 48 M58 36 Q70 32 82 36 M58 48 Q70 44 82 48" stroke="#fff" stroke-width="4" stroke-linecap="round" fill="none"/>
-    <circle cx="70" cy="64" r="8" fill="#fff3a6"/></svg>` },
-  { id: 'calin', svg: `<svg viewBox="0 0 100 100"><path d="M50 88 C22 70 6 52 8 34 C10 18 30 10 42 20 Q48 25 50 30 Q52 25 58 20 C70 10 90 18 92 34 C94 52 78 70 50 88 Z" fill="#ff8fab"/>
-    <ellipse cx="30" cy="34" rx="8" ry="11" fill="#fff" opacity=".45" transform="rotate(-25 30 34)"/></svg>` },
-  { id: 'lumiere', svg: `<svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="#3b3f7a"/><path d="M60 22 A28 28 0 1 0 78 66 A22 22 0 1 1 60 22 Z" fill="#fff3a6"/>
-    <path d="M24 26 l2 5 l5 2 l-5 2 l-2 5 l-2 -5 l-5 -2 l5 -2 z" fill="#fff"/><circle cx="28" cy="66" r="2.5" fill="#fff"/><circle cx="76" cy="30" r="2" fill="#fff"/></svg>` },
+  { id: 'bain', svg: `<img src="assets/objets/dodo-bain.png" alt="">` },
+  { id: 'pyjama', svg: `<img src="assets/objets/dodo-pyjama.png" alt="">` },
+  { id: 'dents', svg: `<img src="assets/objets/dodo-brosse.png" alt="">` },
+  { id: 'histoire', svg: `<img src="assets/objets/dodo-livre.png" alt="">` },
+  { id: 'calin', svg: `<img src="assets/objets/dodo-calin.png" alt="">` },
+  { id: 'lumiere', svg: `<img src="assets/objets/dodo-veilleuse.png" alt="">` },
 ];
 
 // Le bonnet de nuit (posé sur la tête du doudou après le pyjama)
-const BONNET = `<svg viewBox="0 0 100 60"><path d="M10 52 Q30 4 70 8 Q92 10 96 34 Q80 22 64 26 Q50 32 52 52 Z" fill="#9db8f0"/><rect x="6" y="46" width="52" height="12" rx="6" fill="#fff"/><circle cx="94" cy="38" r="8" fill="#fff"/><path d="M40 22 l2 4 l4 1 l-3 3 l1 4 l-4 -2 l-4 2 l1 -4 l-3 -3 l4 -1 z" fill="#fff3a6"/></svg>`;
+const BONNET = `<img src="assets/objets/dodo-bonnet.png" alt="">`;
 
-const LIT = `<svg viewBox="0 0 300 160" preserveAspectRatio="none"><rect x="6" y="6" width="40" height="150" rx="14" fill="#c99a6e"/><rect x="254" y="50" width="40" height="106" rx="14" fill="#c99a6e"/>
-  <rect x="20" y="86" width="260" height="46" rx="16" fill="#fff6ee"/><path d="M60 92 H286 Q292 92 292 100 V134 Q292 144 280 144 H60 Q50 144 50 134 V100 Q50 92 60 92 Z" fill="#b8a4f0"/>
-  <path d="M60 92 H286 V104 H50 Q50 92 60 92 Z" fill="#cdbdf6"/><circle cx="110" cy="122" r="6" fill="#fff3a6"/><circle cx="170" cy="116" r="6" fill="#fff3a6"/><circle cx="230" cy="124" r="6" fill="#fff3a6"/>
-  <ellipse cx="80" cy="84" rx="34" ry="14" fill="#fff"/></svg>`;
+const LIT = `<img src="assets/objets/dodo-lit.png" alt="">`;
 
 export function ouvrirDodo(scene, { aller }) {
   scene.classList.add('ecran-dodo');
