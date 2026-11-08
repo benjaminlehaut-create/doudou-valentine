@@ -147,6 +147,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
     } else {
       bulle.innerHTML = Array.from({ length: demande.n }, () => `<div class="voulu">${demande.aliment.svg}</div>`).join('');
     }
+    bulle.classList.toggle('chiffre-bulle', demande.type === 'chiffre');
     bulle.classList.remove('cache', 'secoue');
     majBulle();
   }

@@ -1000,6 +1000,9 @@ button {
   border-radius: 0 0 0 26px;
   transform: skewX(20deg);
 }
+/* Le chiffre géant EST sa propre bulle ronde : pas besoin de la carte blanche derrière. */
+.bulle.chiffre-bulle { background: transparent; box-shadow: none; padding: 0; }
+.bulle.chiffre-bulle::after { background: var(--rose); bottom: -10px; }
 @keyframes bulle-arrive { from { transform: scale(0.2); opacity: 0; } }
 .bulle.secoue { animation: secoue 0.45s ease-in-out; }
 @keyframes secoue { 25% { transform: rotate(-6deg) scale(1.08); } 75% { transform: rotate(6deg) scale(1.08); } }
