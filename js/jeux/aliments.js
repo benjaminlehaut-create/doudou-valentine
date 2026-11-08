@@ -65,8 +65,8 @@ export const COULEURS = ['pomme', 'banane', 'poire', 'orange', 'raisin', 'myrtil
 // Aliments pour compter.
 export const A_COMPTER = ['fraise', 'gateau', 'pomme', 'banane', 'orange'];
 
-const NOMBRES_F = ['', 'une', 'deux', 'trois', 'quatre', 'cinq'];
-const NOMBRES_M = ['', 'un', 'deux', 'trois', 'quatre', 'cinq'];
+const NOMBRES_F = ['', 'une', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'];
+const NOMBRES_M = ['', 'un', 'deux', 'trois', 'quatre', 'cinq', 'six', 'sept', 'huit', 'neuf', 'dix'];
 
 export function nombre(n, genre) {
   return (genre === 'm' ? NOMBRES_M : NOMBRES_F)[n];

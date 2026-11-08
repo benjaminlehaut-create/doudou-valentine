@@ -8,6 +8,8 @@
 // Niveau 2, les quantités : « Debby voudrait deux fraises » (panier mélangé : il faut le bon aliment ET le bon nombre).
 // Niveau 3, le mélange : « il voudrait deux fruits rouges » (la couleur ET le nombre, peu importe lequel des
 // fruits de cette couleur ; le panier mélange plusieurs couleurs et plusieurs fruits).
+// Niveau 4 et 5 : les mêmes quantités, mais jusqu’à 5 puis jusqu’à 10.
+// Niveau 6, le chiffre : un chiffre écrit s’affiche (sans le dire) ; il faut donner le bon nombre.
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
@@ -22,6 +24,9 @@ const NIVEAUX = [
   { type: 'couleur', choix: 3, demandes: 3 },
   { type: 'compte', max: 3, demandes: 3, leurres: 3 },
   { type: 'melange', max: 3, demandes: 4, leurres: 2 },
+  { type: 'compte', max: 5, demandes: 3, leurres: 4 },
+  { type: 'compte', max: 10, demandes: 3, leurres: 2 },
+  { type: 'chiffre', max: 5, demandes: 3, leurres: 4 },
 ];
 
 // « deux fruits rouges », « un fruit rouge »
@@ -62,6 +67,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
     if (!demande) return;
     if (demande.type === 'couleur') dire('pique-couleur', { nom: demande.doudou.nom, couleur: demande.aliment.couleur });
     else if (demande.type === 'melange') dire('pique-compte', { nom: demande.doudou.nom, quantite: texteMelange(demande.n, demande.couleur) });
+    else if (demande.type === 'chiffre') dire('pique-chiffre', { nom: demande.doudou.nom });
     else dire('pique-compte', { nom: demande.doudou.nom, quantite: quantite(demande.n, demande.aliment) });
   };
 
@@ -84,7 +90,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
       p.append(imageDoudou(d));
       return p;
     }));
-    dire(['pique-consigne', 'pique-consigne-2', 'pique-consigne-3'][niveau] || 'pique-consigne-2');
+    dire(['pique-consigne', 'pique-consigne-2', 'pique-consigne-3', 'pique-consigne-4', 'pique-consigne-5', 'pique-consigne-6'][niveau] || 'pique-consigne-2');
     plusTard(() => prochaineDemande(convives, 0), 4200);
   }
 
@@ -108,12 +114,14 @@ export function ouvrirPiqueNique(scene, { aller }) {
       const poolBons = Array.from({ length: 5 }, (_, i) => idsBons[i % idsBons.length]);
       remplirPanier(melanger([...poolBons, ...idsAutres.flatMap((id) => [id, id])]));
     } else {
+      // « compte » et « chiffre » partagent la même mécanique : un seul bon aliment, le bon nombre.
       const ids = melanger([...A_COMPTER]);
       const bon = ids[0];
       const leurre = ids[1];
       const n = 1 + Math.floor(Math.random() * regle.max);
-      demande = { type: 'compte', doudou, rang, convives, aliment: ALIMENTS[bon], idBon: bon, n, assiette: [] };
-      remplirPanier(melanger([...Array(5).fill(bon), ...Array(regle.leurres).fill(leurre)]));
+      demande = { type: regle.type, doudou, rang, convives, aliment: ALIMENTS[bon], idBon: bon, n, assiette: [] };
+      const pool = Math.max(n, 5); // assez de copies du bon aliment pour CETTE demande (pas le maximum du niveau : ça tiendrait mal à l’écran)
+      remplirPanier(melanger([...Array(pool).fill(bon), ...Array(regle.leurres).fill(leurre)]));
     }
 
     // Le doudou arrive en sautillant, assiette vide
@@ -134,6 +142,8 @@ export function ouvrirPiqueNique(scene, { aller }) {
       bulle.innerHTML = `<div class="tache" style="--teinte:${TEINTES[demande.aliment.couleur]}"></div>`;
     } else if (demande.type === 'melange') {
       bulle.innerHTML = Array.from({ length: demande.n }, () => `<div class="voulu tache" style="--teinte:${TEINTES[demande.couleur]}"></div>`).join('');
+    } else if (demande.type === 'chiffre') {
+      bulle.innerHTML = `<div class="chiffre-geant">${demande.n}</div>`;
     } else {
       bulle.innerHTML = Array.from({ length: demande.n }, () => `<div class="voulu">${demande.aliment.svg}</div>`).join('');
     }
@@ -273,6 +283,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
 
     let raison;
     if (demande.type === 'couleur') raison = bons === 0 ? 'pique-pas-couleur' : 'pique-trop-couleur';
+    else if (demande.type === 'chiffre') raison = autres > 0 ? 'pique-pas-ca' : bons < demande.n ? 'pique-chiffre-manque' : 'pique-chiffre-trop';
     else raison = autres > 0 ? 'pique-pas-ca' : bons < demande.n ? 'pique-manque' : 'pique-trop';
     triste(raison, vars);
   }

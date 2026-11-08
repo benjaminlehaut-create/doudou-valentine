@@ -936,6 +936,7 @@ button {
 .aliment {
   width: clamp(90px, 22vh, 180px);
   height: clamp(90px, 22vh, 180px);
+  flex-shrink: 0;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0 55%, rgba(255, 255, 255, 0) 72%);
   padding: 6px;
@@ -1014,6 +1015,21 @@ button {
 .bulle .voulu { width: clamp(56px, 14vh, 120px); height: clamp(56px, 14vh, 120px); filter: grayscale(1) brightness(1.6) opacity(0.35); transition: filter 0.3s; }
 .bulle .voulu svg { width: 100%; height: 100%; }
 .bulle .voulu.recu { filter: none; animation: coucou 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+/* Le chiffre écrit (niveau « chiffre » du pique-nique) : un gros chiffre à reconnaître, jamais dit à voix haute. */
+.bulle .chiffre-geant {
+  width: clamp(76px, 18vh, 150px);
+  height: clamp(76px, 18vh, 150px);
+  display: grid;
+  place-items: center;
+  font-size: clamp(42px, 10vh, 84px);
+  font-weight: 900;
+  color: #fff;
+  background: radial-gradient(circle at 40% 35%, #ffb3c9, var(--rose));
+  border-radius: 50%;
+  box-shadow: var(--ombre);
+  animation: respire 1.4s ease-in-out infinite;
+}
 
 /* ---------- L’heure du dodo ---------- */
 
