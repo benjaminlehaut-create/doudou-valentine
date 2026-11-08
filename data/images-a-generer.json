@@ -179,7 +179,32 @@
     { "fichier": "assets/objets/dodo-calin.png", "taille": "1024x1024", "transparent": true, "prompt": "Deux petits bras doux et potelés qui enlacent un cœur rose scintillant, sur fond transparent." },
     { "fichier": "assets/objets/dodo-veilleuse.png", "taille": "1024x1024", "transparent": true, "prompt": "Une petite veilleuse ronde en forme de lune souriante, lumière dorée douce, avec quelques étoiles autour, sur fond transparent." },
     { "fichier": "assets/objets/dodo-bonnet.png", "taille": "1536x1024", "transparent": true, "prompt": "Un bonnet de nuit en tissu doux, bleu pastel, avec un pompon, vu de face, sur fond transparent." },
-    { "fichier": "assets/objets/dodo-lit.png", "taille": "1536x1024", "transparent": true, "prompt": "Un lit d’enfant douillet vu de face, couette violette pastel à pois dorés, gros oreiller blanc, cadre en bois, sur fond transparent." }
+    { "fichier": "assets/objets/dodo-lit.png", "taille": "1536x1024", "transparent": true, "prompt": "Un lit d’enfant douillet vu de face, couette violette pastel à pois dorés, gros oreiller blanc, cadre en bois, sur fond transparent." },
+
+    { "fichier": "assets/decors/peinture.png", "taille": "1536x1024", "prompt": "Un atelier de peinture pour enfant, douillet et chaleureux, vu de face à hauteur d’enfant : une grande table en bois clair, un parquet blond, un mur pêche avec quelques pots de peinture rangés sur une étagère en haut de l’image, une fenêtre avec une lumière dorée d’après-midi. Le centre et le bas de l’image restent calmes et dégagés, car des pots de peinture et un bol y seront posés." },
+    { "fichier": "assets/decors/sons.png", "taille": "1536x1024", "prompt": "Un petit coin lecture pour enfant, douillet et chaleureux, vu de face à hauteur d’enfant : une étagère basse avec quelques livres aux couleurs pastel, un tapis rond moelleux au sol, un mur jaune pâle, une guirlande de fanions en tissu, une lumière chaude de fin d’après-midi. Le centre et le bas de l’image restent calmes et dégagés, car des images et un doudou y seront posés." },
+
+    { "fichier": "assets/sons/chat.png", "taille": "1024x1024", "prompt": "Un chat assis, tout doux, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/pain.png", "taille": "1024x1024", "prompt": "Une miche de pain ronde, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/lit.png", "taille": "1024x1024", "prompt": "Un petit lit douillet avec une couverture, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/oeuf.png", "taille": "1024x1024", "prompt": "Un œuf dans un petit panier, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/lapin.png", "taille": "1024x1024", "prompt": "Un lapin assis, oreilles dressées, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/tortue.png", "taille": "1024x1024", "prompt": "Une tortue souriante, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/chocolat.png", "taille": "1024x1024", "prompt": "Un carré de chocolat, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/papillon.png", "taille": "1024x1024", "prompt": "Un papillon aux ailes colorées, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/elephant.png", "taille": "1024x1024", "prompt": "Un petit éléphant souriant, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/ananas.png", "taille": "1024x1024", "prompt": "Un ananas, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/rat.png", "taille": "1024x1024", "prompt": "Une petite souris grise, un rat tout mignon, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/souris.png", "taille": "1024x1024", "prompt": "Une petite souris blanche, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/bateau.png", "taille": "1024x1024", "prompt": "Un petit bateau à voile, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/train.png", "taille": "1024x1024", "prompt": "Un petit train coloré, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/main.png", "taille": "1024x1024", "prompt": "Une main d’enfant qui fait coucou, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/serpent.png", "taille": "1024x1024", "prompt": "Un serpent tout enroulé, pas effrayant du tout, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/maison.png", "taille": "1024x1024", "prompt": "Une petite maison avec un toit pointu, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/fusee.png", "taille": "1024x1024", "prompt": "Une fusée colorée, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/lune.png", "taille": "1024x1024", "prompt": "Une lune souriante, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/cheval.png", "taille": "1024x1024", "prompt": "Un petit cheval, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/renard.png", "taille": "1024x1024", "prompt": "Un renard roux assis, bien centré sur un fond uni très clair." }
   ],
 
   "_exemple_pour_un_vrai_doudou": {
