@@ -466,6 +466,38 @@ button {
   from { opacity: 0; transform: scale(1.05); }
 }
 
+/* ---------- Écran « à quel niveau tu joues ? » ---------- */
+
+.ecran-niveaux {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4vw;
+  background: rgba(255, 243, 230, 0.55);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  animation: apparait 0.5s ease-out;
+}
+.pastille-niveau {
+  width: clamp(80px, 15vh, 120px);
+  height: clamp(80px, 15vh, 120px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff, #fff1f5);
+  border: 6px solid #fff;
+  box-shadow: var(--ombre);
+  color: var(--rose);
+  animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+  animation-delay: calc(var(--i) * 80ms);
+}
+.pastille-niveau:not(.verrouille) { animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards, respire 1.4s ease-in-out infinite 0.6s; animation-delay: calc(var(--i) * 80ms), 0s; }
+.pastille-niveau:active { transform: scale(0.93); }
+.pastille-niveau.fait { color: #fff; background: radial-gradient(circle at 40% 35%, #ffe49a, var(--or)); box-shadow: 0 0 0 4px var(--or), var(--ombre); }
+.pastille-niveau.verrouille { color: #fff; background: #d8c6ba; box-shadow: none; animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; opacity: 0.8; }
+.pastille-niveau svg { width: 46%; height: 46%; }
+
 /* ---------- Fête : cœurs et confettis ---------- */
 
 #calque-fete {

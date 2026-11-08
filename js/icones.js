@@ -7,3 +7,7 @@ export const OREILLE = `<svg viewBox="0 0 48 48"><path d="M8 19h7l10-8v26l-10-8H
 export const REJOUER = `<svg viewBox="0 0 48 48"><path d="M38 24a14 14 0 1 1-4.1-9.9" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/><path d="M36 6v10H26" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
 export const SUIVANT = `<svg viewBox="0 0 48 48"><path d="M17 8l17 16-17 16z" fill="currentColor" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/></svg>`;
+
+export const CADENAS = `<svg viewBox="0 0 48 48"><rect x="10" y="22" width="28" height="20" rx="6" fill="currentColor"/><path d="M16 22v-6a8 8 0 0 1 16 0v6" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"/><circle cx="24" cy="31" r="3.5" fill="#fff"/></svg>`;
+
+export const COCHE = `<svg viewBox="0 0 48 48"><path d="M10 25 L20 35 L38 13" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;

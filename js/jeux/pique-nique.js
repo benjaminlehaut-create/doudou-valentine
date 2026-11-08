@@ -13,8 +13,10 @@ import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
 import { pop, carillon, fanfare, croque, douceur } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
-import { BARRE, brancherBarre, afficherFin, melanger, valentineDuJeu } from './commun.js';
+import { BARRE, brancherBarre, afficherFin, ecranNiveaux, melanger, valentineDuJeu } from './commun.js';
 import { ALIMENTS, COULEURS, A_COMPTER, TEINTES, COULEURS_PLURIEL, nombre, quantite } from './aliments.js';
+import { debloquer } from '../progres.js';
+import { COCHE } from '../icones.js';
 
 const NIVEAUX = [
   { type: 'couleur', choix: 3, demandes: 3 },
@@ -25,8 +27,6 @@ const NIVEAUX = [
 // « deux fruits rouges », « un fruit rouge »
 const texteMelange = (n, couleur) => `${nombre(n, 'm')} fruit${n > 1 ? 's' : ''} ${n > 1 ? COULEURS_PLURIEL[couleur] : couleur}`;
 const INDICE_APRES = 9000; // ms sans rien faire avant que le bon aliment se dandine
-
-const COCHE = `<svg viewBox="0 0 48 48"><path d="M10 25 L20 35 L38 13" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
 export function ouvrirPiqueNique(scene, { aller }) {
   scene.classList.add('ecran-pique');
@@ -51,7 +51,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
   const panier = scene.querySelector('.panier');
   const fin = scene.querySelector('.fin');
 
-  let niveau = 0;
+  let niveau = null;
   let actif = true;
   let minuteries = [];
   let indice = null;
@@ -330,6 +330,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
   }
 
   function partieGagnee() {
+    debloquer('pique-nique', niveau);
     valentine.fond('joie');
     demande = null;
     clearTimeout(indice);
@@ -359,7 +360,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
     }), 2400);
   }
 
-  nouvellePartie();
+  ecranNiveaux(scene, { jeu: 'pique-nique', total: NIVEAUX.length, choisir: (i) => { niveau = i; nouvellePartie(); } });
 
   return () => {
     actif = false;
