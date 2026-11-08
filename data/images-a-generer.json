@@ -167,6 +167,11 @@
     { "fichier": "assets/objets/cle-argent.png", "taille": "1024x1024", "transparent": true, "prompt": "La même clé magique, couleur argent, sur fond transparent." },
     { "fichier": "assets/objets/cle-rose.png", "taille": "1024x1024", "transparent": true, "prompt": "La même clé magique, couleur rose doré, sur fond transparent." },
 
+    { "fichier": "assets/objets/chemin-rouge.png", "taille": "1024x1024", "transparent": true, "prompt": "Un petit sentier sinueux couleur terre, bordé de petites fleurs rouges, sur fond transparent." },
+    { "fichier": "assets/objets/chemin-bleu.png", "taille": "1024x1024", "transparent": true, "prompt": "Le même sentier, bordé de fleurs bleues, sur fond transparent." },
+    { "fichier": "assets/objets/chemin-jaune.png", "taille": "1024x1024", "transparent": true, "prompt": "Le même sentier, bordé de fleurs jaunes, sur fond transparent." },
+    { "fichier": "assets/objets/chemin-vert.png", "taille": "1024x1024", "transparent": true, "prompt": "Le même sentier, bordé de fleurs vertes, sur fond transparent." },
+
     { "fichier": "assets/objets/dodo-bain.png", "taille": "1024x1024", "transparent": true, "prompt": "Une baignoire ronde et douce, pleine de mousse et de bulles, avec quelques bulles de savon qui flottent au-dessus, sur fond transparent." },
     { "fichier": "assets/objets/dodo-pyjama.png", "taille": "1024x1024", "transparent": true, "prompt": "Un pyjama d’enfant tout doux et moelleux, bleu pastel à petites étoiles, plié ou posé à plat, sur fond transparent." },
     { "fichier": "assets/objets/dodo-brosse.png", "taille": "1024x1024", "transparent": true, "prompt": "Une brosse à dents avec un peu de dentifrice dessus, et quelques petites étincelles de propreté autour, sur fond transparent." },

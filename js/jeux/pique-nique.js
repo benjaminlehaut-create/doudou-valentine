@@ -6,18 +6,24 @@
 // (« c’est trop », « il en manque »…) ; on corrige et on revalide. Jamais de son négatif.
 // Niveau 1, les couleurs : « Sacha voudrait un fruit jaune » (trois fruits au choix).
 // Niveau 2, les quantités : « Debby voudrait deux fraises » (panier mélangé : il faut le bon aliment ET le bon nombre).
+// Niveau 3, le mélange : « il voudrait deux fruits rouges » (la couleur ET le nombre, peu importe lequel des
+// fruits de cette couleur ; le panier mélange plusieurs couleurs et plusieurs fruits).
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
 import { pop, carillon, fanfare, croque, douceur } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
 import { BARRE, brancherBarre, afficherFin, melanger, valentineDuJeu } from './commun.js';
-import { ALIMENTS, COULEURS, A_COMPTER, TEINTES, nombre, quantite } from './aliments.js';
+import { ALIMENTS, COULEURS, A_COMPTER, TEINTES, COULEURS_PLURIEL, nombre, quantite } from './aliments.js';
 
 const NIVEAUX = [
   { type: 'couleur', choix: 3, demandes: 3 },
   { type: 'compte', max: 3, demandes: 3, leurres: 3 },
+  { type: 'melange', max: 3, demandes: 4, leurres: 2 },
 ];
+
+// « deux fruits rouges », « un fruit rouge »
+const texteMelange = (n, couleur) => `${nombre(n, 'm')} fruit${n > 1 ? 's' : ''} ${n > 1 ? COULEURS_PLURIEL[couleur] : couleur}`;
 const INDICE_APRES = 9000; // ms sans rien faire avant que le bon aliment se dandine
 
 const COCHE = `<svg viewBox="0 0 48 48"><path d="M10 25 L20 35 L38 13" fill="none" stroke="currentColor" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
@@ -55,8 +61,12 @@ export function ouvrirPiqueNique(scene, { aller }) {
   const redire = () => {
     if (!demande) return;
     if (demande.type === 'couleur') dire('pique-couleur', { nom: demande.doudou.nom, couleur: demande.aliment.couleur });
+    else if (demande.type === 'melange') dire('pique-compte', { nom: demande.doudou.nom, quantite: texteMelange(demande.n, demande.couleur) });
     else dire('pique-compte', { nom: demande.doudou.nom, quantite: quantite(demande.n, demande.aliment) });
   };
+
+  // Un aliment convient-il à la demande en cours ? (selon le type : bon id précis, ou bonne couleur)
+  const correspond = (id) => (demande.type === 'melange' ? ALIMENTS[id].couleur === demande.couleur : id === demande.idBon);
   brancherBarre(scene, { ecouter: redire, aller });
   const valentine = valentineDuJeu(scene, 'content');
   boutonValider.addEventListener('click', valider);
@@ -74,7 +84,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
       p.append(imageDoudou(d));
       return p;
     }));
-    dire(niveau === 0 ? 'pique-consigne' : 'pique-consigne-2');
+    dire(['pique-consigne', 'pique-consigne-2', 'pique-consigne-3'][niveau] || 'pique-consigne-2');
     plusTard(() => prochaineDemande(convives, 0), 4200);
   }
 
@@ -89,6 +99,14 @@ export function ouvrirPiqueNique(scene, { aller }) {
       const bon = choix[0];
       demande = { type: 'couleur', doudou, rang, convives, aliment: ALIMENTS[bon], idBon: bon, n: 1, assiette: [] };
       remplirPanier(melanger([...choix]));
+    } else if (regle.type === 'melange') {
+      const couleur = melanger(Object.keys(TEINTES))[0];
+      const idsBons = Object.keys(ALIMENTS).filter((id) => ALIMENTS[id].couleur === couleur);
+      const idsAutres = melanger(Object.keys(ALIMENTS).filter((id) => ALIMENTS[id].couleur !== couleur)).slice(0, regle.leurres);
+      const n = 1 + Math.floor(Math.random() * regle.max);
+      demande = { type: 'melange', doudou, rang, convives, couleur, idsBons, n, assiette: [] };
+      const poolBons = Array.from({ length: 5 }, (_, i) => idsBons[i % idsBons.length]);
+      remplirPanier(melanger([...poolBons, ...idsAutres.flatMap((id) => [id, id])]));
     } else {
       const ids = melanger([...A_COMPTER]);
       const bon = ids[0];
@@ -114,6 +132,8 @@ export function ouvrirPiqueNique(scene, { aller }) {
     if (!demande) return;
     if (demande.type === 'couleur') {
       bulle.innerHTML = `<div class="tache" style="--teinte:${TEINTES[demande.aliment.couleur]}"></div>`;
+    } else if (demande.type === 'melange') {
+      bulle.innerHTML = Array.from({ length: demande.n }, () => `<div class="voulu tache" style="--teinte:${TEINTES[demande.couleur]}"></div>`).join('');
     } else {
       bulle.innerHTML = Array.from({ length: demande.n }, () => `<div class="voulu">${demande.aliment.svg}</div>`).join('');
     }
@@ -122,7 +142,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
   }
 
   function majBulle() {
-    if (!demande || demande.type !== 'compte') return;
+    if (!demande || (demande.type !== 'compte' && demande.type !== 'melange')) return;
     const bons = combienDeBons();
     [...bulle.children].forEach((v, k) => v.classList.toggle('recu', k < bons));
   }
@@ -148,14 +168,15 @@ export function ouvrirPiqueNique(scene, { aller }) {
     clearTimeout(indice);
     indice = setTimeout(() => {
       if (!actif || !demande || demande.verrou) return;
-      panier.querySelectorAll(`.aliment[data-id="${demande.idBon}"]:not(.parti)`).forEach((b) => {
+      panier.querySelectorAll('.aliment:not(.parti)').forEach((b) => {
+        if (!correspond(b.dataset.id)) return;
         b.classList.remove('indice'); void b.offsetWidth; b.classList.add('indice');
       });
       relancerIndice();
     }, INDICE_APRES);
   }
 
-  const combienDeBons = () => demande.assiette.filter((x) => x.id === demande.idBon).length;
+  const combienDeBons = () => demande.assiette.filter((x) => correspond(x.id)).length;
 
   function majValider() {
     boutonValider.classList.toggle('pret', Boolean(demande && demande.assiette.length));
@@ -169,7 +190,7 @@ export function ouvrirPiqueNique(scene, { aller }) {
     const item = { id, bouton, el: null };
     demande.assiette.push(item);
     envoler(bouton, item);
-    if (demande.type === 'compte' && id === demande.idBon) {
+    if (demande.type !== 'couleur' && correspond(id)) {
       dire('pique-nombre', { mot: nombre(combienDeBons(), ALIMENTS[id].genre) });
     }
     majBulle();
@@ -244,7 +265,9 @@ export function ouvrirPiqueNique(scene, { aller }) {
     }
     const bons = combienDeBons();
     const autres = demande.assiette.length - bons;
-    const vars = { nom: demande.doudou.nom, couleur: demande.aliment.couleur, quantite: quantite(demande.n, demande.aliment), pluriel: demande.aliment.pluriel };
+    const vars = demande.type === 'melange'
+      ? { nom: demande.doudou.nom, couleur: demande.couleur, quantite: texteMelange(demande.n, demande.couleur), pluriel: `fruits ${COULEURS_PLURIEL[demande.couleur]}` }
+      : { nom: demande.doudou.nom, couleur: demande.aliment.couleur, quantite: quantite(demande.n, demande.aliment), pluriel: demande.aliment.pluriel };
 
     if (autres === 0 && bons === demande.n) return manger();
 
@@ -294,7 +317,10 @@ export function ouvrirPiqueNique(scene, { aller }) {
       carillon();
       gerbeSur(convive, 10);
       progres.children[rang]?.classList.replace('en-cours', 'repu');
-      dire('pique-bon', { aliment: demande.aliment.le, nom: doudou.nom, id: doudou.id });
+      const nomAliment = demande.type === 'melange'
+        ? `${demande.n > 1 ? 'les' : 'le'} fruit${demande.n > 1 ? 's' : ''} ${demande.n > 1 ? COULEURS_PLURIEL[demande.couleur] : demande.couleur}`
+        : demande.aliment.le;
+      dire('pique-bon', { aliment: nomAliment, nom: doudou.nom, id: doudou.id });
     }, 1200);
     plusTard(() => {
       convive.classList.remove('content');

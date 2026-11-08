@@ -39,7 +39,7 @@ if (fs.existsSync(fichierEnv)) {
 // --- Toutes les valeurs possibles de chaque {variable} ---
 const lireJson = (f) => JSON.parse(fs.readFileSync(path.join(RACINE, f), 'utf8'));
 const importer = (f) => import(pathToFileURL(path.join(RACINE, f)).href);
-const { ALIMENTS, COULEURS, A_COMPTER, quantite, nombre } = await importer('js/jeux/aliments.js');
+const { ALIMENTS, COULEURS, A_COMPTER, TEINTES, COULEURS_PLURIEL, quantite, nombre } = await importer('js/jeux/aliments.js');
 const H = await importer('js/jeux/histoire-donnees.js');
 const phrases = lireJson('data/phrases.json');
 const doudous = lireJson('data/doudous.json').doudous.filter((d) => d && d.nom);
@@ -49,13 +49,23 @@ const couleursPique = [...new Set(COULEURS.map((id) => ALIMENTS[id].couleur))];
 const couleursCache = ['rose', 'marron', 'vert', 'jaune', 'violet', 'bleu'];
 const couleursBallons = Object.keys(H.BALLONS);
 const majuscule = (t) => t.charAt(0).toUpperCase() + t.slice(1);
+// Niveau « mélange » du pique-nique : « un fruit rouge », « deux fruits rouges »…
+const texteMelange = (n, couleur) => `${nombre(n, 'm')} fruit${n > 1 ? 's' : ''} ${n > 1 ? COULEURS_PLURIEL[couleur] : couleur}`;
+const couleursMelange = Object.keys(TEINTES);
 
 const DOMAINES = {
   prenom: [PRENOM],
   nom: noms,
   autre: noms,
-  aliment: [...new Set([...COULEURS.map((id) => ALIMENTS[id].un), ...Object.values(ALIMENTS).map((a) => a.le)])],
-  pluriel: [...new Set(A_COMPTER.map((id) => ALIMENTS[id].pluriel))],
+  aliment: [...new Set([
+    ...COULEURS.map((id) => ALIMENTS[id].un),
+    ...Object.values(ALIMENTS).map((a) => a.le),
+    ...couleursMelange.flatMap((c) => [`le fruit ${c}`, `les fruits ${COULEURS_PLURIEL[c]}`]),
+  ])],
+  pluriel: [...new Set([
+    ...A_COMPTER.map((id) => ALIMENTS[id].pluriel),
+    ...couleursMelange.map((c) => `fruits ${COULEURS_PLURIEL[c]}`),
+  ])],
   mot: [...new Set([1, 2, 3, 4, 5].flatMap((n) => ['m', 'f'].map((g) => nombre(n, g))).filter(Boolean).flatMap((m) => [m, majuscule(m)]))],
   outil: ['le pansement', 'le thermomètre', 'le sirop', 'le mouchoir', 'le stéthoscope', 'le câlin'],
   transport: Object.values(H.TRANSPORTS).map((t) => t.nom),
@@ -72,7 +82,12 @@ function domaine(cle, variable) {
     return couleursBallons;
   }
   if (variable === 'quantite') {
-    if (cle.startsWith('pique')) return A_COMPTER.flatMap((id) => [1, 2, 3].map((n) => quantite(n, ALIMENTS[id])));
+    if (cle.startsWith('pique')) {
+      return [
+        ...A_COMPTER.flatMap((id) => [1, 2, 3].map((n) => quantite(n, ALIMENTS[id]))),
+        ...couleursMelange.flatMap((c) => [1, 2, 3].map((n) => texteMelange(n, c))),
+      ];
+    }
     return Object.values(H.LIEUX).flatMap((l) => [3, 4, 5].map((n) => `${l.genre === 'f' ? ['', 'une', 'deux', 'trois', 'quatre', 'cinq'][n] : ['', 'un', 'deux', 'trois', 'quatre', 'cinq'][n]} ${l.objets}`));
   }
   if (variable === 'id') return [''];

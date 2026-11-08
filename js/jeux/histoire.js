@@ -185,7 +185,7 @@ export function ouvrirHistoire(scene, { aller }) {
     const couleur = recit.cheminCouleur;
     raconter('h-chemin', { couleur }, false);
     const couleurs = melanger([couleur, ...melanger(Object.keys(BALLONS).filter((c) => c !== couleur)).slice(0, 2)]);
-    choixEnImages('chemins', couleurs.map((c) => ({ id: c, label: 'chemin ' + c, svg: chemin(BALLONS[c]) })), (c, bouton) => {
+    choixEnImages('chemins', couleurs.map((c) => ({ id: c, label: 'chemin ' + c, svg: chemin(c) })), (c, bouton) => {
       if (c !== couleur) {
         pop();
         bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');

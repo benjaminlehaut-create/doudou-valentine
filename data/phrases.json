@@ -22,6 +22,7 @@
 
   "pique-consigne": ["C’est l’heure du pique-nique ! Mets dans l’assiette ce que le doudou demande, puis appuie sur le bouton vert."],
   "pique-consigne-2": ["Encore un pique-nique ! Cette fois, compte bien, et ne te trompe pas d’aliment. Puis appuie sur le bouton vert."],
+  "pique-consigne-3": ["Encore un pique-nique ! Cette fois, regarde bien la couleur ET compte comme il faut. Puis appuie sur le bouton vert."],
   "pique-couleur": ["{nom} a faim ! Donne-lui un fruit {couleur}.", "{nom} voudrait un fruit {couleur}. Lequel est {couleur} ?"],
   "pique-compte": ["{nom} voudrait {quantite}. Donne-lui {quantite} !"],
   "pique-vide": ["L’assiette est vide ! Mets-y ce que le doudou demande, puis appuie sur le bouton vert."],

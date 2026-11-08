@@ -57,6 +57,8 @@ export const ALIMENTS = {
 
 // La teinte de chaque couleur, pour la bulle du doudou.
 export const TEINTES = { rouge: '#ef4d5a', jaune: '#ffd23a', vert: '#86cc5e', orange: '#ff9a2e', violet: '#9b5fc8', bleu: '#4f78d8', marron: '#b9773e' };
+// L’accord au pluriel de chaque couleur (« deux fruits verts »), pour le niveau mélange.
+export const COULEURS_PLURIEL = { rouge: 'rouges', jaune: 'jaunes', vert: 'verts', orange: 'oranges', violet: 'violets', bleu: 'bleus', marron: 'marrons' };
 
 // Aliments pour le jeu des couleurs : une couleur chacun.
 export const COULEURS = ['pomme', 'banane', 'poire', 'orange', 'raisin', 'myrtilles'];

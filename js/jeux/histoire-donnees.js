@@ -83,9 +83,8 @@ export const OBSTACLES = {
 
 // Un deuxième type de petit défi, pour que l’aventure ne soit pas toujours pareille :
 // plusieurs chemins possibles, il faut trouver celui décoré de la bonne couleur.
-export function chemin(teinte) {
-  return `<svg viewBox="0 0 100 100"><path d="M20 90 Q46 60 20 40 Q-4 20 30 10" stroke="#d8b778" stroke-width="14" fill="none" stroke-linecap="round"/>
-    <circle cx="30" cy="10" r="7" fill="${teinte}"/><circle cx="16" cy="42" r="6" fill="${teinte}"/><circle cx="22" cy="78" r="6" fill="${teinte}"/></svg>`;
+export function chemin(id) {
+  return `<img src="assets/objets/chemin-${id}.png" alt="">`;
 }
 
 // Les ballons (une couleur chacun)
