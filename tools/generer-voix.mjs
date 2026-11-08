@@ -66,7 +66,7 @@ const DOMAINES = {
     ...A_COMPTER.map((id) => ALIMENTS[id].pluriel),
     ...couleursMelange.map((c) => `fruits ${COULEURS_PLURIEL[c]}`),
   ])],
-  mot: [...new Set([1, 2, 3, 4, 5].flatMap((n) => ['m', 'f'].map((g) => nombre(n, g))).filter(Boolean).flatMap((m) => [m, majuscule(m)]))],
+  mot: [...new Set([1, 2, 3, 4, 5, 6, 7, 8, 9, 10].flatMap((n) => ['m', 'f'].map((g) => nombre(n, g))).filter(Boolean).flatMap((m) => [m, majuscule(m)]))],
   outil: ['le pansement', 'le thermomètre', 'le sirop', 'le mouchoir', 'le stéthoscope', 'le câlin'],
   transport: Object.values(H.TRANSPORTS).map((t) => t.nom),
   lieu: Object.values(H.LIEUX).map((l) => l.nom),
