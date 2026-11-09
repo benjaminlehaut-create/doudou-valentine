@@ -1355,6 +1355,7 @@ button {
 .porte:nth-child(4) { background: linear-gradient(160deg, #eceaff, #c9c2f2); animation-delay: -1.8s; }
 .porte:nth-child(5) { background: linear-gradient(160deg, #ecfaf7, #c6ece3); animation-delay: -2.4s; }
 .porte:nth-child(6) { background: linear-gradient(160deg, #fff0f5, #ffd0df); animation-delay: -3s; }
+.porte:nth-child(7) { background: linear-gradient(160deg, #e8e6fb, #bdb8e8); animation-delay: -3.6s; }
 .porte:active { transform: scale(0.94); transition: transform 0.08s; }
 
 /* Boutons ronds : un reflet brillant */
