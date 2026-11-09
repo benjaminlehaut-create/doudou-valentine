@@ -1488,6 +1488,39 @@ button {
 .trophees { position: absolute; left: 3%; top: 3%; z-index: 5; display: flex; gap: 0.8vh; flex-wrap: wrap; max-width: 55%; }
 .trophee { width: clamp(42px, 7.5vh, 62px); height: clamp(42px, 7.5vh, 62px); animation: arrivee 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) backwards; }
 
+.score-reveille {
+  position: absolute;
+  left: 3%;
+  top: 13%;
+  z-index: 5;
+  background: #fff;
+  color: var(--brun);
+  border-radius: 999px;
+  padding: 0.3vh 1.8vh;
+  font-size: clamp(18px, 3.2vh, 26px);
+  font-weight: 800;
+  box-shadow: 0 4px 10px rgba(150, 80, 50, 0.18);
+}
+.chrono-reveille {
+  position: absolute;
+  left: 50%;
+  top: 3%;
+  translate: -50% 0;
+  z-index: 5;
+  width: clamp(56px, 9vh, 78px);
+  height: clamp(56px, 9vh, 78px);
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fff, #fff1f5);
+  color: var(--rose);
+  box-shadow: var(--ombre);
+  display: grid;
+  place-items: center;
+  font-size: clamp(22px, 4vh, 32px);
+  font-weight: 800;
+}
+.chrono-reveille.tic { animation: tic-chrono 0.3s ease-out; }
+@keyframes tic-chrono { 0% { transform: scale(1.18); } }
+
 .places {
   position: absolute;
   inset: 16% 4% 4% 4%;
