@@ -15,6 +15,7 @@ import { ouvrirDocteur } from './jeux/docteur.js';
 import { ouvrirHistoire } from './jeux/histoire.js';
 import { ouvrirReveille } from './jeux/reveille.js';
 import { ouvrirPeinture } from './jeux/peinture.js';
+import { ouvrirPhonologie } from './jeux/phonologie.js';
 
 // Chaque écran : une fonction ouvrir(scene, { aller }) qui renvoie (si besoin) une fonction de nettoyage.
 const ECRANS = {
@@ -27,6 +28,7 @@ const ECRANS = {
   histoire: ouvrirHistoire,
   reveille: ouvrirReveille,
   peinture: ouvrirPeinture,
+  sons: ouvrirPhonologie,
 };
 
 const scene = document.getElementById('scene');

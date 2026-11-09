@@ -42,6 +42,7 @@ const importer = (f) => import(pathToFileURL(path.join(RACINE, f)).href);
 const { ALIMENTS, COULEURS, A_COMPTER, TEINTES, COULEURS_PLURIEL, quantite, nombre } = await importer('js/jeux/aliments.js');
 const H = await importer('js/jeux/histoire-donnees.js');
 const P = await importer('js/jeux/peinture-donnees.js');
+const S = await importer('js/jeux/phonologie-donnees.js');
 const phrases = lireJson('data/phrases.json');
 const doudous = lireJson('data/doudous.json').doudous.filter((d) => d && d.nom);
 
@@ -78,6 +79,8 @@ const DOMAINES = {
   pot1: Object.keys(P.POTS),
   pot2: Object.keys(P.POTS),
   resultat: Object.keys(P.TEINTES_RESULTAT),
+  cible: S.RIMES.map((r) => r.mot),
+  debut: S.SONS_DEBUT.map((s) => s.voix),
 };
 // Certaines variables dépendent du jeu
 function domaine(cle, variable) {

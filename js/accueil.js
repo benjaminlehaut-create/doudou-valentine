@@ -9,6 +9,7 @@ import { ALIMENTS } from './jeux/aliments.js';
 import { ETAPES } from './jeux/dodo.js';
 import { OUTILS } from './jeux/docteur.js';
 import { placerValentine, valentineLa, portraitValentine } from './valentine.js';
+import { OREILLE } from './icones.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
@@ -20,6 +21,7 @@ const JEUX = [
   { id: 'histoire', nom: 'L’histoire de Valentine', illustration: illustrationHistoire },
   { id: 'reveille', nom: 'Réveille-doudous', illustration: illustrationReveille },
   { id: 'peinture', nom: 'L’atelier peinture', illustration: illustrationPeinture },
+  { id: 'sons', nom: 'Le jeu des sons', illustration: illustrationSons },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -233,5 +235,18 @@ function illustrationPeinture(doudous) {
   const d = imageDoudou(doudous[4] || doudous[0]);
   d.classList.add('peintre-illu');
   boite.append(d);
+  return boite;
+}
+
+// Goubi et Kiki, avec une petite oreille qui écoute
+function illustrationSons(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-sons';
+  boite.innerHTML = `<span class="oreille-illu">${OREILLE}</span>`;
+  const g = imageDoudou(doudous[7] || doudous[0]);
+  const k = imageDoudou(doudous[6] || doudous[0]);
+  g.classList.add('eleve-illu');
+  k.classList.add('eleve-illu');
+  boite.append(g, k);
   return boite;
 }
