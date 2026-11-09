@@ -41,6 +41,7 @@ const lireJson = (f) => JSON.parse(fs.readFileSync(path.join(RACINE, f), 'utf8')
 const importer = (f) => import(pathToFileURL(path.join(RACINE, f)).href);
 const { ALIMENTS, COULEURS, A_COMPTER, TEINTES, COULEURS_PLURIEL, quantite, nombre } = await importer('js/jeux/aliments.js');
 const H = await importer('js/jeux/histoire-donnees.js');
+const P = await importer('js/jeux/peinture-donnees.js');
 const phrases = lireJson('data/phrases.json');
 const doudous = lireJson('data/doudous.json').doudous.filter((d) => d && d.nom);
 
@@ -73,12 +74,17 @@ const DOMAINES = {
   animal: Object.values(H.ANIMAUX).map((a) => a.nom),
   tresor: Object.values(H.TRESORS).map((t) => t.nom),
   obstacle: Object.values(H.OBSTACLES).map((o) => o.nom),
+  objet: Object.values(P.OBJETS).map((o) => o.le),
+  pot1: Object.keys(P.POTS),
+  pot2: Object.keys(P.POTS),
+  resultat: Object.keys(P.TEINTES_RESULTAT),
 };
 // Certaines variables dépendent du jeu
 function domaine(cle, variable) {
   if (variable === 'couleur') {
     if (cle.startsWith('pique')) return couleursPique;
     if (cle.startsWith('cache')) return couleursCache;
+    if (cle.startsWith('peinture')) return Object.keys(P.TEINTES_RESULTAT);
     return couleursBallons;
   }
   if (variable === 'quantite') {

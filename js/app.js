@@ -14,6 +14,7 @@ import { ouvrirDodo } from './jeux/dodo.js';
 import { ouvrirDocteur } from './jeux/docteur.js';
 import { ouvrirHistoire } from './jeux/histoire.js';
 import { ouvrirReveille } from './jeux/reveille.js';
+import { ouvrirPeinture } from './jeux/peinture.js';
 
 // Chaque écran : une fonction ouvrir(scene, { aller }) qui renvoie (si besoin) une fonction de nettoyage.
 const ECRANS = {
@@ -25,6 +26,7 @@ const ECRANS = {
   docteur: ouvrirDocteur,
   histoire: ouvrirHistoire,
   reveille: ouvrirReveille,
+  peinture: ouvrirPeinture,
 };
 
 const scene = document.getElementById('scene');

@@ -19,6 +19,7 @@ const JEUX = [
   { id: 'docteur', nom: 'Le docteur', illustration: illustrationDocteur },
   { id: 'histoire', nom: 'L’histoire de Valentine', illustration: illustrationHistoire },
   { id: 'reveille', nom: 'Réveille-doudous', illustration: illustrationReveille },
+  { id: 'peinture', nom: 'L’atelier peinture', illustration: illustrationPeinture },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -221,5 +222,16 @@ function illustrationReveille(doudous) {
   boite.className = 'illu-reveille';
   boite.append(imageDoudou(doudous[6] || doudous[0], 'joie'));
   boite.insertAdjacentHTML('beforeend', '<span class="toucher-illu"></span>');
+  return boite;
+}
+
+// Trois petits pots de peinture colorés
+function illustrationPeinture(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-peinture';
+  boite.innerHTML = `<span class="pot-illu" style="--teinte:#ef4d5a"></span><span class="pot-illu" style="--teinte:#ffd23a"></span><span class="pot-illu" style="--teinte:#4f78d8"></span>`;
+  const d = imageDoudou(doudous[4] || doudous[0]);
+  d.classList.add('peintre-illu');
+  boite.append(d);
   return boite;
 }
