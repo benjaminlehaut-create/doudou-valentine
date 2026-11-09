@@ -1216,6 +1216,11 @@ button {
 .illu-docteur .mini-outil { position: absolute; right: 4%; bottom: 6%; width: 36%; }
 .illu-docteur .mini-outil svg { width: 100%; }
 
+/* Porte de réveille-doudous sur l’accueil */
+.illu-reveille { position: relative; width: 82%; height: 74%; border-radius: 20px; background: linear-gradient(#3a3f7a, #6d6aae); overflow: hidden; }
+.illu-reveille .doudou { position: absolute; left: 8%; bottom: 0; width: 66%; height: 86%; animation: souffle 2.6s ease-in-out infinite; transform-origin: 50% 100%; }
+.illu-reveille .etincelle-illu { position: absolute; right: 12%; top: 14%; color: #fff6c9; font-size: clamp(20px, 4vh, 32px); animation: scintille 1s ease-in-out infinite alternate; }
+
 /* ---------- L’histoire de Valentine ---------- */
 
 .ecran-histoire {
@@ -1442,3 +1447,77 @@ button {
 /* Le dessin du lieu, en grand décor */
 .livre .decor { position: absolute; inset: 0; z-index: 0; }
 .livre .decor svg, .livre .decor img { width: 100%; height: 100%; display: block; object-fit: cover; }
+
+/* ---------- Réveille-doudous (jeu de réflexes) ---------- */
+
+.ecran-reveille {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+}
+.nuit-reveille {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  border-radius: 32px;
+  overflow: hidden;
+  background: linear-gradient(#ffd9b8, #ffb199 55%, #f58fb0 100%);
+}
+.ciel-reveille {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#1b1f4d, #3a3f7a 55%, #5d5a9e 100%);
+  opacity: 0;
+}
+/* La nuit tombe peu à peu, à la place d’un chronomètre : on sent le temps passer sans jamais voir de chiffre. */
+.nuit-reveille.en-cours .ciel-reveille { transition: opacity var(--duree, 40s) linear; opacity: 1; }
+.nuit-reveille.couchee .ciel-reveille { opacity: 1; }
+
+.trophees { position: absolute; left: 3%; top: 3%; z-index: 5; display: flex; gap: 0.8vh; flex-wrap: wrap; max-width: 55%; }
+.trophee { width: clamp(42px, 7.5vh, 62px); height: clamp(42px, 7.5vh, 62px); animation: arrivee 0.4s cubic-bezier(0.3, 1.6, 0.5, 1) backwards; }
+
+.places {
+  position: absolute;
+  inset: 16% 4% 4% 4%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  gap: 3vh 3vw;
+  z-index: 2;
+}
+.place-nuit {
+  position: relative;
+  width: clamp(110px, 24vh, 190px);
+  height: clamp(90px, 18vh, 140px);
+  border-radius: 50% 50% 46% 46% / 60% 60% 40% 40%;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 -6px 0 rgba(255, 255, 255, 0.35);
+}
+
+.doudou-nuit {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  width: clamp(90px, 20vh, 160px);
+  height: clamp(90px, 20vh, 160px);
+}
+.doudou-nuit .doudou { pointer-events: none; }
+.doudou-nuit.apparait { animation: dodeline var(--duree, 2.7s) cubic-bezier(0.3, 1.1, 0.4, 1) forwards; }
+@keyframes dodeline {
+  0%   { transform: translate(-50%, 22%) scale(0.5) rotate(0deg); opacity: 0; filter: brightness(1); }
+  12%  { transform: translate(-50%, 0) scale(1) rotate(0deg); opacity: 1; filter: brightness(1); }
+  75%  { transform: translate(-50%, 0) scale(1) rotate(-6deg); filter: brightness(0.92); }
+  100% { transform: translate(-50%, 4%) scale(1) rotate(-14deg); filter: brightness(0.8); }
+}
+.doudou-nuit.reveille { animation: coucou 0.6s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.doudou-nuit.endormi { animation: affaisse 0.6s ease-out forwards; }
+@keyframes affaisse { to { transform: translate(-50%, 6%) rotate(-18deg) scale(0.92); filter: brightness(0.75); } }
+
+.zzz-leger { position: absolute; top: -8%; right: 0; font-size: clamp(16px, 3vh, 26px); font-weight: 800; color: #fff; text-shadow: 0 2px 4px rgba(0, 0, 0, 0.18); opacity: 0; }
+.doudou-nuit.apparait .zzz-leger { animation: zzz-leger-apparait var(--duree, 2.7s) ease-in forwards; }
+@keyframes zzz-leger-apparait { 0%, 45% { opacity: 0; } 100% { opacity: 1; } }
+.zzz-leger span { display: inline-block; animation: zzz 1.8s ease-in-out infinite; opacity: 0; }
+.zzz-leger span:nth-child(2) { animation-delay: 0.4s; font-size: 0.8em; }
+.zzz-leger span:nth-child(3) { animation-delay: 0.8s; font-size: 0.6em; }

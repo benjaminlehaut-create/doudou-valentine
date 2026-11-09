@@ -18,6 +18,7 @@ const JEUX = [
   { id: 'dodo', nom: 'L’heure du dodo', illustration: illustrationDodo },
   { id: 'docteur', nom: 'Le docteur', illustration: illustrationDocteur },
   { id: 'histoire', nom: 'L’histoire de Valentine', illustration: illustrationHistoire },
+  { id: 'reveille', nom: 'Réveille-doudous', illustration: illustrationReveille },
 ];
 
 export function ouvrirAccueil(scene, { aller }) {
@@ -211,5 +212,14 @@ function illustrationHistoire(doudous) {
   if (portrait) boite.insertAdjacentHTML('beforeend', `<img class="portrait-illu" src="${portrait}" alt="" draggable="false">`);
   else boite.append(imageDoudou(doudous[4] || doudous[0], 'coucou'));
   boite.insertAdjacentHTML('beforeend', '<span class="etoile-illu">★</span><span class="etoile-illu">★</span>');
+  return boite;
+}
+
+// Un doudou qui somnole, et une petite étincelle (vite, avant qu’il s’endorme !)
+function illustrationReveille(doudous) {
+  const boite = document.createElement('div');
+  boite.className = 'illu-reveille';
+  boite.append(imageDoudou(doudous[6] || doudous[0], 'dodo'));
+  boite.insertAdjacentHTML('beforeend', '<span class="etincelle-illu">✦</span>');
   return boite;
 }

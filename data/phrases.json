@@ -108,6 +108,12 @@
   "h-fin-fete": ["À la maison, tous les doudous les attendent ! Ils font une grande fête pour le trésor. Fin !"],
   "h-fin-maman": ["{prenom} court raconter toute l’aventure à Maman, et lui montre {tresor}. Quelle belle journée ! Fin !"],
 
+  "reveille-consigne": ["Les doudous s’endorment ! Touche-les vite avant qu’ils ferment les yeux !"],
+  "reveille-attrape": ["Bravo, {nom} se réveille !", "Hop, {nom} est réveillé !", "Bien joué !", "Youpi !"],
+  "reveille-fin": ["Bravo {prenom} ! Regarde tous les doudous que tu as réveillés !"],
+  "reveille-record": ["Nouveau record, bravo !"],
+  "reveille-encore": ["On y rejoue ?"],
+
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],
   "test-voix": ["Bonjour {prenom} ! Je suis la voix des doudous."]
 }

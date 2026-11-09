@@ -13,6 +13,7 @@ import { ouvrirPiqueNique } from './jeux/pique-nique.js';
 import { ouvrirDodo } from './jeux/dodo.js';
 import { ouvrirDocteur } from './jeux/docteur.js';
 import { ouvrirHistoire } from './jeux/histoire.js';
+import { ouvrirReveille } from './jeux/reveille.js';
 
 // Chaque écran : une fonction ouvrir(scene, { aller }) qui renvoie (si besoin) une fonction de nettoyage.
 const ECRANS = {
@@ -23,6 +24,7 @@ const ECRANS = {
   dodo: ouvrirDodo,
   docteur: ouvrirDocteur,
   histoire: ouvrirHistoire,
+  reveille: ouvrirReveille,
 };
 
 const scene = document.getElementById('scene');
