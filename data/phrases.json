@@ -147,6 +147,10 @@
   "sons-pas-ca": ["Hmm, ce n’est pas ça ! Cherche encore.", "Pas tout à fait… réessaie !"],
   "sons-bravo": ["Bravo ! C’est ça !", "Oui ! Bien joué !", "Voilà ! Tu as l’oreille fine !"],
   "sons-gagne": ["Bravo {prenom} ! Tu as l’oreille fine !"],
+  "sons-prenom-v": ["Retrouve la lettre V !", "Trouve le V parmi ces lettres !"],
+  "sons-prenom-trouve-v": ["Bravo ! C’est le V !"],
+  "sons-prenom-reconstruire": ["Maintenant, écris VALENTINE ! Touche les lettres dans l’ordre."],
+  "sons-prenom-bravo": ["Bravo ! Tu as écrit ton prénom toute seule !"],
   "sons-encore": ["On recommence ?"],
 
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],

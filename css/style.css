@@ -1740,3 +1740,45 @@ button {
 .syllabes-points { display: flex; gap: 1.4vh; }
 .point-syllabe { width: clamp(22px, 4vh, 34px); height: clamp(22px, 4vh, 34px); border-radius: 50%; background: rgba(255, 255, 255, 0.6); border: 3px solid #fff; box-shadow: 0 3px 6px rgba(150, 80, 50, 0.18); }
 .point-syllabe.tape { background: var(--or); animation: coucou 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+
+/* Bonus prénom : retrouver le V, puis reconstituer VALENTINE */
+.prenom-sons {
+  position: absolute;
+  inset: 8% 4% 4% 4%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.6vh;
+  z-index: 4;
+}
+.modele-prenom, .prenom-slots { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.7vh; }
+.lettre-modele, .slot-lettre {
+  width: clamp(34px, 6.6vh, 50px);
+  height: clamp(34px, 6.6vh, 50px);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-size: clamp(18px, 3.2vh, 26px);
+  font-weight: 800;
+}
+.lettre-modele { background: #fff; box-shadow: 0 4px 8px rgba(150, 80, 50, 0.18); color: var(--rose); }
+.slot-lettre { border: 3px dashed #fff; background: rgba(255, 255, 255, 0.35); color: var(--brun); }
+.slot-lettre.remplie { background: #fff; border-style: solid; border-color: var(--or); animation: coucou 0.5s cubic-bezier(0.3, 1.6, 0.5, 1); }
+.lettres-trouver, .prenom-palette { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.6vh 1.4vw; }
+.lettre-choix {
+  width: clamp(80px, 13vh, 110px);
+  height: clamp(80px, 13vh, 110px);
+  border-radius: 24px;
+  background: radial-gradient(circle at 40% 35%, #fff, #fff1f5);
+  border: 6px solid #fff;
+  box-shadow: var(--ombre);
+  font-size: clamp(32px, 6vh, 48px);
+  font-weight: 800;
+  color: var(--brun);
+  animation: arrivee 0.4s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+.lettre-choix:active { transform: scale(0.93); }
+.lettre-choix.non { animation: bond 0.5s ease-out; }
+.lettre-choix.posee { opacity: 0.25; pointer-events: none; }
