@@ -43,7 +43,7 @@ const PROBLEMES = {
   bobo: { soins: ['pansement'] },
   fievre: { soins: ['thermometre', 'sirop'] },
   rhume: { soins: ['mouchoir'] },
-  peur: { soins: ['calin'] },
+  peur: { soins: ['stethoscope', 'calin'] }, // on écoute d’abord son cœur qui bat vite, avant le câlin
 };
 
 const NUAGE = `<svg viewBox="0 0 120 90"><path d="M24 54 Q6 54 8 38 Q10 24 26 26 Q30 8 52 10 Q72 8 78 24 Q98 20 104 36 Q110 54 92 56 Z" fill="#8d98bf" stroke="#6b779e" stroke-width="2"/>
@@ -153,8 +153,12 @@ export function ouvrirDocteur(scene, { aller }) {
     bouton.classList.remove('utilise'); void bouton.offsetWidth; bouton.classList.add('utilise');
     const vars = { nom: soin.doudou.nom, id: soin.doudou.id, outil: OUTILS[id].le };
 
-    // Le stéthoscope : boum boum, puis l’indice
-    if (id === 'stethoscope') {
+    const reste = soin.aSoigner.filter((p) => !p.gueri);
+    const cible = reste.find((p) => PROBLEMES[p.probleme].soins[p.etape] === id);
+
+    // Le stéthoscope, quand ce n’est l’étape utile pour personne : un indice gratuit, jamais faux
+    // (sinon, pour la peur, il sert vraiment : on écoute le cœur avant le câlin, voir plus bas).
+    if (id === 'stethoscope' && !cible) {
       soin.occupe = true;
       montrerOutil(id);
       battement();
@@ -163,15 +167,15 @@ export function ouvrirDocteur(scene, { aller }) {
       return;
     }
 
-    const reste = soin.aSoigner.filter((p) => !p.gueri);
-    const cible = reste.find((p) => PROBLEMES[p.probleme].soins[p.etape] === id);
     if (!cible) {
       pop();
       bouton.classList.add('non');
       plusTard(() => bouton.classList.remove('non'), 600);
-      // Sirop sans avoir mesuré la fièvre : on explique l’ordre
+      // Sirop sans avoir mesuré la fièvre, câlin sans avoir écouté le cœur : on explique l’ordre
       const fievre = reste.find((p) => p.probleme === 'fievre' && p.etape === 0);
+      const peur = reste.find((p) => p.probleme === 'peur' && p.etape === 0);
       if (id === 'sirop' && fievre) dire('docteur-dabord', vars);
+      else if (id === 'calin' && peur) dire('docteur-dabord-peur', vars);
       else dire('docteur-pas-ca', vars);
       return;
     }
@@ -180,6 +184,7 @@ export function ouvrirDocteur(scene, { aller }) {
     soin.occupe = true;
     douceur();
     montrerOutil(id);
+    if (id === 'stethoscope') battement();
     cible.etape++;
     const fini = cible.etape >= PROBLEMES[cible.probleme].soins.length;
     dire('docteur-soin-' + id, vars);
