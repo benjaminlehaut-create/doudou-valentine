@@ -1,11 +1,12 @@
 // Jeu 8 : l'atelier peinture. On choisit d'abord avec qui peindre : Poussin ou Sacha.
-// Niveau 1, mélanger : on touche deux pots, ils se versent dans le bol, la couleur se mélange en
-// tourbillonnant et la voix annonce le résultat (« Jaune et bleu… ça fait VERT ! »). Pas de bonne
-// ou de mauvaise réponse : on découvre librement, jusqu'à avoir trouvé les 3 mélanges possibles.
-// Niveau 2, deviner : le doudou choisi demande une couleur pour un objet (bulle avec une tache de
-// la couleur voulue, comme au pique-nique). Il faut trouver les deux bons pots pour la fabriquer.
+// Toujours un objectif clair, annoncé par la voix et montré dans la bulle (une tache de la couleur
+// voulue) : jamais de mélange « juste pour voir », sinon ça n'a pas de but.
+// Niveau 1, la couleur : « Fais du vert ! » — il faut juste réussir le mélange dans le bol.
+// Niveau 2, deviner pour un objet : le doudou demande une couleur pour un objet précis (pull,
+// écharpe…) ; une fois la bonne couleur faite, elle se pose sur l'objet.
 // Niveau 3, clair/foncé : les pots blanc et noir s'ajoutent (rose, gris, marron en plus).
 // Toujours deux pots à la fois, jamais de glisser-déposer : on touche, ils se versent tout seuls.
+// Mauvais mélange : jamais puni, la couleur obtenue est juste différente de celle demandée, on réessaie.
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
 import { dire, taire } from '../voix.js';
@@ -16,9 +17,9 @@ import { debloquer } from '../progres.js';
 import { POTS, TEINTES_RESULTAT, trouverRecette, melangeParDefaut, OBJETS } from './peinture-donnees.js';
 
 const NIVEAUX = [
-  { type: 'decouverte', pots: ['rouge', 'jaune', 'bleu'] },
-  { type: 'deviner', pots: ['rouge', 'jaune', 'bleu'], cibles: ['vert', 'orange', 'violet'], demandes: 3 },
-  { type: 'deviner', pots: ['rouge', 'jaune', 'bleu', 'blanc', 'noir'], cibles: ['rose', 'gris', 'marron', 'vert', 'orange', 'violet'], demandes: 4 },
+  { type: 'simple', pots: ['rouge', 'jaune', 'bleu'], cibles: ['vert', 'orange', 'violet'], demandes: 3 },
+  { type: 'objet', pots: ['rouge', 'jaune', 'bleu'], cibles: ['vert', 'orange', 'violet'], demandes: 3 },
+  { type: 'objet', pots: ['rouge', 'jaune', 'bleu', 'blanc', 'noir'], cibles: ['rose', 'gris', 'marron', 'vert', 'orange', 'violet'], demandes: 4 },
 ];
 
 export function ouvrirPeinture(scene, { aller }) {
@@ -53,9 +54,8 @@ export function ouvrirPeinture(scene, { aller }) {
   let minuteries = [];
   let choix = null;      // le premier pot touché, en attente du second
   let verrou = false;    // le bol est occupé (en train de mélanger, ou résultat affiché)
-  let demande = null;    // { cible, objet, rang }
+  let demande = null;    // { cible, objet?, rang }
   let cibleListe = [];
-  let trouvailles = new Set(); // les recettes déjà découvertes (niveau 1)
   const plusTard = (fn, ms) => minuteries.push(setTimeout(fn, ms));
 
   let doudouHote = null;
@@ -63,7 +63,8 @@ export function ouvrirPeinture(scene, { aller }) {
   const redire = () => {
     if (!doudouHote) { dire('peinture-qui'); return; }
     if (!demande) { dire(['peinture-consigne', 'peinture-consigne-2', 'peinture-consigne-3'][niveau] || 'peinture-consigne'); return; }
-    dire('peinture-demande', { nom: doudouHote.nom, id: doudouHote.id, objet: OBJETS[demande.objet].le, couleur: demande.cible });
+    if (demande.objet) dire('peinture-demande', { nom: doudouHote.nom, id: doudouHote.id, objet: OBJETS[demande.objet].le, couleur: demande.cible });
+    else dire('peinture-objectif', { couleur: demande.cible });
   };
   brancherBarre(scene, { ecouter: redire, aller });
   const valentine = valentineDuJeu(scene, 'content');
@@ -107,21 +108,15 @@ export function ouvrirPeinture(scene, { aller }) {
     choix = null;
     verrou = false;
     demande = null;
-    trouvailles = new Set();
     const regle = NIVEAUX[niveau];
     remplirPots(regle.pots);
     bol.classList.remove('plein', 'tourbillonne');
-    if (regle.type === 'decouverte') {
-      progres.replaceChildren(...Array.from({ length: 3 }, () => pastille()));
-      objetPeint.classList.add('cache');
-      bulle.classList.add('cache');
-      dire('peinture-consigne');
-    } else {
-      cibleListe = melanger([...regle.cibles]).slice(0, regle.demandes);
-      progres.replaceChildren(...cibleListe.map(() => pastille()));
-      dire(niveau === 1 ? 'peinture-consigne-2' : 'peinture-consigne-3');
-      plusTard(() => prochaineDemande(0), 3400);
-    }
+    objetPeint.classList.add('cache');
+    bulle.classList.add('cache');
+    cibleListe = melanger([...regle.cibles]).slice(0, regle.demandes);
+    progres.replaceChildren(...cibleListe.map(() => pastille()));
+    dire(['peinture-consigne', 'peinture-consigne-2', 'peinture-consigne-3'][niveau] || 'peinture-consigne');
+    plusTard(() => prochaineDemande(0), 3400);
   }
 
   function pastille() {
@@ -145,13 +140,20 @@ export function ouvrirPeinture(scene, { aller }) {
 
   function prochaineDemande(rang) {
     if (rang >= cibleListe.length) return partieGagnee();
+    const regle = NIVEAUX[niveau];
     const cible = cibleListe[rang];
-    const ids = Object.keys(OBJETS);
-    const objet = ids[Math.floor(Math.random() * ids.length)];
+    let objet = null;
+    if (regle.type === 'objet') {
+      const ids = Object.keys(OBJETS);
+      objet = ids[Math.floor(Math.random() * ids.length)];
+      objetPeint.className = 'objet-peint';
+      objetPeint.innerHTML = OBJETS[objet].svg('#d8d8d8');
+      objetPeint.classList.remove('cache');
+    } else {
+      objetPeint.classList.add('cache');
+    }
     demande = { cible, objet, rang };
     progres.children[rang]?.classList.add('en-cours');
-    objetPeint.className = 'objet-peint';
-    objetPeint.innerHTML = OBJETS[objet].svg('#d8d8d8');
     bulle.innerHTML = `<div class="tache" style="--teinte:${TEINTES_RESULTAT[cible]}"></div>`;
     bulle.classList.remove('cache', 'secoue');
     plusTard(redire, 500);
@@ -196,25 +198,6 @@ export function ouvrirPeinture(scene, { aller }) {
     bol.classList.add('plein', 'tourbillonne');
 
     plusTard(() => {
-      if (!demande) {
-        // Niveau découverte : on annonce juste ce que ça donne, jamais faux.
-        if (recette) {
-          dire('peinture-resultat', { pot1: recette.a, pot2: recette.b, resultat: recette.resultat });
-          const cle = [recette.a, recette.b].sort().join('-');
-          if (!trouvailles.has(cle)) {
-            trouvailles.add(cle);
-            progres.children[trouvailles.size - 1]?.classList.add('repu');
-          }
-        } else {
-          dire('peinture-resultat-doux');
-        }
-        plusTard(() => {
-          bol.classList.remove('plein', 'tourbillonne');
-          verrou = false;
-          if (trouvailles.size >= 3) plusTard(partieGagnee, 600);
-        }, 2200);
-        return;
-      }
       if (recette && recette.resultat === demande.cible) reussite();
       else rate();
     }, 700);
@@ -223,8 +206,12 @@ export function ouvrirPeinture(scene, { aller }) {
   function reussite() {
     const { objet, cible, rang } = demande;
     carillon();
-    objetPeint.innerHTML = OBJETS[objet].svg(TEINTES_RESULTAT[cible]);
-    gerbeSur(objetPeint, 10);
+    if (objet) {
+      objetPeint.innerHTML = OBJETS[objet].svg(TEINTES_RESULTAT[cible]);
+      gerbeSur(objetPeint, 10);
+    } else {
+      gerbeSur(bol, 10);
+    }
     valentine.pose('joie', { duree: 1600 });
     dire('peinture-bravo', { nom: doudouHote.nom, id: doudouHote.id });
     progres.children[rang]?.classList.replace('en-cours', 'repu');

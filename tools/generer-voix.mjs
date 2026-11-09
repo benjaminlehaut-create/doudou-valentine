@@ -76,9 +76,6 @@ const DOMAINES = {
   tresor: Object.values(H.TRESORS).map((t) => t.nom),
   obstacle: Object.values(H.OBSTACLES).map((o) => o.nom),
   objet: Object.values(P.OBJETS).map((o) => o.le),
-  pot1: Object.keys(P.POTS),
-  pot2: Object.keys(P.POTS),
-  resultat: Object.keys(P.TEINTES_RESULTAT),
   cible: S.RIMES.map((r) => r.mot),
   debut: S.SONS_DEBUT.map((s) => s.voix),
 };
