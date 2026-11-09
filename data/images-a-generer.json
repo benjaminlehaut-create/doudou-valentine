@@ -181,6 +181,12 @@
     { "fichier": "assets/objets/dodo-bonnet.png", "taille": "1536x1024", "transparent": true, "prompt": "Un bonnet de nuit en tissu doux, bleu pastel, avec un pompon, vu de face, sur fond transparent." },
     { "fichier": "assets/objets/dodo-lit.png", "taille": "1536x1024", "transparent": true, "prompt": "Un lit d’enfant douillet vu de face, couette violette pastel à pois dorés, gros oreiller blanc, cadre en bois, sur fond transparent." },
 
+    { "fichier": "assets/objets/pot-rouge.png", "taille": "1024x1024", "prompt": "Un pot de peinture pour enfant, rond et mignon, avec un couvercle entrouvert laissant voir de la peinture rouge à l’intérieur, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/objets/pot-jaune.png", "taille": "1024x1024", "prompt": "Le même pot de peinture, avec de la peinture jaune à l’intérieur, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/objets/pot-bleu.png", "taille": "1024x1024", "prompt": "Le même pot de peinture, avec de la peinture bleue à l’intérieur, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/objets/pot-blanc.png", "taille": "1024x1024", "prompt": "Le même pot de peinture, avec de la peinture blanche à l’intérieur, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/objets/pot-noir.png", "taille": "1024x1024", "prompt": "Le même pot de peinture, avec de la peinture noire à l’intérieur, bien centré sur un fond uni très clair." },
+
     { "fichier": "assets/decors/peinture.png", "taille": "1536x1024", "prompt": "Un atelier de peinture pour enfant, douillet et chaleureux, vu de face à hauteur d’enfant : une grande table en bois clair, un parquet blond, un mur pêche avec quelques pots de peinture rangés sur une étagère en haut de l’image, une fenêtre avec une lumière dorée d’après-midi. Le centre et le bas de l’image restent calmes et dégagés, car des pots de peinture et un bol y seront posés." },
     { "fichier": "assets/decors/sons.png", "taille": "1536x1024", "prompt": "Un petit coin lecture pour enfant, douillet et chaleureux, vu de face à hauteur d’enfant : une étagère basse avec quelques livres aux couleurs pastel, un tapis rond moelleux au sol, un mur jaune pâle, une guirlande de fanions en tissu, une lumière chaude de fin d’après-midi. Le centre et le bas de l’image restent calmes et dégagés, car des images et un doudou y seront posés." },
 

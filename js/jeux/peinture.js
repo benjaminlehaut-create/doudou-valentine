@@ -131,8 +131,8 @@ export function ouvrirPeinture(scene, { aller }) {
       b.className = 'pot';
       b.dataset.id = id;
       b.style.setProperty('--i', i);
-      b.style.setProperty('--teinte', POTS[id]);
       b.setAttribute('aria-label', 'pot ' + id);
+      b.innerHTML = `<img src="assets/objets/pot-${id}.png" alt="">`;
       b.addEventListener('click', () => toucherPot(id, b));
       return b;
     }));

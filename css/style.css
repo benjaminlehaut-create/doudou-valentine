@@ -1666,16 +1666,16 @@ button {
 .pot {
   width: clamp(80px, 13vh, 110px);
   height: clamp(80px, 13vh, 110px);
-  border-radius: 50%;
-  background: var(--teinte);
-  border: 6px solid #fff;
+  border-radius: 20px;
+  background: #fff;
   box-shadow: var(--ombre);
+  padding: 6px;
   animation: arrivee 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
   animation-delay: calc(var(--i) * 80ms);
 }
+.pot img { width: 100%; height: 100%; object-fit: contain; border-radius: 14px; }
 .pot:active { transform: scale(0.93); }
 .pot.choisi { box-shadow: 0 0 0 5px var(--rose), var(--ombre); animation: respire 1s ease-in-out infinite; }
-.pot[data-id="blanc"] { border-color: #e8dfce; }
 
 .video-melange {
   position: absolute;
