@@ -33,6 +33,10 @@
     <button class="jouer" aria-label="Jouer"></button>
   </div>
 
+  <!-- Petit clip d’intro entre le premier écran et l’accueil (si le fichier existe ; sinon on passe
+       directement à l’accueil, voir js/app.js) -->
+  <video id="video-intro" class="calque cache" src="assets/videos/intro.mp4" playsinline></video>
+
   <!-- En portrait : demander de tourner la tablette -->
   <div id="tourne" class="calque" aria-hidden="true">
     <div class="tablette"></div>
