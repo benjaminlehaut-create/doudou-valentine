@@ -30,7 +30,7 @@ Valentine elle-même est le personnage principal : la guide qui accompagne ses d
 - **Code** : `js/valentine.js`. `placerValentine(conteneur, poseDeFond)` renvoie `{ pose(nom, { duree, doudou }), fond(nom) }`. Dans un jeu : `valentineDuJeu(scene, 'content')` (de `js/jeux/commun.js`) la place dans son coin, au-dessus des boutons « oreille » et « maison », à environ 25 % de la hauteur d’écran.
 - **Animation** : changement de pose en fondu de 200 ms et petit rebond doux ; respiration continue (échelle 1 → 1,02).
 - **Pose câlin** : le doudou choisi est superposé devant elle, entre ses bras (`pose('calin', { doudou })`). Position et taille réglables dans `data/valentine.json` (`calin` : x, y, taille en %).
-- **Accueil** : Valentine debout au centre, **montrée en entier** (pas d’agrandissement à l’accueil), coucou à l’arrivée, joie si on la touche, avec la voix « Coucou Valentine ! Avec qui tu veux jouer aujourd’hui ? ». Ses doudous sont autour d’elle : autant en « ( » à sa gauche qu’en « ) » à sa droite, et, si leur nombre est impair, un au-dessus de sa tête (3 + 3 + 1 pour 7), avec un espace pour ne pas la toucher. Chacun a sa place à part : **un doudou ne doit jamais passer devant elle**. Son portrait rond orne le bouton de démarrage.
+- **Accueil, en deux écrans** (scindé le 9 novembre 2026 : Valentine + doudous + 9 portes en même temps, c’était trop chargé) : `#accueil` montre seulement Valentine et ses doudous, avec un gros bouton « Jouer » qui mène à `#jeux`, l’écran des portes (+ un petit bouton portrait pour revenir à Valentine). Depuis un jeu, le bouton maison de la barre ramène à `#jeux` (pas à `#accueil`), pour enchaîner les parties. Sur `#accueil`, Valentine debout au centre, **montrée en entier** (pas d’agrandissement), coucou à l’arrivée, joie si on la touche, avec la voix « Coucou Valentine ! ». Ses doudous sont autour d’elle : autant en « ( » à sa gauche qu’en « ) » à sa droite, et, si leur nombre est impair, un au-dessus de sa tête (3 + 3 + 1 pour 7), avec un espace pour ne pas la toucher. Chacun a sa place à part : **un doudou ne doit jamais passer devant elle**. Son portrait rond orne le bouton de démarrage.
 - **Poses dans les jeux** :
   - Memory : content pendant la partie, surprise quand on retourne une carte, joie quand on trouve une paire et à la fin.
   - Cache-cache : loupe pendant la recherche, surprise quand on ouvre la mauvaise cachette, joie quand on trouve un doudou.
@@ -75,7 +75,7 @@ manifest.webmanifest  PWA
 sw.js                 service worker (hors ligne)
 css/style.css         tout le style
 js/app.js             démarrage, navigation (#accueil, #memory), pause
-js/accueil.js         écran d’accueil (Valentine au centre, doudous autour, portes des jeux)
+js/accueil.js         écran d’accueil (Valentine + doudous) et écran des jeux (les portes)
 js/valentine.js       Valentine, la guide (poses, fondu, câlin)
 js/jeux/memory.js     jeu 1
 js/doudous.js         chargement des doudous, images, dessins provisoires
@@ -98,7 +98,7 @@ tools/generate-assets.mjs, tools/icones.mjs
 
 Les jeux partagent `js/jeux/commun.js` (barre « oreille » et « maison », écran de fin, mélange). Les doudous de l’accueil vivent tout seuls grâce à leurs poses (saut de joie, coucou, dodo avec des « z », tourbillon, respiration) : `SCENES` dans `js/accueil.js`.
 
-Ajouter un jeu : un module `js/jeux/xxx.js` qui exporte `ouvrirXxx(scene, { aller })` et renvoie une fonction de nettoyage ; l’inscrire dans `ECRANS` (`js/app.js`), dans `JEUX` (`js/accueil.js`), dans `ESSENTIELS` (`sw.js`), et ses phrases dans `data/phrases.json`. Un jeu laisse libre le coin haut droit (menu parent) et propose toujours un bouton « maison » et un bouton « oreille ».
+Ajouter un jeu : un module `js/jeux/xxx.js` qui exporte `ouvrirXxx(scene, { aller })` et renvoie une fonction de nettoyage ; l’inscrire dans `ECRANS` (`js/app.js`), dans `JEUX` (`js/accueil.js`), dans `ESSENTIELS` (`sw.js`), et ses phrases dans `data/phrases.json`. Un jeu laisse libre le coin haut droit (menu parent) et propose toujours un bouton « maison » (ramène à `#jeux`) et un bouton « oreille ».
 
 ## 5. Méthode
 
