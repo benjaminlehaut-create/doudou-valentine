@@ -197,15 +197,17 @@ export function ouvrirPeinture(scene, { aller }) {
     void bol.offsetWidth;
     bol.classList.add('plein', 'tourbillonne');
 
+    // On laisse le mélange se jouer (vidéo + tourbillon) avant de révéler le résultat : un peu de suspense.
     plusTard(() => {
       if (recette && recette.resultat === demande.cible) reussite();
       else rate();
-    }, 700);
+    }, 1800);
   }
 
   function reussite() {
     const { objet, cible, rang } = demande;
     carillon();
+    hote.replaceChildren(imageDoudou(doudouHote, 'joie'));
     if (objet) {
       objetPeint.innerHTML = OBJETS[objet].svg(TEINTES_RESULTAT[cible]);
       gerbeSur(objetPeint, 10);
@@ -219,17 +221,20 @@ export function ouvrirPeinture(scene, { aller }) {
     plusTard(() => {
       bol.classList.remove('plein', 'tourbillonne');
       verrou = false;
+      hote.replaceChildren(imageDoudou(doudouHote));
       prochaineDemande(rang + 1);
     }, 1800);
   }
 
   function rate() {
     douceur();
+    hote.replaceChildren(imageDoudou(doudouHote, 'bobo'));
     bulle.classList.remove('secoue'); void bulle.offsetWidth; bulle.classList.add('secoue');
     dire('peinture-rate');
     plusTard(() => {
       bol.classList.remove('plein', 'tourbillonne');
       verrou = false;
+      hote.replaceChildren(imageDoudou(doudouHote));
     }, 1600);
   }
 

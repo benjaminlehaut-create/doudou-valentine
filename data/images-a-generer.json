@@ -210,7 +210,12 @@
     { "fichier": "assets/sons/fusee.png", "taille": "1024x1024", "prompt": "Une fusée colorée, bien centrée sur un fond uni très clair." },
     { "fichier": "assets/sons/lune.png", "taille": "1024x1024", "prompt": "Une lune souriante, bien centrée sur un fond uni très clair." },
     { "fichier": "assets/sons/cheval.png", "taille": "1024x1024", "prompt": "Un petit cheval, bien centré sur un fond uni très clair." },
-    { "fichier": "assets/sons/renard.png", "taille": "1024x1024", "prompt": "Un renard roux assis, bien centré sur un fond uni très clair." }
+    { "fichier": "assets/sons/renard.png", "taille": "1024x1024", "prompt": "Un renard roux assis, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/soleil.png", "taille": "1024x1024", "prompt": "Un soleil souriant, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/mouton.png", "taille": "1024x1024", "prompt": "Un mouton tout frisé, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/fleur.png", "taille": "1024x1024", "prompt": "Une fleur colorée, bien centrée sur un fond uni très clair." },
+    { "fichier": "assets/sons/chapeau.png", "taille": "1024x1024", "prompt": "Un chapeau rigolo, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/robot.png", "taille": "1024x1024", "prompt": "Un petit robot tout rond et gentil, bien centré sur un fond uni très clair." }
   ],
 
   "_exemple_pour_un_vrai_doudou": {

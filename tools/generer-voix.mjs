@@ -78,6 +78,8 @@ const DOMAINES = {
   objet: Object.values(P.OBJETS).map((o) => o.le),
   cible: S.RIMES.map((r) => r.mot),
   debut: S.SONS_DEBUT.map((s) => s.voix),
+  lettre: [...new Set(S.MOTS_A_ECRIRE.map((m) => m[0]))],
+  motCible: S.MOTS_A_ECRIRE,
 };
 // Certaines variables dépendent du jeu
 function domaine(cle, variable) {

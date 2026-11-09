@@ -3,6 +3,9 @@
 
 export const IMAGE = (id) => `assets/sons/${id}.png`;
 
+// Niveau 4, le bonus prénom : les mots à reconstituer, lettre par lettre.
+export const MOTS_A_ECRIRE = ['VALENTINE', 'MAMAN', 'PAPA', 'MARGAUX'];
+
 // Niveau 1, les syllabes : combien de fois taper sur le tambour. « voix » = la prononciation
 // découpée (des points de suspension créent une petite pause à l’oral).
 export const MOTS_SYLLABES = {
@@ -26,6 +29,7 @@ export const TOUS_LES_MOTS = [
   'chat', 'pain', 'lit', 'oeuf', 'pomme', 'lapin', 'gateau', 'tortue', 'souris',
   'chocolat', 'papillon', 'elephant', 'ananas', 'rat', 'bateau', 'train', 'main',
   'serpent', 'maison', 'fusee', 'lune', 'cheval', 'renard',
+  'soleil', 'mouton', 'fleur', 'chapeau', 'robot',
 ];
 
 // Niveau 2, les rimes.
@@ -37,13 +41,20 @@ export const RIMES = [
 ];
 
 // Niveau 3, le son du début (des sons qu’on peut prolonger à l’oral : S, M, F, L, CH, R).
+// Deux mots par son, pour varier d’une partie à l’autre (6 tirés au hasard parmi les 12).
 // « eviter » : d’autres mots qui commencent pareil, à ne jamais proposer comme distracteurs
 // (sinon il y aurait deux bonnes réponses).
 export const SONS_DEBUT = [
-  { mot: 'serpent', voix: 'sssserpent', eviter: ['souris'] },
-  { mot: 'maison', voix: 'mmmmaison', eviter: ['main'] },
-  { mot: 'fusee', voix: 'ffffusée', eviter: [] },
+  { mot: 'serpent', voix: 'sssserpent', eviter: ['soleil', 'souris'] },
+  { mot: 'soleil', voix: 'ssssoleil', eviter: ['serpent', 'souris'] },
+  { mot: 'maison', voix: 'mmmmaison', eviter: ['mouton', 'main'] },
+  { mot: 'mouton', voix: 'mmmmouton', eviter: ['maison', 'main'] },
+  { mot: 'fusee', voix: 'ffffusée', eviter: ['fleur'] },
+  { mot: 'fleur', voix: 'ffffleur', eviter: ['fusee'] },
   { mot: 'lune', voix: 'lllune', eviter: ['lit', 'lapin'] },
-  { mot: 'cheval', voix: 'chchcheval', eviter: ['chat', 'chocolat'] },
-  { mot: 'renard', voix: 'rrrrenard', eviter: ['rat'] },
+  { mot: 'lit', voix: 'llllit', eviter: ['lune', 'lapin'] },
+  { mot: 'cheval', voix: 'chchcheval', eviter: ['chapeau', 'chat', 'chocolat'] },
+  { mot: 'chapeau', voix: 'chchchapeau', eviter: ['cheval', 'chat', 'chocolat'] },
+  { mot: 'renard', voix: 'rrrrenard', eviter: ['robot', 'rat'] },
+  { mot: 'robot', voix: 'rrrrobot', eviter: ['renard', 'rat'] },
 ];

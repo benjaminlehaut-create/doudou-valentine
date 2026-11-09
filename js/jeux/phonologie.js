@@ -4,8 +4,9 @@
 // Niveau 2, les rimes : « Qu'est-ce qui rime avec… » et 3 images, trouver celle qui rime.
 // Niveau 3, le son du début : « Qu'est-ce qui commence comme sssserpent » et 3 images (des sons
 // qu'on peut prolonger à l'oral : S, M, F, L, CH, R).
-// Niveau 4 (bonus prénom) : retrouver la lettre V parmi 3, puis reconstituer VALENTINE en touchant
-// les lettres dans l'ordre (jamais de glisser-déposer), avec le modèle toujours visible au-dessus.
+// Niveau 4 (bonus prénom) : pour VALENTINE, MAMAN, PAPA, MARGAUX, retrouver la 1re lettre parmi 3,
+// puis reconstituer le mot en touchant les lettres dans l'ordre (jamais de glisser-déposer), avec
+// le modèle toujours visible au-dessus.
 // Jamais de mauvaise réponse punie : rien ne se passe (syllabes), ou on réessaie (le reste).
 
 import { doudousActifs, imageDoudou } from '../doudous.js';
@@ -14,10 +15,9 @@ import { pop, carillon, douceur, fanfare } from '../sons.js';
 import { gerbeSur, confettis } from '../recompense.js';
 import { BARRE, brancherBarre, afficherFin, ecranNiveaux, melanger, valentineDuJeu } from './commun.js';
 import { debloquer } from '../progres.js';
-import { IMAGE, MOTS_SYLLABES, TOUS_LES_MOTS, RIMES, SONS_DEBUT } from './phonologie-donnees.js';
+import { IMAGE, MOTS_SYLLABES, TOUS_LES_MOTS, RIMES, SONS_DEBUT, MOTS_A_ECRIRE } from './phonologie-donnees.js';
 
-const PRENOM = 'VALENTINE';
-const AUTRES_LETTRES = ['B', 'O', 'S'];
+const AUTRES_LETTRES = ['B', 'O', 'S', 'D', 'K', 'F', 'G'];
 
 const TAMBOUR = `<svg viewBox="0 0 100 100"><path d="M12 30 V62 Q12 78 50 78 Q88 78 88 62 V30" fill="#ff8fab" stroke="#e8a93f" stroke-width="4"/>
   <ellipse cx="50" cy="30" rx="38" ry="16" fill="#ffd36b" stroke="#e8a93f" stroke-width="4"/>
@@ -26,8 +26,8 @@ const TAMBOUR = `<svg viewBox="0 0 100 100"><path d="M12 30 V62 Q12 78 50 78 Q88
 const NIVEAUX = [
   { type: 'syllabes', demandes: 5 },
   { type: 'rimes', demandes: RIMES.length },
-  { type: 'sons', demandes: SONS_DEBUT.length },
-  { type: 'prenom' },
+  { type: 'sons', demandes: 6 },
+  { type: 'prenom', demandes: MOTS_A_ECRIRE.length },
 ];
 
 export function ouvrirPhonologie(scene, { aller }) {
@@ -70,15 +70,15 @@ export function ouvrirPhonologie(scene, { aller }) {
   let minuteries = [];
   let demande = null; // { type, mot?, motVoix?, correcte?, n?, tapes?, rang }
   let listeRonde = [];
-  let phasePrenom = null; // 'trouverV' | 'reconstruire' | null
+  let phasePrenom = null; // 'trouverLettre' | 'reconstruire' | null
   let positionPrenom = 0;
   const plusTard = (fn, ms) => minuteries.push(setTimeout(fn, ms));
 
   const deuxHotes = doudousActifs().filter((d) => d.id === 'goubi' || d.id === 'kiki');
 
   const redire = () => {
-    if (phasePrenom === 'trouverV') { dire('sons-prenom-v'); return; }
-    if (phasePrenom === 'reconstruire') { dire('sons-prenom-reconstruire'); return; }
+    if (phasePrenom === 'trouverLettre') { dire('sons-prenom-lettre', { lettre: demande.mot[0] }); return; }
+    if (phasePrenom === 'reconstruire') { dire('sons-prenom-reconstruire-mot', { motCible: demande.mot }); return; }
     if (!demande) { dire(['sons-consigne', 'sons-consigne-2', 'sons-consigne-3'][niveau] || 'sons-consigne'); return; }
     if (demande.type === 'syllabes') dire('sons-syllabe-' + demande.mot);
     else if (demande.type === 'rimes') dire('sons-rime-demande', { cible: demande.motVoix });
@@ -95,28 +95,22 @@ export function ouvrirPhonologie(scene, { aller }) {
     classe.querySelector('.choix-images')?.remove();
     valentine.fond('content');
     phasePrenom = null;
-    const regle = NIVEAUX[niveau];
-    if (regle.type === 'prenom') {
-      progres.replaceChildren();
-      cible.classList.add('cache');
-      tambourZone.classList.add('cache');
-      demarrerPrenom();
-      return;
-    }
     prenomZone.classList.add('cache');
+    const regle = NIVEAUX[niveau];
     if (regle.type === 'syllabes') listeRonde = melanger(Object.keys(MOTS_SYLLABES)).slice(0, regle.demandes);
     else if (regle.type === 'rimes') listeRonde = melanger([...RIMES]);
-    else listeRonde = melanger([...SONS_DEBUT]);
+    else if (regle.type === 'sons') listeRonde = melanger([...SONS_DEBUT]).slice(0, regle.demandes);
+    else listeRonde = melanger([...MOTS_A_ECRIRE]);
     progres.replaceChildren(...listeRonde.map(() => pastille()));
     dire(['sons-consigne', 'sons-consigne-2', 'sons-consigne-3'][niveau] || 'sons-consigne');
     plusTard(() => prochaineDemande(0), 3400);
   }
 
-  // ---- Bonus prénom : 1) retrouver le V, 2) reconstituer VALENTINE ----
+  // ---- Bonus prénom (et autres mots) : 1) retrouver la 1re lettre, 2) reconstituer le mot ----
 
-  function demarrerPrenom() {
+  function demarrerPrenom(mot) {
     prenomZone.classList.remove('cache');
-    modelePrenom.replaceChildren(...PRENOM.split('').map((l) => {
+    modelePrenom.replaceChildren(...mot.split('').map((l) => {
       const s = document.createElement('span');
       s.className = 'lettre-modele';
       s.textContent = l;
@@ -124,16 +118,17 @@ export function ouvrirPhonologie(scene, { aller }) {
     }));
     prenomSlots.classList.add('cache');
     prenomPalette.classList.add('cache');
-    phasePrenom = 'trouverV';
-    const choix = melanger([PRENOM[0], ...melanger([...AUTRES_LETTRES]).slice(0, 2)]);
+    phasePrenom = 'trouverLettre';
+    const distracteurs = melanger(AUTRES_LETTRES.filter((l) => l !== mot[0])).slice(0, 2);
+    const choix = melanger([mot[0], ...distracteurs]);
     lettresTrouver.classList.remove('cache');
     lettresTrouver.replaceChildren(...choix.map((l) => {
       const b = document.createElement('button');
       b.className = 'lettre-choix';
       b.textContent = l;
       b.addEventListener('click', () => {
-        if (phasePrenom !== 'trouverV') return;
-        if (l !== PRENOM[0]) {
+        if (phasePrenom !== 'trouverLettre') return;
+        if (l !== mot[0]) {
           pop();
           b.classList.remove('non'); void b.offsetWidth; b.classList.add('non');
           dire('sons-pas-ca');
@@ -142,38 +137,38 @@ export function ouvrirPhonologie(scene, { aller }) {
         phasePrenom = null;
         douceur();
         gerbeSur(b, 10);
-        dire('sons-prenom-trouve-v');
-        plusTard(() => { lettresTrouver.classList.add('cache'); demarrerReconstruction(); }, 1800);
+        dire('sons-prenom-trouve-lettre', { lettre: mot[0] });
+        plusTard(() => { lettresTrouver.classList.add('cache'); demarrerReconstruction(mot); }, 1800);
       });
       return b;
     }));
     plusTard(redire, 500);
   }
 
-  function demarrerReconstruction() {
+  function demarrerReconstruction(mot) {
     positionPrenom = 0;
     phasePrenom = 'reconstruire';
     prenomSlots.classList.remove('cache');
-    prenomSlots.replaceChildren(...PRENOM.split('').map(() => {
+    prenomSlots.replaceChildren(...mot.split('').map(() => {
       const s = document.createElement('div');
       s.className = 'slot-lettre';
       return s;
     }));
     prenomPalette.classList.remove('cache');
-    prenomPalette.replaceChildren(...melanger(PRENOM.split('')).map((l, i) => {
+    prenomPalette.replaceChildren(...melanger(mot.split('')).map((l, i) => {
       const b = document.createElement('button');
       b.className = 'lettre-choix';
       b.style.setProperty('--i', i);
       b.textContent = l;
-      b.addEventListener('click', () => toucherLettrePrenom(l, b));
+      b.addEventListener('click', () => toucherLettrePrenom(l, b, mot));
       return b;
     }));
     plusTard(redire, 500);
   }
 
-  function toucherLettrePrenom(l, bouton) {
+  function toucherLettrePrenom(l, bouton, mot) {
     if (phasePrenom !== 'reconstruire' || bouton.classList.contains('posee')) return;
-    const attendu = PRENOM[positionPrenom];
+    const attendu = mot[positionPrenom];
     if (l !== attendu) {
       pop();
       bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
@@ -186,19 +181,25 @@ export function ouvrirPhonologie(scene, { aller }) {
     slot.textContent = l;
     slot.classList.add('remplie');
     positionPrenom++;
-    if (positionPrenom >= PRENOM.length) {
+    if (positionPrenom >= mot.length) {
       phasePrenom = null;
-      plusTard(finPrenom, 900);
+      plusTard(reussitePrenom, 900);
     }
   }
 
-  function finPrenom() {
-    debloquer('sons', niveau);
-    valentine.fond('joie');
-    confettis();
+  function reussitePrenom() {
+    const { rang } = demande;
+    carillon();
     fanfare();
-    dire('sons-prenom-bravo').then(() => { if (actif) dire('sons-encore'); });
-    plusTard(() => afficherFin(fin, { dernier: true, rejouer: nouvellePartie, aller }), 1800);
+    gerbeSur(prenomSlots, 10);
+    progres.children[rang]?.classList.replace('en-cours', 'repu');
+    valentine.pose('joie', { duree: 1200 });
+    dire('sons-bravo');
+    demande = null;
+    plusTard(() => {
+      prenomZone.classList.add('cache');
+      prochaineDemande(rang + 1);
+    }, 2000);
   }
 
   function pastille() {
@@ -222,6 +223,11 @@ export function ouvrirPhonologie(scene, { aller }) {
         p.className = 'point-syllabe';
         return p;
       }));
+    } else if (regle.type === 'prenom') {
+      const mot = listeRonde[rang];
+      demande = { type: 'prenom', mot, rang };
+      demarrerPrenom(mot);
+      return;
     } else {
       const entree = listeRonde[rang];
       const correcte = regle.type === 'rimes' ? entree.rime : entree.mot;
