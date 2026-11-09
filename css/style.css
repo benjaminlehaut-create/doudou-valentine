@@ -148,9 +148,11 @@ button {
 }
 .portes {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+  align-content: center;
   justify-content: center;
-  gap: 2vw;
+  gap: 1.6vh 2vw;
   min-height: 0;
 }
 .porte {
