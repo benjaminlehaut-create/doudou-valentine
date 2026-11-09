@@ -2,8 +2,9 @@
 // Niveau 1, les syllabes : une image, le mot dit syllabe par syllabe, on tape sur le tambour
 // autant de fois qu'il y a de syllabes.
 // Niveau 2, les rimes : « Qu'est-ce qui rime avec… » et 3 images, trouver celle qui rime.
-// Niveau 3, le son du début : « Qu'est-ce qui commence comme sssserpent » et 3 images (des sons
-// qu'on peut prolonger à l'oral : S, M, F, L, CH, R).
+// Niveau 3, le son du début : « Qu'est-ce qui commence comme sssserpent » (le mot-exemple n'est
+// jamais montré en image, juste prononcé) et 3 images ; il faut trouver un AUTRE mot qui commence
+// par le même son (des sons qu'on peut prolonger à l'oral : S, M, F, L, CH, R).
 // Niveau 4 (bonus prénom) : pour VALENTINE, MAMAN, PAPA, MARGAUX, retrouver la 1re lettre parmi 3,
 // puis reconstituer le mot en touchant les lettres dans l'ordre (jamais de glisser-déposer), avec
 // le modèle toujours visible au-dessus.
@@ -228,18 +229,28 @@ export function ouvrirPhonologie(scene, { aller }) {
       demande = { type: 'prenom', mot, rang };
       demarrerPrenom(mot);
       return;
-    } else {
+    } else if (regle.type === 'rimes') {
       const entree = listeRonde[rang];
-      const correcte = regle.type === 'rimes' ? entree.rime : entree.mot;
-      const eviter = regle.type === 'sons' ? [entree.mot, ...entree.eviter] : [entree.mot, entree.rime];
+      const correcte = entree.rime;
+      const eviter = [entree.mot, entree.rime];
       const pool = melanger(TOUS_LES_MOTS.filter((m) => !eviter.includes(m) && m !== correcte));
-      const motVoix = regle.type === 'sons' ? entree.voix : entree.mot;
-      demande = { type: regle.type, motVoix, correcte, rang };
+      demande = { type: 'rimes', motVoix: entree.mot, correcte, rang };
       cible.innerHTML = `<img src="${IMAGE(entree.mot)}" alt="">`;
+      cible.classList.remove('cache');
+      tambourZone.classList.add('cache');
+      proposerChoix(melanger([correcte, ...pool.slice(0, 2)]), correcte);
+    } else {
+      // Le son du début : « mot » n’est que prononcé (jamais montré), la bonne réponse est un
+      // AUTRE mot qui commence pareil, pas le même mot qu’on vient d’entendre.
+      const entree = listeRonde[rang];
+      const correcte = melanger([...entree.copains])[0];
+      const eviter = [entree.mot, ...entree.copains];
+      const pool = melanger(TOUS_LES_MOTS.filter((m) => !eviter.includes(m) && m !== correcte));
+      demande = { type: 'sons', motVoix: entree.voix, correcte, rang };
+      cible.classList.add('cache');
       tambourZone.classList.add('cache');
       proposerChoix(melanger([correcte, ...pool.slice(0, 2)]), correcte);
     }
-    cible.classList.remove('cache');
     plusTard(redire, 500);
   }
 

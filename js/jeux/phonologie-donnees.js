@@ -41,20 +41,20 @@ export const RIMES = [
 ];
 
 // Niveau 3, le son du début (des sons qu’on peut prolonger à l’oral : S, M, F, L, CH, R).
-// Deux mots par son, pour varier d’une partie à l’autre (6 tirés au hasard parmi les 12).
-// « eviter » : d’autres mots qui commencent pareil, à ne jamais proposer comme distracteurs
-// (sinon il y aurait deux bonnes réponses).
+// « mot » est juste prononcé (élongé, via « voix »), jamais montré en image : il sert d’exemple
+// du son. La bonne réponse est un AUTRE mot qui commence pareil, tiré au hasard dans « copains ».
+// Deux exemples par son, pour varier d’une partie à l’autre (6 tirés au hasard parmi les 12).
 export const SONS_DEBUT = [
-  { mot: 'serpent', voix: 'sssserpent', eviter: ['soleil', 'souris'] },
-  { mot: 'soleil', voix: 'ssssoleil', eviter: ['serpent', 'souris'] },
-  { mot: 'maison', voix: 'mmmmaison', eviter: ['mouton', 'main'] },
-  { mot: 'mouton', voix: 'mmmmouton', eviter: ['maison', 'main'] },
-  { mot: 'fusee', voix: 'ffffusée', eviter: ['fleur'] },
-  { mot: 'fleur', voix: 'ffffleur', eviter: ['fusee'] },
-  { mot: 'lune', voix: 'lllune', eviter: ['lit', 'lapin'] },
-  { mot: 'lit', voix: 'llllit', eviter: ['lune', 'lapin'] },
-  { mot: 'cheval', voix: 'chchcheval', eviter: ['chapeau', 'chat', 'chocolat'] },
-  { mot: 'chapeau', voix: 'chchchapeau', eviter: ['cheval', 'chat', 'chocolat'] },
-  { mot: 'renard', voix: 'rrrrenard', eviter: ['robot', 'rat'] },
-  { mot: 'robot', voix: 'rrrrobot', eviter: ['renard', 'rat'] },
+  { mot: 'serpent', voix: 'sssserpent', copains: ['soleil', 'souris'] },
+  { mot: 'soleil', voix: 'ssssoleil', copains: ['serpent', 'souris'] },
+  { mot: 'maison', voix: 'mmmmaison', copains: ['mouton', 'main'] },
+  { mot: 'mouton', voix: 'mmmmouton', copains: ['maison', 'main'] },
+  { mot: 'fusee', voix: 'ffffusée', copains: ['fleur'] },
+  { mot: 'fleur', voix: 'ffffleur', copains: ['fusee'] },
+  { mot: 'lune', voix: 'lllune', copains: ['lit', 'lapin'] },
+  { mot: 'lit', voix: 'llllit', copains: ['lune', 'lapin'] },
+  { mot: 'cheval', voix: 'chchcheval', copains: ['chapeau', 'chat', 'chocolat'] },
+  { mot: 'chapeau', voix: 'chchchapeau', copains: ['cheval', 'chat', 'chocolat'] },
+  { mot: 'renard', voix: 'rrrrenard', copains: ['robot', 'rat'] },
+  { mot: 'robot', voix: 'rrrrobot', copains: ['renard', 'rat'] },
 ];
