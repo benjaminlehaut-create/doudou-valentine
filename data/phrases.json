@@ -114,6 +114,8 @@
   "reveille-record": ["Nouveau record, bravo !"],
   "reveille-encore": ["On y rejoue ?"],
 
+  "peinture-qui": ["Avec qui tu veux peindre aujourd’hui ?"],
+  "peinture-choisi": ["{nom} ! On va bien s’amuser à peindre ensemble.", "Super, {nom} va peindre avec toi !"],
   "peinture-consigne": ["Touche deux pots de peinture, pour voir quelle couleur ça fait !"],
   "peinture-consigne-2": ["Je voudrais une couleur précise ! Trouve les deux bons pots pour la fabriquer."],
   "peinture-consigne-3": ["Il y a du blanc et du noir en plus, pour des couleurs toutes douces, ou plus foncées !"],

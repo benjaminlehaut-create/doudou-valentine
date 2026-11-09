@@ -1,9 +1,9 @@
-// Jeu 8 : l'atelier peinture, avec Poussin.
+// Jeu 8 : l'atelier peinture. On choisit d'abord avec qui peindre : Poussin ou Sacha.
 // Niveau 1, mélanger : on touche deux pots, ils se versent dans le bol, la couleur se mélange en
 // tourbillonnant et la voix annonce le résultat (« Jaune et bleu… ça fait VERT ! »). Pas de bonne
 // ou de mauvaise réponse : on découvre librement, jusqu'à avoir trouvé les 3 mélanges possibles.
-// Niveau 2, deviner : Poussin demande une couleur pour un objet (bulle avec une tache de la
-// couleur voulue, comme au pique-nique). Il faut trouver les deux bons pots pour la fabriquer.
+// Niveau 2, deviner : le doudou choisi demande une couleur pour un objet (bulle avec une tache de
+// la couleur voulue, comme au pique-nique). Il faut trouver les deux bons pots pour la fabriquer.
 // Niveau 3, clair/foncé : les pots blanc et noir s'ajoutent (rose, gris, marron en plus).
 // Toujours deux pots à la fois, jamais de glisser-déposer : on touche, ils se versent tout seuls.
 
@@ -31,6 +31,7 @@ export function ouvrirPeinture(scene, { aller }) {
       <div class="objet-peint cache"></div>
       <div class="bol"><div class="bol-contenu"></div></div>
       <div class="pots"></div>
+      <div class="choix-dodo doudous cache"></div>
     </div>
     ${BARRE}
     <div class="fin cache"></div>`;
@@ -42,6 +43,7 @@ export function ouvrirPeinture(scene, { aller }) {
   const bol = scene.querySelector('.bol');
   const bolContenu = scene.querySelector('.bol-contenu');
   const pots = scene.querySelector('.pots');
+  const choixPeintre = scene.querySelector('.choix-dodo');
   const fin = scene.querySelector('.fin');
 
   let niveau = null;
@@ -54,15 +56,46 @@ export function ouvrirPeinture(scene, { aller }) {
   let trouvailles = new Set(); // les recettes déjà découvertes (niveau 1)
   const plusTard = (fn, ms) => minuteries.push(setTimeout(fn, ms));
 
-  const doudouHote = doudousActifs().find((d) => d.id === 'poussin-jaune') || doudousActifs()[0];
+  let doudouHote = null;
 
   const redire = () => {
+    if (!doudouHote) { dire('peinture-qui'); return; }
     if (!demande) { dire(['peinture-consigne', 'peinture-consigne-2', 'peinture-consigne-3'][niveau] || 'peinture-consigne'); return; }
     dire('peinture-demande', { nom: doudouHote.nom, id: doudouHote.id, objet: OBJETS[demande.objet].le, couleur: demande.cible });
   };
   brancherBarre(scene, { ecouter: redire, aller });
   const valentine = valentineDuJeu(scene, 'content');
-  hote.append(imageDoudou(doudouHote));
+
+  // On choisit d'abord avec qui peindre : Poussin ou Sacha (un seul des deux si l'autre est désactivé).
+  function choisirPeintre() {
+    const deux = doudousActifs().filter((d) => d.id === 'poussin-jaune' || d.id === 'chat-bleu');
+    const liste = deux.length ? deux : doudousActifs().slice(0, 1);
+    if (liste.length <= 1) { installerHote(liste[0] || doudousActifs()[0]); return; }
+    choixPeintre.classList.remove('cache');
+    choixPeintre.replaceChildren(...liste.map((d, i) => {
+      const b = document.createElement('button');
+      b.className = 'candidat';
+      b.style.setProperty('--i', i);
+      b.setAttribute('aria-label', d.nom);
+      b.append(imageDoudou(d));
+      b.addEventListener('click', () => {
+        if (doudouHote) return;
+        douceur();
+        gerbeSur(b, 10);
+        b.classList.add('elu');
+        dire('peinture-choisi', { nom: d.nom, id: d.id });
+        plusTard(() => { choixPeintre.classList.add('cache'); installerHote(d); }, 1800);
+      });
+      return b;
+    }));
+    dire('peinture-qui');
+  }
+
+  function installerHote(d) {
+    doudouHote = d;
+    hote.append(imageDoudou(doudouHote));
+    ecranNiveaux(scene, { jeu: 'peinture', total: NIVEAUX.length, choisir: (i) => { niveau = i; nouvellePartie(); } });
+  }
 
   function nouvellePartie() {
     minuteries.forEach(clearTimeout);
@@ -215,7 +248,7 @@ export function ouvrirPeinture(scene, { aller }) {
     }), 1800);
   }
 
-  ecranNiveaux(scene, { jeu: 'peinture', total: NIVEAUX.length, choisir: (i) => { niveau = i; nouvellePartie(); } });
+  choisirPeintre();
 
   return () => {
     actif = false;
