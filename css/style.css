@@ -147,11 +147,10 @@ button {
     linear-gradient(#ffeedd, #ffdccb 65%, #ffd0c0);
 }
 .portes {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
+  display: grid;
+  grid-template-columns: repeat(4, clamp(88px, min(24vh, 13vw), 210px));
   justify-content: center;
+  align-content: center;
   gap: 1.6vh 2vw;
   min-height: 0;
 }
