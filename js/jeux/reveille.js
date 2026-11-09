@@ -1,7 +1,9 @@
 // Jeu 7 : Réveille-doudous — un jeu de réflexes.
-// Les doudous apparaissent l'un après l'autre sur leur petit lit, les yeux de plus en plus lourds.
-// Il faut les toucher avant qu'ils s'endorment pour gagner un point. Pas de pénalité si on arrive
-// trop tard : le doudou s'endort juste tout doucement, sans bruit triste, et un autre apparaît.
+// Les doudous apparaissent l'un après l'autre sur leur petit lit, les yeux de plus en plus lourds,
+// puis s'endorment pour de bon (ça brille doucement : c'est le signal). C'est SEULEMENT à ce moment-là
+// qu'il faut les toucher, dans une petite fenêtre, pour gagner un point et les réveiller tout contents.
+// Toucher trop tôt (avant qu'ils dorment) ne fait rien. Pas de pénalité si on arrive trop tard : le
+// doudou s'en va tout doucement, sans bruit triste, et un autre apparaît.
 // La nuit tombe peu à peu sur le décor pendant la manche (jamais de chronomètre affiché) ; à la fin,
 // tous les doudous réveillés sont alignés, et on fête un nouveau record s'il y en a un (jamais de
 // commentaire si ce n'est pas le cas : juste « bravo », comme toujours).
@@ -13,7 +15,8 @@ import { gerbeSur, confettis } from '../recompense.js';
 import { BARRE, brancherBarre, afficherFin, valentineDuJeu } from './commun.js';
 
 const DUREE_RONDE = 42000;   // la manche entière (jamais montré comme un chiffre : la nuit tombe à la place)
-const AVANT_ENDORMI = 2700;  // le temps qu'a le doudou avant de s'endormir pour de bon
+const AVANT_ENDORMI = 2400;  // le temps qu'a le doudou avant de s'endormir (pas encore touchable)
+const FENETRE_REVEIL = 2200; // une fois endormi, le temps qu'on a pour le toucher et le réveiller
 const NB_PLACES = 6;
 
 const CLE_RECORD = 'doudous-record-reveille';
@@ -94,30 +97,40 @@ export function ouvrirReveille(scene, { aller }) {
     bouton.append(imageDoudou(doudou));
     bouton.insertAdjacentHTML('beforeend', '<span class="zzz-leger"><span>z</span><span>z</span><span>z</span></span>');
 
+    let endormi = false; // tant qu’il n’est pas endormi, le toucher ne fait rien
     let fini = false;
     bouton.addEventListener('click', () => {
-      if (fini || !enCours) return;
+      if (fini || !enCours || !endormi) return;
       fini = true;
       attraper(doudou, bouton, place);
     });
     place.append(bouton);
 
+    // Il s’endort pour de bon : c’est maintenant qu’il faut le toucher.
     plusTard(() => {
       if (fini) return;
-      fini = true;
+      endormi = true;
+      bouton.classList.remove('apparait');
       bouton.classList.add('endormi');
       bouton.replaceChildren(imageDoudou(doudou, 'dodo'));
-      plusTard(() => { bouton.remove(); if (enCours) placesLibres.push(place); }, 1400);
+      bouton.style.setProperty('--duree', FENETRE_REVEIL + 'ms');
+      // Pas touché à temps : il s’en va tout doucement, sans bruit triste.
+      plusTard(() => {
+        if (fini) return;
+        fini = true;
+        bouton.classList.add('reparti');
+        plusTard(() => { bouton.remove(); if (enCours) placesLibres.push(place); }, 500);
+      }, FENETRE_REVEIL);
     }, AVANT_ENDORMI);
   }
 
-  // Touché à temps : un point, et le doudou se réveille tout content.
+  // Touché pendant son sommeil : un point, et le doudou se réveille tout content.
   function attraper(doudou, bouton, place) {
     score++;
     douceur();
     carillon();
     gerbeSur(bouton, 8);
-    bouton.classList.remove('apparait');
+    bouton.classList.remove('endormi');
     bouton.classList.add('reveille');
     bouton.replaceChildren(imageDoudou(doudou, 'joie'));
     valentine.pose('joie', { duree: 900 });

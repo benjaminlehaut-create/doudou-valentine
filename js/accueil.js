@@ -215,11 +215,11 @@ function illustrationHistoire(doudous) {
   return boite;
 }
 
-// Un doudou qui somnole, et une petite étincelle (vite, avant qu’il s’endorme !)
+// Un doudou qui saute de joie, et un rond qui « touche » (bien différent de la porte du dodo)
 function illustrationReveille(doudous) {
   const boite = document.createElement('div');
   boite.className = 'illu-reveille';
-  boite.append(imageDoudou(doudous[6] || doudous[0], 'dodo'));
-  boite.insertAdjacentHTML('beforeend', '<span class="etincelle-illu">✦</span>');
+  boite.append(imageDoudou(doudous[6] || doudous[0], 'joie'));
+  boite.insertAdjacentHTML('beforeend', '<span class="toucher-illu"></span>');
   return boite;
 }
