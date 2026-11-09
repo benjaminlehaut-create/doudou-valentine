@@ -1400,6 +1400,8 @@ button {
 .choix-images .option.non { animation: bond 0.5s ease-out; }
 .choix-images.ballons { right: 38%; }
 .choix-images.ballons .option { background: transparent; border-color: transparent; box-shadow: none; animation: arrivee 0.5s backwards, flotte 2.6s ease-in-out infinite; animation-delay: calc(var(--i) * 80ms), calc(var(--i) * -0.7s); }
+/* Les photos de ballons et de chemins ne sont pas carrées : on les voit en entier plutôt que de les rogner. */
+.choix-images.ballons .option img, .choix-images.chemins .option img { object-fit: contain; }
 .choix-images.cles { top: auto; height: 34%; }
 .choix-images.cles .option { width: clamp(80px, 15vh, 120px); height: clamp(80px, 15vh, 120px); }
 .coffre-tresor { pointer-events: none; }

@@ -74,13 +74,20 @@ export function ouvrirHistoire(scene, { aller }) {
     ...plus,
   });
 
-  // Lit la page ; montre la flèche ensuite (si la page n’attend pas un choix)
+  // Lit la page ; montre la flèche ensuite (si la page n’attend pas un choix).
+  // « jeton » invalide les minuteurs d’une page précédente : sans ça, le minuteur de secours
+  // d’une page déjà quittée pouvait faire apparaître la flèche sur la page suivante (un choix),
+  // avant même qu’on ait touché quoi que ce soit.
+  let jeton = 0;
   function raconter(cle, plus = {}, avecFleche = true) {
     tourner.classList.add('cache');
+    const monJeton = ++jeton;
     lecture = () => dire(cle, vars(plus));
-    const fleche = () => { if (actif && avecFleche) tourner.classList.remove('cache'); };
-    lecture().then(() => plusTard(fleche, 300));
+    const fleche = () => { if (actif && avecFleche && jeton === monJeton) tourner.classList.remove('cache'); };
+    const promesse = lecture();
+    promesse.then(() => plusTard(fleche, 300));
     if (avecFleche) plusTard(fleche, 10000); // au cas où la voix serait muette
+    return promesse;
   }
 
   function decor(classe) {
@@ -150,8 +157,7 @@ export function ouvrirHistoire(scene, { aller }) {
       valentine.pose('joie', { duree: 2400 });
       bete.classList.replace('triste', 'heureux');
       bete.insertAdjacentHTML('beforeend', `<div class="ballon-rendu">${ballon(c)}</div>`);
-      dire('h-rencontre-merci' + genre, { animal: ANIMAUX[animal].nom });
-      plusTard(() => tourner.classList.remove('cache'), 4500);
+      dire('h-rencontre-merci' + genre, { animal: ANIMAUX[animal].nom }).then(() => plusTard(() => tourner.classList.remove('cache'), 300));
       return true;
     });
   }
@@ -172,8 +178,7 @@ export function ouvrirHistoire(scene, { aller }) {
       gerbeSur(bloc, 8);
       carillon();
       valentine.pose('joie', { duree: 1800 });
-      dire('h-obstacle-degage');
-      plusTard(() => tourner.classList.remove('cache'), 1600);
+      dire('h-obstacle-degage').then(() => plusTard(() => tourner.classList.remove('cache'), 300));
     }, { once: true });
     interactif.append(bloc);
   }
@@ -194,8 +199,7 @@ export function ouvrirHistoire(scene, { aller }) {
       }
       carillon();
       valentine.pose('joie', { duree: 1800 });
-      dire('h-chemin-trouve');
-      plusTard(() => tourner.classList.remove('cache'), 2600);
+      dire('h-chemin-trouve').then(() => plusTard(() => tourner.classList.remove('cache'), 300));
       return true;
     });
   }
@@ -220,8 +224,7 @@ export function ouvrirHistoire(scene, { aller }) {
     choixEnImages('doudous', doudousActifs().map((d) => ({ id: d.id, label: d.nom, svg: imageDoudou(d) })), (id) => {
       recit.doudou = doudousActifs().find((d) => d.id === id);
       compagnon.replaceChildren(imageDoudou(recit.doudou, 'coucou'));
-      dire('h-compagnon-choisi', vars());
-      plusTard(suivante, 3200);
+      dire('h-compagnon-choisi', vars()).then(() => plusTard(suivante, 700));
     });
   }
   // 3. Le transport, puis le voyage
@@ -232,9 +235,10 @@ export function ouvrirHistoire(scene, { aller }) {
     const proposes = melanger(Object.keys(TRANSPORTS)).slice(0, 3);
     choixEnImages('transports', proposes.map((id) => ({ id, label: TRANSPORTS[id].nom, svg: TRANSPORTS[id].svg })), (id) => {
       recit.transport = id;
-      dire('h-transport-choisi', vars());
       plusTard(() => voyager(id), 1600);
-      plusTard(suivante, 5200);
+      const finVoix = dire('h-transport-choisi', vars());
+      // On attend le plus long des deux : la voix (le nom du transport peut être long) et le petit voyage animé.
+      Promise.all([finVoix, new Promise((r) => plusTard(r, 5000))]).then(suivante);
     });
   }
   // 4. Le lieu
@@ -245,8 +249,7 @@ export function ouvrirHistoire(scene, { aller }) {
     const proposes = melanger(Object.keys(LIEUX)).slice(0, 3);
     choixEnImages('lieux', proposes.map((id) => ({ id, label: LIEUX[id].nom, svg: LIEUX[id].dessin })), (id) => {
       recit.lieu = id;
-      dire('h-lieu-choisi', vars());
-      plusTard(suivante, 2600);
+      dire('h-lieu-choisi', vars()).then(() => plusTard(suivante, 700));
     });
   }
   // 5. L’arrivée : une phrase, juste pour profiter du décor
@@ -323,8 +326,8 @@ export function ouvrirHistoire(scene, { aller }) {
   // Le retour, et la fin
   function etapeRetour() {
     voyager(recit.transport, true);
-    raconter('h-retour', {}, false);
-    plusTard(finir, 4600);
+    const finVoix = raconter('h-retour', {}, false);
+    Promise.all([finVoix, new Promise((r) => plusTard(r, 3800))]).then(finir);
   }
 
   // Construit la liste des étapes pour cette histoire : le défi (obstacle ou chemin) et l’ordre
