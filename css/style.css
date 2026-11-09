@@ -138,14 +138,39 @@ button {
 
 .ecran-accueil {
   display: grid;
-  grid-template-rows: minmax(0, 1fr) auto;
-  gap: 1vh;
+  grid-template-rows: minmax(0, 1fr);
   padding: var(--haut) var(--droite) var(--bas) var(--gauche);
   background:
     url("../assets/decors/accueil.jpg") center / cover no-repeat,
     radial-gradient(ellipse 90% 40% at 50% 108%, #ffc6b1 0 60%, transparent 61%),
     linear-gradient(#ffeedd, #ffdccb 65%, #ffd0c0);
 }
+button.bouton-jouer-accueil { position: absolute; left: 50%; bottom: var(--bas); translate: -50% 0; z-index: 4; }
+
+.ecran-jeux {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--haut) var(--droite) var(--bas) var(--gauche);
+  background:
+    url("../assets/decors/accueil.jpg") center / cover no-repeat,
+    radial-gradient(ellipse 90% 40% at 50% 108%, #ffc6b1 0 60%, transparent 61%),
+    linear-gradient(#ffeedd, #ffdccb 65%, #ffd0c0);
+}
+.bouton-valentine-jeux {
+  position: absolute;
+  left: var(--gauche);
+  bottom: var(--bas);
+  z-index: 4;
+  width: clamp(64px, 11vh, 92px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  box-shadow: var(--ombre);
+  animation: flotte 3.4s ease-in-out infinite;
+}
+.bouton-valentine-jeux img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
+
 .portes {
   display: grid;
   grid-template-columns: repeat(4, clamp(88px, min(24vh, 13vw), 210px));
@@ -1346,7 +1371,7 @@ button {
 @keyframes ecran-entree { from { opacity: 0; transform: scale(1.015); } }
 
 /* Accueil : le ciel vit (nuages qui passent, bulles qui montent), derrière tout le reste */
-.ecran-accueil > .cercle, .ecran-accueil > .portes { position: relative; z-index: 1; }
+.ecran-accueil > .cercle, .ecran-jeux > .portes { position: relative; z-index: 1; }
 .ciel-accueil { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
 .nuage { position: absolute; width: 22vh; height: 8vh; border-radius: 8vh; background: rgba(255, 255, 255, 0.75);
   filter: blur(1px); animation: nuage linear infinite; }

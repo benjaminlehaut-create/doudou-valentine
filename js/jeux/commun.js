@@ -16,13 +16,13 @@ export const BARRE = `
     <div class="coin-valentine"></div>
     <div class="boutons">
       <button class="bouton-rond ecouter" aria-label="Réécouter la consigne">${OREILLE}</button>
-      <button class="bouton-rond maison" aria-label="Accueil">${MAISON}</button>
+      <button class="bouton-rond maison" aria-label="Les jeux">${MAISON}</button>
     </div>
   </div>`;
 
 export function brancherBarre(scene, { ecouter, aller }) {
   scene.querySelector('.barre .ecouter').addEventListener('click', () => { douceur(); ecouter(); });
-  scene.querySelector('.barre .maison').addEventListener('click', () => { douceur(); aller('accueil'); });
+  scene.querySelector('.barre .maison').addEventListener('click', () => { douceur(); aller('jeux'); });
 }
 
 // Écran de fin : « niveau suivant » (s’il y en a un), « rejouer », « maison ».
@@ -33,7 +33,7 @@ export function afficherFin(fin, { dernier, suivant, rejouer, aller }) {
     <button class="bouton-rond maison" aria-label="Accueil">${MAISON}</button>`;
   fin.querySelector('.suivant')?.addEventListener('click', () => { douceur(); suivant(); });
   fin.querySelector('.rejouer').addEventListener('click', () => { douceur(); rejouer(); });
-  fin.querySelector('.maison').addEventListener('click', () => { douceur(); aller('accueil'); });
+  fin.querySelector('.maison').addEventListener('click', () => { douceur(); aller('jeux'); });
   fin.classList.remove('cache');
 }
 

@@ -1,7 +1,8 @@
 {
   "_aide": "Tout ce que dit la voix. {prenom} et {nom} sont remplacés. Plusieurs variantes = une au hasard. Pour un enregistrement : { \"texte\": \"…\", \"audio\": \"assets/voix/fichier.mp3\" }. Pour une phrase propre à un doudou, ajouter une clé suivie de son id, par exemple « memory-paire-nounours ».",
 
-  "accueil": ["Coucou {prenom} ! Avec qui tu veux jouer aujourd’hui ?"],
+  "accueil": ["Coucou {prenom} ! Fais un gros bisou à tes doudous, et après, on va jouer !"],
+  "jeux-consigne": ["À quel jeu tu veux jouer ?"],
   "coucou-ami": ["Coucou, je suis {nom} !", "Coucou {prenom} ! C’est moi, {nom} !", "{nom} te fait un gros bisou !"],
 
   "memory-consigne": ["Touche les cartes, et trouve deux doudous pareils !"],

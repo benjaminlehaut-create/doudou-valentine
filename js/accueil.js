@@ -1,4 +1,6 @@
-// Écran d’accueil : Valentine debout au centre, tous ses doudous en arc de cercle autour d’elle, les portes des jeux en dessous.
+// Deux écrans : l’accueil (Valentine debout au centre, ses doudous en arc de cercle autour
+// d’elle — on dit bonjour) puis, en touchant « Jouer », l’écran des jeux (toutes les portes).
+// Séparés pour ne pas tout montrer d’un coup (9 portes + doudous, c’était trop chargé).
 
 import { doudousActifs, imageDoudou } from './doudous.js';
 import { dire } from './voix.js';
@@ -9,7 +11,7 @@ import { ALIMENTS } from './jeux/aliments.js';
 import { ETAPES } from './jeux/dodo.js';
 import { OUTILS } from './jeux/docteur.js';
 import { placerValentine, valentineLa, portraitValentine } from './valentine.js';
-import { OREILLE } from './icones.js';
+import { OREILLE, SUIVANT } from './icones.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
@@ -35,7 +37,7 @@ export function ouvrirAccueil(scene, { aller }) {
       </div>
       <div class="cote droite"></div>
     </div>
-    <div class="portes"></div>
+    <button class="bouton-rond geant suivant bouton-jouer-accueil" aria-label="Jouer">${SUIVANT}</button>
     <div class="ciel-accueil" aria-hidden="true">
       <span class="nuage n1"></span><span class="nuage n2"></span><span class="nuage n3"></span>
       ${Array.from({ length: 12 }, (_, k) => `<span class="bulle-deco" style="--k:${k}"></span>`).join('')}
@@ -56,18 +58,9 @@ export function ouvrirAccueil(scene, { aller }) {
     centre.remove();
   }
 
-  const doudous = doudousActifs();
+  scene.querySelector('.bouton-jouer-accueil').addEventListener('click', () => { douceur(); aller('jeux'); });
 
-  // Portes
-  const portes = scene.querySelector('.portes');
-  JEUX.forEach((jeu) => {
-    const porte = document.createElement('button');
-    porte.className = 'porte';
-    porte.setAttribute('aria-label', jeu.nom);
-    porte.append(jeu.illustration(doudous));
-    porte.addEventListener('click', () => { douceur(); aller(jeu.id); });
-    portes.append(porte);
-  });
+  const doudous = doudousActifs();
 
   // Les doudous autour d’elle : autant en « ( » à sa gauche qu’en « ) » à sa droite,
   // et, si leur nombre est impair, un au-dessus de sa tête (3 + 3 + 1 pour 7 doudous).
@@ -122,6 +115,36 @@ export function ouvrirAccueil(scene, { aller }) {
     clearInterval(vie);
     amis.forEach((a) => clearTimeout(a.minuterie));
   };
+}
+
+// Écran des jeux : toutes les portes, et un petit bouton pour retrouver Valentine.
+export function ouvrirJeux(scene, { aller }) {
+  scene.classList.add('ecran-jeux');
+  scene.innerHTML = `
+    <button class="bouton-valentine-jeux" aria-label="Valentine"></button>
+    <div class="portes"></div>
+    <div class="ciel-accueil" aria-hidden="true">
+      <span class="nuage n1"></span><span class="nuage n2"></span><span class="nuage n3"></span>
+    </div>`;
+
+  const portrait = portraitValentine();
+  const boutonValentine = scene.querySelector('.bouton-valentine-jeux');
+  if (portrait) boutonValentine.innerHTML = `<img src="${portrait}" alt="" draggable="false">`;
+  else boutonValentine.remove();
+  boutonValentine?.addEventListener('click', () => { douceur(); aller('accueil'); });
+
+  const doudous = doudousActifs();
+  const portes = scene.querySelector('.portes');
+  JEUX.forEach((jeu) => {
+    const porte = document.createElement('button');
+    porte.className = 'porte';
+    porte.setAttribute('aria-label', jeu.nom);
+    porte.append(jeu.illustration(doudous));
+    porte.addEventListener('click', () => { douceur(); aller(jeu.id); });
+    portes.append(porte);
+  });
+
+  dire('jeux-consigne');
 }
 
 // Chaque scène : une pose du doudou, une animation CSS (classe), une durée.

@@ -5,7 +5,7 @@ import { chargerPhrases, dire, taire } from './voix.js';
 import { debloquerSons, douceur } from './sons.js';
 import { installerCoinParent } from './parent.js';
 import { demarrerMinuteur, tempsRestant } from './minuteur.js';
-import { ouvrirAccueil } from './accueil.js';
+import { ouvrirAccueil, ouvrirJeux } from './accueil.js';
 import { chargerValentine, portraitValentine } from './valentine.js';
 import { ouvrirMemory } from './jeux/memory.js';
 import { ouvrirCacheCache } from './jeux/cache-cache.js';
@@ -20,6 +20,7 @@ import { ouvrirPhonologie } from './jeux/phonologie.js';
 // Chaque écran : une fonction ouvrir(scene, { aller }) qui renvoie (si besoin) une fonction de nettoyage.
 const ECRANS = {
   accueil: ouvrirAccueil,
+  jeux: ouvrirJeux,
   memory: ouvrirMemory,
   'cache-cache': ouvrirCacheCache,
   'pique-nique': ouvrirPiqueNique,
@@ -110,7 +111,7 @@ async function demarrer() {
 
   installerCoinParent(() => {
     verifierPause();
-    if (ecranCourant === 'accueil') afficher(true); // doudous actifs mis à jour
+    if (ecranCourant === 'accueil' || ecranCourant === 'jeux') afficher(true); // doudous actifs mis à jour
   });
 
   const ecranDemarrage = document.getElementById('demarrage');
