@@ -1634,3 +1634,18 @@ button {
 .pot:active { transform: scale(0.93); }
 .pot.choisi { box-shadow: 0 0 0 5px var(--rose), var(--ombre); animation: respire 1s ease-in-out infinite; }
 .pot[data-id="blanc"] { border-color: #e8dfce; }
+
+.video-melange {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+  width: min(60%, 60vh);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 28px;
+  box-shadow: var(--ombre), 0 0 0 6px #fff;
+  z-index: 5;
+  pointer-events: none;
+  animation: arrivee 0.35s cubic-bezier(0.3, 1.5, 0.5, 1);
+}

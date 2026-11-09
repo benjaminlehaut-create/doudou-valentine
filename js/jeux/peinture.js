@@ -32,6 +32,7 @@ export function ouvrirPeinture(scene, { aller }) {
       <div class="bol"><div class="bol-contenu"></div></div>
       <div class="pots"></div>
       <div class="choix-dodo doudous cache"></div>
+      <video class="video-melange cache" muted playsinline></video>
     </div>
     ${BARRE}
     <div class="fin cache"></div>`;
@@ -44,6 +45,7 @@ export function ouvrirPeinture(scene, { aller }) {
   const bolContenu = scene.querySelector('.bol-contenu');
   const pots = scene.querySelector('.pots');
   const choixPeintre = scene.querySelector('.choix-dodo');
+  const videoMelange = scene.querySelector('.video-melange');
   const fin = scene.querySelector('.fin');
 
   let niveau = null;
@@ -172,8 +174,20 @@ export function ouvrirPeinture(scene, { aller }) {
     melangerPots(premier, { id, bouton });
   }
 
+  // Un petit clip du doudou qui touille, par-dessus le tourbillon CSS (s'il existe pour ce doudou ;
+  // sinon le tourbillon CSS suffit très bien tout seul).
+  function jouerVideoMelange() {
+    videoMelange.src = `assets/videos/peinture-melange-${doudouHote.id}.mp4`;
+    videoMelange.currentTime = 0;
+    videoMelange.classList.remove('cache');
+    videoMelange.play().catch(() => videoMelange.classList.add('cache'));
+    plusTard(() => videoMelange.classList.add('cache'), 3000);
+  }
+  videoMelange.addEventListener('error', () => videoMelange.classList.add('cache'));
+
   function melangerPots(p1, p2) {
     [p1.bouton, p2.bouton].forEach((b) => b.classList.remove('choisi'));
+    jouerVideoMelange();
     const recette = trouverRecette(p1.id, p2.id);
     const teinte = recette ? TEINTES_RESULTAT[recette.resultat] : melangeParDefaut(p1.id, p2.id);
     bolContenu.style.setProperty('--teinte', teinte);
