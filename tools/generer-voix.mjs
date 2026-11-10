@@ -59,6 +59,8 @@ const DOMAINES = {
   prenom: [PRENOM],
   nom: noms,
   autre: noms,
+  nom1: noms,
+  nom2: noms,
   aliment: [...new Set([
     ...COULEURS.map((id) => ALIMENTS[id].un),
     ...Object.values(ALIMENTS).map((a) => a.le),
@@ -89,7 +91,10 @@ function domaine(cle, variable) {
     if (cle.startsWith('peinture')) return Object.keys(P.TEINTES_RESULTAT);
     return couleursBallons;
   }
-  if (variable === 'quantite') {
+  // quantite1/quantite2 (partage à deux doudous) ne sont pas listées ici : les croiser entre elles
+  // ET avec nom1 × nom2 ferait exploser le nombre de phrases (des dizaines de milliers). Cette phrase
+  // reste donc en voix de synthèse — c’est le repli normal pour une phrase trop combinatoire.
+  if (variable === 'quantite' || variable === 'depart') {
     if (cle.startsWith('pique')) {
       return [
         ...A_COMPTER.flatMap((id) => [1, 2, 3].map((n) => quantite(n, ALIMENTS[id]))),
