@@ -35,9 +35,9 @@ Valentine elle-même est le personnage principal : la guide qui accompagne ses d
   - Memory : content pendant la partie, surprise quand on retourne une carte, joie quand on trouve une paire et à la fin.
   - Cache-cache : loupe pendant la recherche, surprise quand on ouvre la mauvaise cachette, joie quand on trouve un doudou.
   - Pique-nique : content, surprise quand le doudou est triste, mange quand un doudou mange, joie à la fin.
-  - Dodo (à faire) : pyjama pendant tout le rituel ; à la fin, câlin avec le doudou choisi.
-  - Docteur (à faire) : docteur pendant les soins ; câlin quand le doudou est guéri.
-  - Histoire (à faire) : c’est l’héroïne, avec les poses selon les pages.
+  - Dodo : pyjama pendant tout le rituel ; à la fin, câlin avec le doudou choisi.
+  - Docteur : docteur pendant les soins ; câlin quand le doudou est guéri.
+  - Histoire : c’est l’héroïne, avec les poses selon les pages.
   - Réveille-doudous : content pendant la manche, joie à chaque doudou réveillé et à la fin.
 
 ## 2. Règles pour une enfant de 3 ans (non négociables)
