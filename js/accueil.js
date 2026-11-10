@@ -11,7 +11,8 @@ import { ALIMENTS } from './jeux/aliments.js';
 import { ETAPES } from './jeux/dodo.js';
 import { OUTILS } from './jeux/docteur.js';
 import { placerValentine, valentineLa, portraitValentine } from './valentine.js';
-import { OREILLE, SUIVANT } from './icones.js';
+import { OREILLE, SUIVANT, REJOUER } from './icones.js';
+import { jouerVideoIntro } from './video-intro.js';
 
 // Les jeux disponibles. Ajouter ici les prochains (cache-cache, pique-nique…).
 const JEUX = [
@@ -38,6 +39,7 @@ export function ouvrirAccueil(scene, { aller }) {
       <div class="cote droite"></div>
     </div>
     <button class="bouton-rond geant suivant bouton-jouer-accueil" aria-label="Jouer">${SUIVANT}</button>
+    <button class="bouton-rond bouton-revoir-video" aria-label="Revoir la vidéo">${REJOUER}</button>
     <div class="ciel-accueil" aria-hidden="true">
       <span class="nuage n1"></span><span class="nuage n2"></span><span class="nuage n3"></span>
       ${Array.from({ length: 12 }, (_, k) => `<span class="bulle-deco" style="--k:${k}"></span>`).join('')}
@@ -59,6 +61,7 @@ export function ouvrirAccueil(scene, { aller }) {
   }
 
   scene.querySelector('.bouton-jouer-accueil').addEventListener('click', () => { douceur(); aller('jeux'); });
+  scene.querySelector('.bouton-revoir-video').addEventListener('click', () => { douceur(); jouerVideoIntro(); });
 
   const doudous = doudousActifs();
 

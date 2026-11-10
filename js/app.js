@@ -6,6 +6,7 @@ import { debloquerSons, douceur } from './sons.js';
 import { installerCoinParent } from './parent.js';
 import { demarrerMinuteur, tempsRestant } from './minuteur.js';
 import { ouvrirAccueil, ouvrirJeux } from './accueil.js';
+import { jouerVideoIntro } from './video-intro.js';
 import { chargerValentine, portraitValentine } from './valentine.js';
 import { ouvrirMemory } from './jeux/memory.js';
 import { ouvrirCacheCache } from './jeux/cache-cache.js';
@@ -128,27 +129,8 @@ async function demarrer() {
     window.addEventListener('hashchange', () => afficher());
     demarrerMinuteur(verifierPause);
     verifierPause();
-    jouerIntro(() => afficher());
+    jouerVideoIntro(() => afficher());
   }, { once: true });
-}
-
-// Petit clip d’intro entre le premier écran et l’accueil, s’il existe (sinon on passe directement
-// à l’accueil : l’appli marche très bien sans).
-function jouerIntro(suite) {
-  const video = document.getElementById('video-intro');
-  let fait = false;
-  const terminer = () => {
-    if (fait) return;
-    fait = true;
-    video.classList.add('cache');
-    video.pause();
-    suite();
-  };
-  video.classList.remove('cache');
-  video.addEventListener('ended', terminer, { once: true });
-  video.addEventListener('error', terminer, { once: true });
-  video.play().catch(terminer);
-  setTimeout(terminer, 15000); // sécurité, au cas où la vidéo ne déclenche jamais « ended »
 }
 
 demarrer();

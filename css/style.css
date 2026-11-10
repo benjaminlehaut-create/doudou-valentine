@@ -96,7 +96,10 @@ button {
   height: 100%;
   object-fit: cover;
   background: #000;
+  opacity: 1;
+  transition: opacity 0.6s ease;
 }
+#video-intro.disparait { opacity: 0; }
 .titre {
   margin: 0;
   font-size: clamp(30px, 7vh, 64px);
@@ -153,6 +156,7 @@ button {
     linear-gradient(#ffeedd, #ffdccb 65%, #ffd0c0);
 }
 button.bouton-jouer-accueil { position: absolute; left: 50%; bottom: var(--bas); translate: -50% 0; z-index: 4; }
+button.bouton-revoir-video { position: absolute; left: var(--gauche); bottom: var(--bas); z-index: 4; width: 72px; height: 72px; }
 
 .ecran-jeux {
   display: flex;
@@ -232,7 +236,7 @@ button.bouton-jouer-accueil { position: absolute; left: 50%; bottom: var(--bas);
 .dessus { flex: none; height: 0; display: flex; justify-content: center; position: relative; z-index: 2; }
 .avec-dessus .dessus { height: calc(clamp(60px, 13vh, 120px) + 4vh); align-items: flex-start; }
 .dessus .ami { --taille: clamp(60px, 13vh, 120px); }
-.valentine-centre { position: relative; flex: 1; min-height: 0; width: 100%; }
+.valentine-centre { position: relative; flex: 1; min-height: 0; width: 100%; animation: arrivee-doudou 0.6s cubic-bezier(0.3, 1.5, 0.5, 1) backwards; }
 .valentine-ici { position: absolute; bottom: 0; left: 50%; height: 100%; aspect-ratio: 1; translate: -50% 0; }
 /* À l’accueil, Valentine est montrée en entier (pas d’agrandissement) */
 .valentine-centre .valentine-ici .pose-v, .final .final-valentine .pose-v { transform: none; }
@@ -258,9 +262,10 @@ button.bouton-jouer-accueil { position: absolute; left: 50%; bottom: var(--bas);
   position: relative;
   width: var(--taille);
   height: var(--taille);
-  animation: balance 2.6s ease-in-out infinite;
-  animation-delay: calc(var(--i) * -0.37s);
+  animation: arrivee-doudou 0.5s cubic-bezier(0.3, 1.5, 0.5, 1) backwards, balance 2.6s ease-in-out infinite;
+  animation-delay: calc(0.2s + var(--i) * 80ms), calc(var(--i) * -0.37s);
 }
+@keyframes arrivee-doudou { from { transform: scale(0.3); opacity: 0; } }
 /* respiration douce, en permanence */
 .ami .doudou {
   transform-origin: 50% 100%;
