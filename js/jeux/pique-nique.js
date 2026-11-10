@@ -202,7 +202,10 @@ export function ouvrirPiqueNique(scene, { aller }) {
     demande.assiette.push(item);
     envoler(bouton, item);
     if (demande.type !== 'couleur' && correspond(id)) {
-      dire('pique-nombre', { mot: nombre(combienDeBons(), ALIMENTS[id].genre) });
+      // Niveau mélange : on compte des « fruits » (masculin), comme dans la demande elle-même
+      // (« un fruit rouge ») — jamais le genre de l’aliment précis qui a été touché.
+      const genre = demande.type === 'melange' ? 'm' : ALIMENTS[id].genre;
+      dire('pique-nombre', { mot: nombre(combienDeBons(), genre) });
     }
     majBulle();
     majValider();
