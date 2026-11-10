@@ -2,6 +2,3 @@ node_modules/
 .env
 .DS_Store
 Thumbs.db
-
-# Images de Valentine : portraits reconnaissables, jamais publiés sur GitHub (dépôt public)
-assets/valentine/
