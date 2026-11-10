@@ -218,6 +218,7 @@ export function ouvrirPhonologie(scene, { aller }) {
       const mot = listeRonde[rang];
       demande = { type: 'syllabes', mot, n: MOTS_SYLLABES[mot].syllabes, tapes: 0, rang };
       cible.innerHTML = `<img src="${IMAGE(mot)}" alt="">`;
+      cible.classList.remove('cache');
       tambourZone.classList.remove('cache');
       points.replaceChildren(...Array.from({ length: demande.n }, () => {
         const p = document.createElement('span');
