@@ -175,12 +175,12 @@ export function ouvrirPhonologie(scene, { aller }) {
       bouton.classList.remove('non'); void bouton.offsetWidth; bouton.classList.add('non');
       return;
     }
-    douceur();
     gerbeSur(bouton, 6);
     bouton.classList.add('posee');
     const slot = prenomSlots.children[positionPrenom];
     slot.textContent = l;
     slot.classList.add('remplie');
+    dire('sons-lettre-dite', { lettre: l });
     positionPrenom++;
     if (positionPrenom >= mot.length) {
       phasePrenom = null;

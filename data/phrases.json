@@ -151,6 +151,7 @@
   "sons-prenom-lettre": ["Retrouve la lettre {lettre} !", "Trouve le {lettre} parmi ces lettres !"],
   "sons-prenom-trouve-lettre": ["Bravo ! C’est le {lettre} !"],
   "sons-prenom-reconstruire-mot": ["Maintenant, écris {motCible} ! Touche les lettres dans l’ordre."],
+  "sons-lettre-dite": ["{lettre}"],
   "sons-encore": ["On recommence ?"],
 
   "pause": ["C’est l’heure de faire une pause. Les doudous vont se reposer. À tout à l’heure, {prenom} !"],

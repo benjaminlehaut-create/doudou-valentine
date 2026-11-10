@@ -52,7 +52,7 @@ export const SONS_DEBUT = [
   { mot: 'fusee', voix: 'ffffusée', copains: ['fleur'] },
   { mot: 'fleur', voix: 'ffffleur', copains: ['fusee'] },
   { mot: 'lune', voix: 'lllune', copains: ['lit', 'lapin'] },
-  { mot: 'lit', voix: 'llllit', copains: ['lune', 'lapin'] },
+  { mot: 'lit', voix: 'Lllit', copains: ['lune', 'lapin'] },
   { mot: 'cheval', voix: 'chchcheval', copains: ['chapeau', 'chat', 'chocolat'] },
   { mot: 'chapeau', voix: 'chchchapeau', copains: ['cheval', 'chat', 'chocolat'] },
   { mot: 'renard', voix: 'rrrrenard', copains: ['robot', 'rat'] },
