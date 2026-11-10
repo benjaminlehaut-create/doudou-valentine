@@ -191,6 +191,8 @@
     { "fichier": "assets/decors/sons.png", "taille": "1536x1024", "prompt": "Un petit coin lecture pour enfant, douillet et chaleureux, vu de face à hauteur d’enfant : une étagère basse avec quelques livres aux couleurs pastel, un tapis rond moelleux au sol, un mur jaune pâle, une guirlande de fanions en tissu, une lumière chaude de fin d’après-midi. Le centre et le bas de l’image restent calmes et dégagés, car des images et un doudou y seront posés." },
 
     { "fichier": "assets/sons/chat.png", "taille": "1024x1024", "prompt": "Un chat assis, tout doux, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/gateau.png", "taille": "1024x1024", "prompt": "Un gâteau d'anniversaire avec une bougie, bien centré sur un fond uni très clair." },
+    { "fichier": "assets/sons/pomme.png", "taille": "1024x1024", "prompt": "Une pomme rouge bien ronde, bien centrée sur un fond uni très clair." },
     { "fichier": "assets/sons/pain.png", "taille": "1024x1024", "prompt": "Une miche de pain ronde, bien centrée sur un fond uni très clair." },
     { "fichier": "assets/sons/lit.png", "taille": "1024x1024", "prompt": "Un petit lit douillet avec une couverture, bien centré sur un fond uni très clair." },
     { "fichier": "assets/sons/oeuf.png", "taille": "1024x1024", "prompt": "Un œuf dans un petit panier, bien centré sur un fond uni très clair." },
